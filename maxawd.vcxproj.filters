@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{fbad0f2d-faaa-4b0b-865c-583fac8ddcb1}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{92f20462-242f-4a0c-883e-b3c33819b84b}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ad6e765e-4300-41dc-b185-05b019286785}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Source Files\libawd">
+      <UniqueIdentifier>{f6d39aaa-1239-4484-a6f2-5998ea34af5b}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="Header Files\libawd">
+      <UniqueIdentifier>{8bdd7663-5b9b-4ef4-b9cb-b86696994814}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="maxawd.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="maxawd.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\3dsmaxsdk_preinclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maxawd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maxawdopts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\Alloc.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\zutil.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\attr.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\awd.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\awd_types.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\awdlzma.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\awdzlib.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\block.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\Bra.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\camera.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\crc32.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\deflate.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\geomutil.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inffast.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inffixed.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inflate.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inftrees.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\libawd.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\light.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzFind.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzHash.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaDec.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaEnc.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaLib.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\material.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\mesh.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\meta.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\name.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\ns.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\platform.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\primitive.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\scene.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\shading.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\skelanim.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\skeleton.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\stream.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\texture.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\trees.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\util.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\include\uvanim.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\zconf.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\zlib.h">
+      <Filter>Header Files\libawd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\maxawd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maxawdopts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\adler32.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\zutil.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\Alloc.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\attr.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\awd.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\awdlzma.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\awdzlib.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\block.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\Bra.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\camera.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\crc32.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\deflate.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\geomutil.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\inffast.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\inflate.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\inftrees.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\light.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzFind.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaDec.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaEnc.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaLib.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\material.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\mesh.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\meta.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\name.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\ns.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\primitive.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\scene.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\shading.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\skelanim.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\skeleton.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\stream.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\texture.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\trees.c">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\util.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sdks\cpp-libawd\src\uvanim.cc">
+      <Filter>Source Files\libawd</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DllEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
