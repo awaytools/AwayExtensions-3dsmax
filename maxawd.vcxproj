@@ -153,7 +153,6 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">maxawd_2013_32</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">.dle</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">maxawd_2012_64</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">maxawd_2013_64</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">.dle</TargetExt>
@@ -175,7 +174,7 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -183,7 +182,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -207,7 +206,7 @@
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -233,7 +232,7 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -241,7 +240,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\sdks\cpp-libawd\lib\zlib;..\..\sdks\cpp-libawd\lib\lzma;..\..\sdks\cpp-libawd\include;.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\sdks\cpp-libawd\lib\zlib;..\..\sdks\cpp-libawd\lib\lzma;..\..\sdks\cpp-libawd\include;.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -266,7 +265,7 @@
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -292,7 +291,7 @@
       <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -313,7 +312,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <UseFullPaths>true</UseFullPaths>
-      <AdditionalIncludeDirectories>src;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -323,7 +322,7 @@
       <AdditionalOptions>/opt:lbr /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -350,7 +349,7 @@
       <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -372,7 +371,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <UseFullPaths>true</UseFullPaths>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -382,7 +381,7 @@
       <AdditionalOptions>/opt:lbr /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -409,10 +408,10 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -435,7 +434,7 @@
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -458,10 +457,10 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -484,7 +483,7 @@
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -507,7 +506,7 @@
       <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST;_7ZIP_ST</PreprocessorDefinitions>
@@ -522,7 +521,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <UseFullPaths>true</UseFullPaths>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\awd-sdk\cpp-libawd\include;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -532,7 +531,7 @@
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -556,7 +555,7 @@
       <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST;_7ZIP_ST</PreprocessorDefinitions>
@@ -571,7 +570,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <UseFullPaths>true</UseFullPaths>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\x64;C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -581,7 +580,7 @@
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012 SDK\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -603,48 +602,6 @@
     <ResourceCompile Include="maxawd.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\attr.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\awd.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\awdlzma.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\awdzlib.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\awd_types.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\block.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\camera.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\geomutil.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\libawd.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\light.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\material.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\mesh.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\meta.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\name.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\ns.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\platform.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\primitive.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\scene.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\shading.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\skelanim.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\skeleton.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\stream.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\texture.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\util.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\include\uvanim.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\Alloc.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\Bra.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzFind.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzHash.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaDec.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaEnc.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaLib.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\crc32.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\deflate.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inffast.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inffixed.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inflate.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\inftrees.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\trees.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\zconf.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\zlib.h" />
-    <ClInclude Include="..\..\sdks\cpp-libawd\lib\zlib\zutil.h" />
     <ClInclude Include="src\3dsmaxsdk_preinclude.h" />
     <ClInclude Include="src\cache.h" />
     <ClInclude Include="src\maxawd.h" />
@@ -653,47 +610,16 @@
     <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\Alloc.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\Bra.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzFind.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaDec.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaEnc.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\lzma\LzmaLib.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\adler32.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\crc32.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\deflate.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\inffast.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\inflate.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\inftrees.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\trees.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\lib\zlib\zutil.c" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\attr.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\awd.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\awdlzma.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\awdzlib.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\block.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\camera.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\geomutil.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\light.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\material.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\mesh.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\meta.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\name.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\ns.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\primitive.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\scene.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\shading.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\skelanim.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\skeleton.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\stream.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\texture.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\util.cc" />
-    <ClCompile Include="..\..\sdks\cpp-libawd\src\uvanim.cc" />
     <ClCompile Include="src\cache.cpp" />
     <ClCompile Include="src\DllEntry.cpp" />
     <ClCompile Include="src\maxawd.cpp" />
     <ClCompile Include="src\maxawdopts.cpp" />
     <ClCompile Include="src\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\awd-sdk\cpp-libawd\libawd.vcxproj">
+      <Project>{9c852fb1-3261-4ad6-8acd-c97b1aaeba29}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
