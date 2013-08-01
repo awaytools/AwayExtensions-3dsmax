@@ -33,8 +33,8 @@ private:
 	bool exportSkelAnim;
 	char *sequencesTxtPath;
 
-	bool createPreview;
-	bool launchPreview;
+	//bool createPreview;
+	//bool launchPreview;
 	bool networkPreview;
 	int previewBackgroundColor;
 
@@ -44,7 +44,7 @@ private:
 	static HWND sceneOpts;
 	static HWND mtlOpts;
 	static HWND animOpts;
-	static HWND viewerOpts;
+	//static HWND viewerOpts;
 
 	// Config file
 	FILE *OpenConfigFile(const char *mode);
@@ -65,8 +65,8 @@ private:
 	bool RedrawMtlOpts(LPARAM lParam);
 	static INT_PTR CALLBACK AnimOptsDialogProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
 	bool RedrawAnimOpts(LPARAM lParam);
-	static INT_PTR CALLBACK ViewerOptsDialogProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
-	bool RedrawViewerOpts(LPARAM lParam);
+	//static INT_PTR CALLBACK ViewerOptsDialogProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
+	//bool RedrawViewerOpts(LPARAM lParam);
 
 public:
 	MaxAWDExporterOpts(void);
@@ -95,8 +95,8 @@ public:
 	bool ExportSkelAnim(void);
 	char *SequencesTxtPath(void);
 	
-	bool CreatePreview(void);
-	bool LaunchPreview(void);
+	//bool CreatePreview(void);
+	//bool LaunchPreview(void);
 	bool PreviewForDeployment(void);
 	int PreviewBackgroundColor(void);
 };

@@ -32,8 +32,8 @@ MaxAWDExporterOpts::MaxAWDExporterOpts(void)
 	sequencesTxtPath = (char*)malloc(14);
 	strcpy(sequencesTxtPath, "sequences.txt");
 
-	createPreview = true;
-	launchPreview = true;
+	//createPreview = true;
+	//launchPreview = true;
 	networkPreview = false;
 	previewBackgroundColor = 0;
 
@@ -48,7 +48,7 @@ HWND MaxAWDExporterOpts::generalOpts = NULL;
 HWND MaxAWDExporterOpts::sceneOpts = NULL;
 HWND MaxAWDExporterOpts::mtlOpts = NULL;
 HWND MaxAWDExporterOpts::animOpts = NULL;
-HWND MaxAWDExporterOpts::viewerOpts = NULL;
+//HWND MaxAWDExporterOpts::viewerOpts = NULL;
 
 
 MaxAWDExporterOpts::~MaxAWDExporterOpts(void)
@@ -131,12 +131,12 @@ void MaxAWDExporterOpts::ReadConfigFile(void)
 			sequencesTxtPath = (char*)realloc(sequencesTxtPath, strlen(val)+1);
 			strcpy(sequencesTxtPath, val);
 		}
-		else if (ATTREQ(key, "preview")) {
-			createPreview = (strtol(val, NULL, 10) == 1);
-		}
-		else if (ATTREQ(key, "launch")) {
-			launchPreview = (strtol(val, NULL, 10) == 1);
-		}
+		//else if (ATTREQ(key, "preview")) {
+		//	createPreview = (strtol(val, NULL, 10) == 1);
+		//}
+		//else if (ATTREQ(key, "launch")) {
+		//	launchPreview = (strtol(val, NULL, 10) == 1);
+		//}
 		else if (ATTREQ(key, "deploy")) {
 			networkPreview = (strtol(val, NULL, 10) == 1);
 		}
@@ -174,8 +174,8 @@ void MaxAWDExporterOpts::WriteConfigFile(void)
 	fprintf(cfg, "skelanim=%d\n", exportSkelAnim);
 	fprintf(cfg, "sequences=%s\n", sequencesTxtPath);
 
-	fprintf(cfg, "preview=%d\n", createPreview);
-	fprintf(cfg, "launch=%d\n", launchPreview);
+	//fprintf(cfg, "preview=%d\n", createPreview);
+	//fprintf(cfg, "launch=%d\n", launchPreview);
 	fprintf(cfg, "deploy=%d\n", networkPreview);
 	fprintf(cfg, "bgcolor=%06x\n", previewBackgroundColor);
 
@@ -250,9 +250,9 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 		AnimOptsDialogProc, "Animation", 0, APPENDROLL_CLOSED);
 	animOpts = rollup->GetPanelDlg(index);
 
-	index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_VIEWER_OPTS), 
-		ViewerOptsDialogProc, "Flash viewer", 0, APPENDROLL_CLOSED);
-	viewerOpts = rollup->GetPanelDlg(index);
+	//index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_VIEWER_OPTS), 
+	//	ViewerOptsDialogProc, "Flash viewer", 0, APPENDROLL_CLOSED);
+	//viewerOpts = rollup->GetPanelDlg(index);
 
 	// Find the correct option for textures
 	int texOption = IDC_TEX_FULLPATH;
@@ -274,17 +274,17 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 	SetCheckBox(animOpts, IDC_INC_SKEL, exportSkeletons);
 	SetCheckBox(animOpts, IDC_INC_SKELANIM, exportSkelAnim);
 	Edit_SetText(GetDlgItem(animOpts, IDC_SEQ_TXT), sequencesTxtPath);
-	SetCheckBox(viewerOpts, IDC_SWF_ENABLE, createPreview);
-	SetCheckBox(viewerOpts, IDC_SWF_LAUNCH, launchPreview);
-	SetCheckBox(viewerOpts, IDC_SWFSB_NETWORK, networkPreview);
-	SetCheckBox(viewerOpts, IDC_SWFSB_LOCAL, !networkPreview);
+	//SetCheckBox(viewerOpts, IDC_SWF_ENABLE, createPreview);
+	//SetCheckBox(viewerOpts, IDC_SWF_LAUNCH, launchPreview);
+	//SetCheckBox(viewerOpts, IDC_SWFSB_NETWORK, networkPreview);
+	//SetCheckBox(viewerOpts, IDC_SWFSB_LOCAL, !networkPreview);
 
 	// Flip color channels
 	AColor col;
 	col.r = GetBValue(previewBackgroundColor) / 255.0;
 	col.g = GetGValue(previewBackgroundColor) / 255.0;
 	col.b = GetRValue(previewBackgroundColor) / 255.0;
-	GetIColorSwatch(GetDlgItem(viewerOpts, IDC_SWF_COLOR))->SetAColor(col, FALSE);
+	//GetIColorSwatch(GetDlgItem(viewerOpts, IDC_SWF_COLOR))->SetAColor(col, FALSE);
 		
 
 	// Force redraw all panels
@@ -292,7 +292,7 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 	RedrawSceneOpts(0);
 	RedrawMtlOpts(0);
 	RedrawAnimOpts(0);
-	RedrawViewerOpts(0);
+	//RedrawViewerOpts(0);
 
 	rollup->Show();
 }
@@ -333,12 +333,12 @@ void MaxAWDExporterOpts::SaveOptions(void)
 	Edit_GetText(GetDlgItem(animOpts, IDC_SEQ_TXT), sequencesTxtPath, len+1);
 
 	// Preview options
-	createPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWF_ENABLE) == BST_CHECKED);
-	launchPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWF_LAUNCH) == BST_CHECKED);
-	networkPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWFSB_NETWORK) == BST_CHECKED);
+	//createPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWF_ENABLE) == BST_CHECKED);
+	//launchPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWF_LAUNCH) == BST_CHECKED);
+	//networkPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWFSB_NETWORK) == BST_CHECKED);
 
-	int col = GetIColorSwatch(GetDlgItem(viewerOpts, IDC_SWF_COLOR))->GetColor();
-	previewBackgroundColor = (GetRValue(col)<<16) | (GetGValue(col)<<8) | GetBValue(col);
+	//int col = GetIColorSwatch(GetDlgItem(viewerOpts, IDC_SWF_COLOR))->GetColor();
+	//previewBackgroundColor = (GetRValue(col)<<16) | (GetGValue(col)<<8) | GetBValue(col);
 
 	WriteConfigFile();
 }
@@ -489,37 +489,37 @@ bool MaxAWDExporterOpts::RedrawAnimOpts(LPARAM lParam)
 }
 
 
-INT_PTR CALLBACK MaxAWDExporterOpts::ViewerOptsDialogProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
-{
-	bool enabled;
+//INT_PTR CALLBACK MaxAWDExporterOpts::ViewerOptsDialogProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
+//{
+//	bool enabled;
+//
+//	switch (message) {
+//		case WM_COMMAND:
+//			return INSTANCE->RedrawViewerOpts(lParam);
+//			break;
+//	}
+//
+//	return FALSE;
+//}
 
-	switch (message) {
-		case WM_COMMAND:
-			return INSTANCE->RedrawViewerOpts(lParam);
-			break;
-	}
-
-	return FALSE;
-}
-
-bool MaxAWDExporterOpts::RedrawViewerOpts(LPARAM lParam)
-{
-	bool force = (lParam == 0);
-
-	if (force || (HWND)lParam == GetDlgItem(viewerOpts,IDC_SWF_ENABLE)) {
-		bool enabled = (IsDlgButtonChecked(viewerOpts,IDC_SWF_ENABLE) == BST_CHECKED);
-		Button_Enable(GetDlgItem(viewerOpts,IDC_SWF_LAUNCH), enabled);
-		Button_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_LOCAL), enabled);
-		Button_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_NETWORK), enabled);
-		Static_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_STATIC1), enabled);
-		Static_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_STATIC2), enabled);
-		Static_Enable(GetDlgItem(viewerOpts,IDC_SWF_COL_STATIC), enabled);
-		GetIColorSwatch(GetDlgItem(viewerOpts,IDC_SWF_COLOR))->Enable(enabled);
-		return true;
-	}
-
-	return false;
-}
+//bool MaxAWDExporterOpts::RedrawViewerOpts(LPARAM lParam)
+//{
+//	bool force = (lParam == 0);
+//
+//	if (force || (HWND)lParam == GetDlgItem(viewerOpts,IDC_SWF_ENABLE)) {
+//		bool enabled = (IsDlgButtonChecked(viewerOpts,IDC_SWF_ENABLE) == BST_CHECKED);
+//		Button_Enable(GetDlgItem(viewerOpts,IDC_SWF_LAUNCH), enabled);
+//		Button_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_LOCAL), enabled);
+//		Button_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_NETWORK), enabled);
+//		Static_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_STATIC1), enabled);
+//		Static_Enable(GetDlgItem(viewerOpts,IDC_SWFSB_STATIC2), enabled);
+//		Static_Enable(GetDlgItem(viewerOpts,IDC_SWF_COL_STATIC), enabled);
+//		GetIColorSwatch(GetDlgItem(viewerOpts,IDC_SWF_COLOR))->Enable(enabled);
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 
 
@@ -602,16 +602,16 @@ char *MaxAWDExporterOpts::SequencesTxtPath(void)
 {
 	return sequencesTxtPath;
 }
+//
+//bool MaxAWDExporterOpts::CreatePreview(void)
+//{
+//	return createPreview;
+//}
 
-bool MaxAWDExporterOpts::CreatePreview(void)
-{
-	return createPreview;
-}
-
-bool MaxAWDExporterOpts::LaunchPreview(void)
-{
-	return launchPreview;
-}
+//bool MaxAWDExporterOpts::LaunchPreview(void)
+//{
+//	return launchPreview;
+//}
 
 bool MaxAWDExporterOpts::PreviewForDeployment(void)
 {

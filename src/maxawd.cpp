@@ -200,10 +200,10 @@ int MaxAWDExporter::ExecuteExport()
 	maxInterface->ProgressEnd();
 
 	// Copy viewer HTML and SWF template to output directory
-	if (opts->CreatePreview()) {
-		bool launch = (!suppressDialogs && opts->LaunchPreview());
-		CopyViewer(launch);
-	}
+	//if (opts->CreatePreview()) {
+	//	bool launch = (!suppressDialogs && opts->LaunchPreview());
+	//	CopyViewer(launch);
+	//}
 
 	// Free used memory
 	CleanUp();
@@ -314,53 +314,53 @@ void MaxAWDExporter::CopyViewerHTML(char *templatePath, char *outPath, char *nam
 }
 
 
-void MaxAWDExporter::CopyViewer(bool launch)
-{
-	char awdDrive[4];
-	char awdPath[1024];
-	char awdName[256];
-	char dleFullPath[1024];
-	char dleDrive[4];
-	char dlePath[1024];
-	char tplHtmlPath[1024];
-	char tplSwfPath[1024];
-	char tplJsPath[1024];
-	char outHtmlPath[1024];
-	char outSwfPath[1024];
-	char outJsPath[1024];
-
-	// Get paths of plug-in DLE file and output AWD file and split into
-	// components to be used to concatenate input and output paths.
-	GetModuleFileName(hInstance, dleFullPath, 1024);
-	_splitpath_s(dleFullPath, dleDrive, 4, dlePath, 1024, NULL, 0, NULL, 0);
-	_splitpath_s(awdFullPath, awdDrive, 4, awdPath, 1024, awdName, 256, NULL, 0);
-
-	// Select which viewer SWF file to copy depending on which sandbox
-	// it should be compiled for (network or local.)
-	const char *viewerName = (opts->PreviewForDeployment())? 
-		"maxawd\\viewer_n" : "maxawd\\viewer_l";
-
-	// Assemble paths for inputs (templates)
-	_makepath_s(tplHtmlPath, 1024, dleDrive, dlePath, "maxawd\\template", "html");
-	_makepath_s(tplSwfPath, 1024, dleDrive, dlePath, viewerName, "swf");
-	_makepath_s(tplJsPath, 1024, dleDrive, dlePath, "maxawd\\swfobject", "js");
-
-	// Assemble paths for outputs
-	_makepath_s(outHtmlPath, 1024, awdDrive, awdPath, awdName, "html");
-	_makepath_s(outSwfPath, 1024, awdDrive, awdPath, "viewer", "swf");
-	_makepath_s(outJsPath, 1024, awdDrive, awdPath, "swfobject", "js");
-
-	// Copy HTML, and evaluate any variables in the template
-	CopyViewerHTML(tplHtmlPath, outHtmlPath, awdName);
-
-	// Copy SWF and JS files as-is
-	CopyFile(tplSwfPath, outSwfPath, false);
-	CopyFile(tplJsPath, outJsPath, true);
-
-	if (launch) {
-		ShellExecute(NULL, "open", outHtmlPath, NULL, NULL, SW_SHOWNORMAL);
-	}
-}
+//void MaxAWDExporter::CopyViewer(bool launch)
+//{
+//	char awdDrive[4];
+//	char awdPath[1024];
+//	char awdName[256];
+//	char dleFullPath[1024];
+//	char dleDrive[4];
+//	char dlePath[1024];
+//	char tplHtmlPath[1024];
+//	char tplSwfPath[1024];
+//	char tplJsPath[1024];
+//	char outHtmlPath[1024];
+//	char outSwfPath[1024];
+//	char outJsPath[1024];
+//
+//	// Get paths of plug-in DLE file and output AWD file and split into
+//	// components to be used to concatenate input and output paths.
+//	GetModuleFileName(hInstance, dleFullPath, 1024);
+//	_splitpath_s(dleFullPath, dleDrive, 4, dlePath, 1024, NULL, 0, NULL, 0);
+//	_splitpath_s(awdFullPath, awdDrive, 4, awdPath, 1024, awdName, 256, NULL, 0);
+//
+//	// Select which viewer SWF file to copy depending on which sandbox
+//	// it should be compiled for (network or local.)
+//	const char *viewerName = (opts->PreviewForDeployment())? 
+//		"maxawd\\viewer_n" : "maxawd\\viewer_l";
+//
+//	// Assemble paths for inputs (templates)
+//	_makepath_s(tplHtmlPath, 1024, dleDrive, dlePath, "maxawd\\template", "html");
+//	_makepath_s(tplSwfPath, 1024, dleDrive, dlePath, viewerName, "swf");
+//	_makepath_s(tplJsPath, 1024, dleDrive, dlePath, "maxawd\\swfobject", "js");
+//
+//	// Assemble paths for outputs
+//	_makepath_s(outHtmlPath, 1024, awdDrive, awdPath, awdName, "html");
+//	_makepath_s(outSwfPath, 1024, awdDrive, awdPath, "viewer", "swf");
+//	_makepath_s(outJsPath, 1024, awdDrive, awdPath, "swfobject", "js");
+//
+//	// Copy HTML, and evaluate any variables in the template
+//	CopyViewerHTML(tplHtmlPath, outHtmlPath, awdName);
+//
+//	// Copy SWF and JS files as-is
+//	CopyFile(tplSwfPath, outSwfPath, false);
+//	CopyFile(tplJsPath, outJsPath, true);
+//
+//	if (launch) {
+//		ShellExecute(NULL, "open", outHtmlPath, NULL, NULL, SW_SHOWNORMAL);
+//	}
+//}
 
 
 void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
