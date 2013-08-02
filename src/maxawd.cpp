@@ -27,8 +27,16 @@
 
 #define MaxAWDExporter_CLASS_ID	Class_ID(0xa8e047f2, 0x81e112c0)
 
-
-
+static unsigned char s_depth=0;
+static void output_debug_string(const char* str)
+{
+	for(unsigned char uc=0;uc<s_depth;uc++)
+	{
+		OutputDebugString("    ");
+	}
+	OutputDebugString(str);
+	OutputDebugString("\r\n");
+}
 
 
 class MaxAWDExporterClassDesc : public ClassDesc2 
@@ -365,6 +373,7 @@ void MaxAWDExporter::CopyViewerHTML(char *templatePath, char *outPath, char *nam
 
 void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 {
+	output_debug_string(node->GetName());
 	Object *obj;
 	bool goDeeper;
 
@@ -378,8 +387,10 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 		// This will have already been exported by the initial sweep
 		// for bones/skeletons, so there is no need to recurse deeper
 		goDeeper = false;
+		output_debug_string("is bone");
 	}
 	else {
+		output_debug_string("is not bone");
 		int skinIdx;
 		ObjectState os;
 
@@ -398,6 +409,7 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 		obj = os.obj;
 		if (obj) {
 			if (obj->CanConvertToType(triObjectClassID)) {
+				output_debug_string("try to export this node");
 				AWDMeshInst *awdMesh;
 			
 				// Check if there is a skin, that can be
@@ -426,13 +438,23 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 				// Store the new block (if any) as parent to be used for
 				// blocks that represent children of this Max node.
 				awdParent = awdMesh;
+				output_debug_string("node exported");
 			}
+			else
+			{
+				output_debug_string("can not convert to triObjectClassID");
+			}
+		}
+		else
+		{
+			output_debug_string("no obj in state");
 		}
 	}
 
 	numNodesTraversed++;
 
 	if (goDeeper) {
+		output_debug_string("export children");
 		int i;
 		int numChildren = node->NumberOfChildren();
 
@@ -440,7 +462,9 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 		UpdateProgressBar(MAXAWD_PHASE_SCENE, (double)numNodesTraversed/(double)numNodesTotal);
 
 		for (i=0; i<numChildren; i++) {
+			s_depth++;
 			ExportNode(node->GetChildNode(i), awdParent);
+			s_depth--;
 			RETURN_IF_ERROR;
 		}
 	}
