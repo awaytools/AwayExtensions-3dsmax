@@ -383,14 +383,14 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 	goDeeper = true;
 
 	obj = node->GetObjectRef();
-	if (obj && obj->ClassID()==BONE_OBJ_CLASSID) {
-		// This will have already been exported by the initial sweep
-		// for bones/skeletons, so there is no need to recurse deeper
-		goDeeper = false;
-		output_debug_string("is bone");
-	}
-	else {
-		output_debug_string("is not bone");
+	//if (obj && obj->ClassID()==BONE_OBJ_CLASSID) {
+	//	// This will have already been exported by the initial sweep
+	//	// for bones/skeletons, so there is no need to recurse deeper
+	//	goDeeper = false;
+	//	output_debug_string("is bone");
+	//}
+	//else {
+		//output_debug_string("is not bone");
 		int skinIdx;
 		ObjectState os;
 
@@ -449,7 +449,7 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 		{
 			output_debug_string("no obj in state");
 		}
-	}
+	//}
 
 	numNodesTraversed++;
 
