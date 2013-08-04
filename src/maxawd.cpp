@@ -443,6 +443,24 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 			else
 			{
 				output_debug_string("can not convert to triObjectClassID");
+				const char* name=node->GetName();
+				Matrix3 bindMtx;
+				// Default at no bind transform.
+				bindMtx.IdentityMatrix();
+				// Get local matrix by "un-multiplying" the parent matrix, as well as the 
+				// bind shape matrix which will have already been applied to the geometry.
+				Matrix3 mtx = node->GetNodeTM(0) * Inverse(node->GetParentTM(0)) * Inverse(bindMtx);
+
+				double *mtxData = (double *)malloc(12*sizeof(double));
+				SerializeMatrix3(mtx, mtxData);
+				awdParent=new AWDMeshInst(name, strlen(name), 
+					new AWDTriGeom(name, strlen(name)), mtxData);
+				if (parent) {
+					parent->add_child(awdParent);
+				}
+				else {
+					awd->add_scene_block(awdParent);
+				}
 			}
 		}
 		else
