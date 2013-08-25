@@ -569,17 +569,17 @@ AWDTriGeom *MaxAWDExporter::ExportTriGeom(Object *obj, INode *node, ISkin *skin,
 		// AWD does not support bind shape matrices, so if a geometry is bound
 		// to a skeleton, any mesh using it has to be "untransformed", and in 
 		// turn the geometry needs to have that transformation applied to match.
-		if (skin && jpv) {
-			Matrix3 bm;
-			skin->GetSkinInitTM(node, bm, true);
-			offsMtx *= bm;
+		//if (skin && jpv) {
+		//	Matrix3 bm;
+		//	skin->GetSkinInitTM(node, bm, true);
+		//	offsMtx *= bm;
 
-			if (bindMtx) {
-				// Transfer to bind shape matrix transform that should be "removed"
-				// from the mesh instance transformation.
-				bindMtx->Set(bm.GetRow(0), bm.GetRow(1), bm.GetRow(2), bm.GetRow(3));
-			}
-		}
+		//	if (bindMtx) {
+		//		// Transfer to bind shape matrix transform that should be "removed"
+		//		// from the mesh instance transformation.
+		//		bindMtx->Set(bm.GetRow(0), bm.GetRow(1), bm.GetRow(2), bm.GetRow(3));
+		//	}
+		//}
 
 		AWDGeomUtil geomUtil;
 		geomUtil.joints_per_vertex = jpv;
@@ -917,17 +917,22 @@ void MaxAWDExporter::ExportSkeletons(INode *node)
 	numNodesTraversed++;
 
 	Object *obj = node->GetObjectRef();
-	if (obj && obj->ClassID() == BONE_OBJ_CLASSID) {
-		ExportSkeleton(node);
+	if (obj)		//here no need to traverse its children, because ExportSkeleton() will do this in cache
+	{
+		Class_ID class_id=obj->ClassID();
+		if(class_id == BONE_OBJ_CLASSID || class_id.PartA()==DUMMY_CLASS_ID) 
+		{
+			ExportSkeleton(node);
 
-		// No need to traverse this branch further. Count
-		// the entire branch as traversed.
-		numNodesTraversed += CalcNumDescendants(node);
-		UpdateProgressBar(MAXAWD_PHASE_SKEL, (double)numNodesTraversed/(double)numNodesTotal);
+			// No need to traverse this branch further. Count
+			// the entire branch as traversed.
+			numNodesTraversed += CalcNumDescendants(node);
+			UpdateProgressBar(MAXAWD_PHASE_SKEL, (double)numNodesTraversed/(double)numNodesTotal);
+		}
 	}
 	else {
-		// This wasn't a bone, but there might be bones
-		// further down the hierarchy from this one
+		 //This wasn't a bone, but there might be bones
+		 //further down the hierarchy from this one
 		int i;
 
 		// Update progress bar before recursing

@@ -386,7 +386,7 @@ INT_PTR CALLBACK MaxAWDExporterOpts::SceneOptsDialogProc(HWND hWnd,UINT message,
 	switch (message) {
 		case WM_INITDIALOG:
 			spinner = GetISpinner(GetDlgItem(hWnd,IDC_JPV_SPINNER));
-			spinner->SetLimits(1, 5, FALSE);
+			spinner->SetLimits(1, 6, FALSE);
 			spinner->SetValue(INSTANCE->jointsPerVertex, TRUE);
 			spinner->LinkToEdit(GetDlgItem(hWnd,IDC_JPV_EDIT),EDITTYPE_INT);
 			return TRUE;

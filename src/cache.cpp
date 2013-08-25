@@ -195,7 +195,12 @@ void SkeletonCacheItem::GatherJoint(INode *bone, AWDSkeletonJoint *awdParent)
 	for (i=0; i<bone->NumberOfChildren(); i++) {
 		INode *child = bone->GetChildNode(i);
 		Object *obj = bone->GetObjectRef();
-		if (obj && obj->ClassID()==BONE_OBJ_CLASSID) {
+		if(!obj)
+		{
+			continue;
+		}
+		Class_ID class_id=obj->ClassID();
+		if (class_id==BONE_OBJ_CLASSID || class_id.PartA()==DUMMY_CLASS_ID) {
 			GatherJoint(child, awdJoint);
 		}
 	}
