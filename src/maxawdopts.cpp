@@ -1,4 +1,4 @@
-#include "maxawdopts.h"
+#include "maxawd.h"
 #include <custcont.h>
 
 MaxAWDExporterOpts::MaxAWDExporterOpts(void)
@@ -61,7 +61,9 @@ FILE *MaxAWDExporterOpts::OpenConfigFile(const char *mode)
 	char buf[1024];
 
 	Interface *ip = GetCOREInterface();
-	_makepath_s(buf, 1024, NULL, ip->GetDir(APP_PLUGCFG_DIR), "MAXAWD", ".CFG");
+	char *cdir = W2A(ip->GetDir(APP_PLUGCFG_DIR));
+	_makepath_s(buf, 1024, NULL, cdir, "MAXAWD", ".CFG");
+	free(cdir);
 	return fopen(buf, mode);
 }
 
@@ -235,19 +237,19 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 	IRollupWindow *rollup = GetIRollup(rh);
 
 	index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_GENERAL_OPTS),
-		GeneralOptsDialogProc, "General");
+		GeneralOptsDialogProc, TEXT("General"));
 	generalOpts = rollup->GetPanelDlg(index);
 
 	index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_SCENE_OPTS), 
-		SceneOptsDialogProc, "Scene & geometry", 0, APPENDROLL_CLOSED);
+		SceneOptsDialogProc, TEXT("Scene & geometry"), 0, APPENDROLL_CLOSED);
 	sceneOpts = rollup->GetPanelDlg(index);
 	
 	index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_MTL_OPTS), 
-		MtlOptsDialogProc, "Materials", 0, APPENDROLL_CLOSED);
+		MtlOptsDialogProc, TEXT("Materials"), 0, APPENDROLL_CLOSED);
 	mtlOpts = rollup->GetPanelDlg(index);
 	
 	index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_ANIM_OPTS), 
-		AnimOptsDialogProc, "Animation", 0, APPENDROLL_CLOSED);
+		AnimOptsDialogProc, TEXT("Animation"), 0, APPENDROLL_CLOSED);
 	animOpts = rollup->GetPanelDlg(index);
 
 	//index = rollup->AppendRollup(hInstance, MAKEINTRESOURCE(IDD_AWD_VIEWER_OPTS), 
@@ -262,7 +264,10 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 	// Set default (or loaded if cfg file existed) options
 	ComboBox_SetCurSel(GetDlgItem(generalOpts, IDC_COMP_COMBO), compression);
 	SetCheckBox(generalOpts, IDC_INC_ATTR, exportAttributes);
-	Edit_SetText(GetDlgItem(generalOpts, IDC_ATTRNS_TEXT), attributeNamespace);
+
+	TCHAR *ans = A2W(attributeNamespace);
+	Edit_SetText(GetDlgItem(generalOpts, IDC_ATTRNS_TEXT), ans);
+	free(ans);
 	SetCheckBox(sceneOpts, IDC_INC_SCENE, exportScene);
 	SetCheckBox(sceneOpts, IDC_INC_GEOM, exportGeometry);
 	SetCheckBox(sceneOpts, IDC_INC_UVS, exportUVs);
@@ -273,7 +278,10 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 	SetCheckBox(mtlOpts, IDC_TEX_COPY, copyTextures);
 	SetCheckBox(animOpts, IDC_INC_SKEL, exportSkeletons);
 	SetCheckBox(animOpts, IDC_INC_SKELANIM, exportSkelAnim);
-	Edit_SetText(GetDlgItem(animOpts, IDC_SEQ_TXT), sequencesTxtPath);
+
+	TCHAR *stp = A2W(sequencesTxtPath);
+	Edit_SetText(GetDlgItem(animOpts, IDC_SEQ_TXT), stp);
+	free(stp);
 	//SetCheckBox(viewerOpts, IDC_SWF_ENABLE, createPreview);
 	//SetCheckBox(viewerOpts, IDC_SWF_LAUNCH, launchPreview);
 	//SetCheckBox(viewerOpts, IDC_SWFSB_NETWORK, networkPreview);
@@ -307,8 +315,10 @@ void MaxAWDExporterOpts::SaveOptions(void)
 	exportAttributes = (IsDlgButtonChecked(generalOpts, IDC_INC_ATTR) == BST_CHECKED);
 	
 	len = Edit_GetTextLength(GetDlgItem(generalOpts, IDC_ATTRNS_TEXT));
-	attributeNamespace = (char*)realloc(attributeNamespace, len+1);
-	Edit_GetText(GetDlgItem(generalOpts, IDC_ATTRNS_TEXT), attributeNamespace, len+1);
+	TCHAR *tmp = (TCHAR*)malloc((len+1) * sizeof(TCHAR));
+	Edit_GetText(GetDlgItem(generalOpts, IDC_ATTRNS_TEXT), tmp, len+1);
+	free(attributeNamespace);
+	attributeNamespace = W2A(tmp);
 
 	// Scene & geometry options
 	exportScene = (IsDlgButtonChecked(sceneOpts, IDC_INC_SCENE) == BST_CHECKED);
@@ -329,8 +339,11 @@ void MaxAWDExporterOpts::SaveOptions(void)
 	exportSkelAnim = (IsDlgButtonChecked(animOpts, IDC_INC_SKELANIM) == BST_CHECKED);
 	
 	len = Edit_GetTextLength(GetDlgItem(animOpts, IDC_SEQ_TXT));
-	sequencesTxtPath = (char*)realloc(sequencesTxtPath, len+1);
-	Edit_GetText(GetDlgItem(animOpts, IDC_SEQ_TXT), sequencesTxtPath, len+1);
+
+	tmp = (TCHAR*)malloc((len+1) * sizeof(TCHAR));
+	Edit_GetText(GetDlgItem(animOpts, IDC_SEQ_TXT), tmp, len+1);
+	free(sequencesTxtPath);
+	sequencesTxtPath = W2A(tmp);
 
 	// Preview options
 	//createPreview = (IsDlgButtonChecked(viewerOpts, IDC_SWF_ENABLE) == BST_CHECKED);

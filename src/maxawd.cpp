@@ -27,15 +27,37 @@
 
 #define MaxAWDExporter_CLASS_ID	Class_ID(0xa8e047f2, 0x81e112c0)
 
+char *W2A( const TCHAR *s ) {
+#ifdef UNICODE
+	int size = (wcslen(s) + 1) * 2;
+	char *out = (char*)malloc(size);
+	wcstombs(out,s,size);
+	return out;
+#else
+	return strdup(s);
+#endif
+}
+
+TCHAR *A2W( const char  *s ) {
+#ifdef UNICODE
+	int size = (strlen(s) + 1) * sizeof(TCHAR);	
+	TCHAR *out = (TCHAR*)malloc(size);
+	mbstowcs(out, s, size);
+	return out;
+#else
+	return strdup(s);
+#endif
+}
+
 static unsigned char s_depth=0;
 static void output_debug_string(const char* str)
 {
 	for(unsigned char uc=0;uc<s_depth;uc++)
 	{
-		OutputDebugString("    ");
+		OutputDebugStringA("    ");
 	}
-	OutputDebugString(str);
-	OutputDebugString("\r\n");
+	OutputDebugStringA(str);
+	OutputDebugStringA("\r\n");
 }
 
 
@@ -78,10 +100,12 @@ static DWORD WINAPI ExecuteExportCallback(LPVOID arg)
 MaxAWDExporter::MaxAWDExporter()
 {
 	error = false;
+	awdFullPath = NULL;
 }
 
 MaxAWDExporter::~MaxAWDExporter() 
 {
+	free(awdFullPath);
 }
 
 int MaxAWDExporter::ExtCount()
@@ -143,7 +167,7 @@ BOOL MaxAWDExporter::SupportsOptions(int ext, DWORD options)
 
 int	MaxAWDExporter::DoExport(const TCHAR *path,ExpInterface *ei,Interface *i, BOOL suppressPrompts, DWORD options)
 {
-	awdFullPath = path;
+	awdFullPath = W2A(path);
 	maxInterface = i;
 	suppressDialogs = suppressPrompts;
 
@@ -162,7 +186,7 @@ int	MaxAWDExporter::DoExport(const TCHAR *path,ExpInterface *ei,Interface *i, BO
 	
 	// Execute export while showing a progress bar. Send this as argument
 	// to the execute callback, which will invoke MaxAWDExporter::ExecuteExport();
-	maxInterface->ProgressStart("Exporting AWD file", TRUE, ExecuteExportCallback, this);
+	maxInterface->ProgressStart(TEXT("Exporting AWD file"), TRUE, ExecuteExportCallback, this);
 
 	// Export worked
 	return TRUE;
@@ -253,7 +277,7 @@ void MaxAWDExporter::DieWithErrorMessage(char *message, char *caption)
 {
 	if (!suppressDialogs) {
 		Interface *i = GetCOREInterface();
-		MessageBox(i->GetMAXHWnd(), message, caption, MB_OK);
+		MessageBoxA(i->GetMAXHWnd(), message, caption, MB_OK);
 	}
 
 	DieWithError();
@@ -264,28 +288,28 @@ void MaxAWDExporter::UpdateProgressBar(int phase, double phaseProgress)
 {
 	int phaseStart;
 	int phaseFinish;
-	char *title;
+	TCHAR *title;
 
 	switch (phase) {
 		case MAXAWD_PHASE_SKEL:
 			phaseStart = 0;
 			phaseFinish = 20;
-			title = "Skeletons";
+			title = TEXT("Skeletons");
 			break;
 		case MAXAWD_PHASE_SCENE:
 			phaseStart = 20;
 			phaseFinish = 60;
-			title = "Scene & geometry";
+			title = TEXT("Scene & geometry");
 			break;
 		case MAXAWD_PHASE_ANIM:
 			phaseStart = 60;
 			phaseFinish = 80;
-			title = "Animation";
+			title = TEXT("Animation");
 			break;
 		case MAXAWD_PHASE_FLUSH:
 			phaseStart = 80;
 			phaseFinish = 100;
-			title = "Writing file";
+			title = TEXT("Writing file");
 			break;
 	}
 
@@ -373,7 +397,7 @@ void MaxAWDExporter::CopyViewerHTML(char *templatePath, char *outPath, char *nam
 
 void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 {
-	output_debug_string(node->GetName());
+	//output_debug_string(node->GetName());
 	Object *obj;
 	bool goDeeper;
 
@@ -443,7 +467,7 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 			else
 			{
 				output_debug_string("can not convert to triObjectClassID");
-				const char* name=node->GetName();
+				char* name = W2A(node->GetName());
 				Matrix3 bindMtx;
 				// Default at no bind transform.
 				bindMtx.IdentityMatrix();
@@ -461,6 +485,7 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 				else {
 					awd->add_scene_block(awdParent);
 				}
+				free(name);
 			}
 		}
 		else
@@ -527,8 +552,9 @@ AWDMeshInst * MaxAWDExporter::ExportTriObject(Object *obj, INode *node, ISkin *s
 		double *mtxData = (double *)malloc(12*sizeof(double));
 		SerializeMatrix3(mtx, mtxData);
 
-		char *name = node->GetName();
+		char *name = W2A(node->GetName());
 		AWDMeshInst *inst = new AWDMeshInst(name, strlen(name), awdGeom, mtxData);
+		free(name);
 
 		ExportUserAttributes(obj, inst);
 
@@ -648,12 +674,15 @@ AWDTriGeom *MaxAWDExporter::ExportTriGeom(Object *obj, INode *node, ISkin *skin,
 		
 		// Generate geometry name by concatenating the name 
 		// of the mesh/node with the suffix "_geom"
-		char *name = (char*)malloc(strlen(node->GetName())+6);
-		strcpy(name, node->GetName());
+		char *bname = W2A(node->GetName());
+		char *name = (char*)malloc(strlen(bname)+6);
+		strcpy(name, bname);
 		strcat(name, "_geom");
 
 		awdGeom = new AWDTriGeom(name, strlen(name));
 		geomUtil.build_geom(awdGeom);
+		free(bname);
+		free(name);
 
 		awd->add_mesh_data(awdGeom);
 		cache->Set(obj, awdGeom);
@@ -714,7 +743,9 @@ AWDMaterial *MaxAWDExporter::ExportNodeMaterial(INode *node)
 						// export (e.g. that a file was missing.)
 						RETURN_VALUE_IF_ERROR(NULL);
 
-						awdMtl = new AWDMaterial(AWD_MATTYPE_TEXTURE, name.data(), name.length());
+						char *cname = W2A(name.data());
+						awdMtl = new AWDMaterial(AWD_MATTYPE_TEXTURE, cname, strlen(cname));
+						free(cname);
 						awdMtl->set_texture(awdDiffTex);
 					}
 				}
@@ -722,8 +753,11 @@ AWDMaterial *MaxAWDExporter::ExportNodeMaterial(INode *node)
 
 			// If no material was created during the texture search loop, this
 			// is a plain color material.
-			if (awdMtl == NULL) 
-				awdMtl = new AWDMaterial(AWD_MATTYPE_COLOR, name.data(), name.Length());
+			if (awdMtl == NULL) {
+				char *cname = W2A(name.data());
+				awdMtl = new AWDMaterial(AWD_MATTYPE_COLOR, cname, strlen(cname));
+				free(cname);
+			}
 
 			awd->add_material(awdMtl);
 			cache->Set(mtl, awdMtl);
@@ -741,7 +775,7 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex)
 	char *fullPath;
 
 	name = tex->GetName();
-	fullPath = tex->GetMapName();
+	fullPath = W2A(tex->GetMapName());
 
 	// Get absolute path for open/copy operations. The path used by Max may
 	// be relative, which will not work since CWD is not the project folder.
@@ -749,7 +783,9 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex)
 	MSTR absTexPath = asset.GetFullFilePath();
 
 	if (opts->EmbedTextures()) {
-		int fd = open(absTexPath, _O_BINARY | _O_RDONLY);
+		char *apath = W2A(absTexPath);
+		int fd = open(apath, _O_BINARY | _O_RDONLY);
+		free(apath);
 		
 		if (fd >= 0) {
 			struct stat fst;
@@ -759,7 +795,9 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex)
 			read(fd, buf, fst.st_size);
 			close(fd);
 
-			awdTex = new AWDBitmapTexture(EMBEDDED, name.data(), name.Length());
+			char *cname = W2A(name);
+			awdTex = new AWDBitmapTexture(EMBEDDED, cname, strlen(cname));
+			free(cname);
 			awdTex->set_embed_data(buf, fst.st_size);
 		}
 		else {
@@ -775,7 +813,9 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex)
 		}
 	}
 	else {
-		awdTex = new AWDBitmapTexture(EXTERNAL, name.data(), name.length());
+		char *cname = W2A(name);
+		awdTex = new AWDBitmapTexture(EXTERNAL, cname, strlen(cname));
+		free(cname);
 
 		if (opts->ForceBasenameTextures()) {
 			char fileName[256];
@@ -798,7 +838,9 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex)
 				// texture file, and copy texture file to output directory.
 				_splitpath_s(awdFullPath, awdDrive, 4, awdPath, 1024, NULL, 0, NULL, 0);
 				_makepath_s(outPath, 1024, awdDrive, awdPath, fileName, fileExt);
-				CopyFile(absTexPath, outPath, true);
+				char *apath = W2A(absTexPath);
+				CopyFileA(apath, outPath, true);
+				free(apath);
 			}
 		}
 		else {
@@ -1101,8 +1143,10 @@ void MaxAWDExporter::ExportUserAttributes(Animatable *obj, AWDAttrElement *elem)
 						ns = new AWDNamespace(opts->AttributeNamespace(), strlen(opts->AttributeNamespace()));
 						awd->add_namespace(ns);
 					}
-
-					elem->set_attr(ns, def.int_name, strlen(def.int_name), ptr, len, type);
+					
+					char *cname = W2A(def.int_name);
+					elem->set_attr(ns, cname, strlen(cname), ptr, len, type);
+					free(cname);
 				}
 			}
 		}
