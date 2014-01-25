@@ -68,7 +68,8 @@ class MaxAWDExporter : public SceneExport {
 		BlockCache *cache;
 		SkeletonCache *skeletonCache;
 		ColorMaterialCache *colMtlCache;
-
+		
+		bool exportAll;
 		bool error;
 
 		int numNodesTotal;

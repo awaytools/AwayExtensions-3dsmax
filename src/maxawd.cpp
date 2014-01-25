@@ -99,6 +99,7 @@ static DWORD WINAPI ExecuteExportCallback(LPVOID arg)
 
 MaxAWDExporter::MaxAWDExporter()
 {
+	exportAll=TRUE;
 	error = false;
 	awdFullPath = NULL;
 }
@@ -160,8 +161,7 @@ void MaxAWDExporter::ShowAbout(HWND hWnd)
 
 BOOL MaxAWDExporter::SupportsOptions(int ext, DWORD options)
 {
-	// Does not at the moment support selection-only export.
-	return FALSE;
+	return TRUE;
 }
 
 
@@ -184,6 +184,9 @@ int	MaxAWDExporter::DoExport(const TCHAR *path,ExpInterface *ei,Interface *i, BO
 	if (fd == -1)
 		return FALSE;
 	
+	if (options==SCENE_EXPORT_SELECTED){
+		exportAll=FALSE;
+	}
 	// Execute export while showing a progress bar. Send this as argument
 	// to the execute callback, which will invoke MaxAWDExporter::ExecuteExport();
 	maxInterface->ProgressStart(TEXT("Exporting AWD file"), TRUE, ExecuteExportCallback, this);
@@ -415,6 +418,7 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 	//}
 	//else {
 		//output_debug_string("is not bone");
+	if ( (node->Selected()!=0) || (parent!=NULL) || (exportAll) ){
 		int skinIdx;
 		ObjectState os;
 
@@ -492,6 +496,7 @@ void MaxAWDExporter::ExportNode(INode *node, AWDSceneBlock *parent)
 		{
 			output_debug_string("no obj in state");
 		}
+	}
 	//}
 
 	numNodesTraversed++;
