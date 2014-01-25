@@ -67,14 +67,14 @@ IDD_AWD_VIEWER_OPTS DIALOGEX 0, 15, 280, 131
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "Generate HTML && Flash preview",IDC_SWF_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,118,10
-    CONTROL         "Launch after export",IDC_SWF_LAUNCH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,22,80,10
-    CONTROL         "Export for local preview",IDC_SWFSB_LOCAL,"Button",BS_AUTORADIOBUTTON,20,99,92,10
-    CONTROL         "Export for deployment",IDC_SWFSB_NETWORK,"Button",BS_AUTORADIOBUTTON,20,112,88,10
-    LTEXT           "Export type",IDC_SWFSB_STATIC1,20,60,39,8
-    LTEXT           "The Flash Player security policy prevents a SWF file from accessing both local files and files via a network. Select whether to generate a SWF file for local preview or deployment online.",IDC_SWFSB_STATIC2,20,71,236,24
-    CONTROL         "Custom1",IDC_SWF_COLOR,"ColorSwatch",WS_TABSTOP,82,38,28,14
-    LTEXT           "Background color:",IDC_SWF_COL_STATIC,20,41,58,8
+    //CONTROL         "Generate HTML && Flash preview",IDC_SWF_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,118,10
+    CONTROL         "Launch after export (AwayBuilder)",IDC_SWF_LAUNCH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,22,200,10
+    //CONTROL         "Export for local preview",IDC_SWFSB_LOCAL,"Button",BS_AUTORADIOBUTTON,20,99,92,10
+    //CONTROL         "Export for deployment",IDC_SWFSB_NETWORK,"Button",BS_AUTORADIOBUTTON,20,112,88,10
+    //LTEXT           "Export type",IDC_SWFSB_STATIC1,20,60,39,8
+    //LTEXT           "The Flash Player security policy prevents a SWF file from accessing both local files and files via a network. Select whether to generate a SWF file for local preview or deployment online.",IDC_SWFSB_STATIC2,20,71,236,24
+    //CONTROL         "Custom1",IDC_SWF_COLOR,"ColorSwatch",WS_TABSTOP,82,38,28,14
+    //LTEXT           "Background color:",IDC_SWF_COL_STATIC,20,41,58,8
 END
 
 IDD_AWD_ANIM_OPTS DIALOGEX 0, 15, 280, 115
@@ -139,7 +139,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 273
         TOPMARGIN, 7
-        BOTTOMMARGIN, 124
+        BOTTOMMARGIN, 50
     END
 
     IDD_AWD_ANIM_OPTS, DIALOG

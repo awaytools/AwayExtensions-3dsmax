@@ -197,6 +197,16 @@ int	MaxAWDExporter::DoExport(const TCHAR *path,ExpInterface *ei,Interface *i, BO
 
 int MaxAWDExporter::ExecuteExport()
 {
+	// AwayBuilder has a bug that doesnt allow for importing capital fileextension (AWD instead of awd)
+	// i couldnt figure out where the file-extension is set to "AWD" instead of "awd"
+	// thats why i change the file extension to "awd" instead of "AWD" here:
+	char awdDrive[4];
+	char awdPath[1024];
+	char awdName[256];
+	char outAWDPath[1024];
+	_splitpath_s(awdFullPath, awdDrive, 4, awdPath, 1024, awdName, 256, NULL, 0);
+	_makepath_s(outAWDPath, 1024, awdDrive, awdPath, awdName, "awd");
+
 	PrepareExport();
 
 	// Get total number of nodes for progress calculation
@@ -236,9 +246,15 @@ int MaxAWDExporter::ExecuteExport()
 
 	// Copy viewer HTML and SWF template to output directory
 	//if (opts->CreatePreview()) {
-	//	bool launch = (!suppressDialogs && opts->LaunchPreview());
 	//	CopyViewer(launch);
 	//}
+	
+	
+	bool launch = (!suppressDialogs && opts->LaunchPreview());
+	if (launch){
+		//open the file with the default appliction (e.g. Awaybuilder)
+		ShellExecute(NULL, "open", outAWDPath, NULL, NULL, SW_SHOWNORMAL);
+	}
 
 	// Free used memory
 	CleanUp();
