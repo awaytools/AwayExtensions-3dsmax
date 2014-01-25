@@ -69,6 +69,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -79,6 +80,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -157,14 +159,16 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">maxawd_2013_64</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">.dle</TargetExt>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">..\awd-sdk\cpp-libawd\include;..\awd-sdk\cpp-libawd\lib\lzma;..\.awd-sdk\cpp-libawd\include;C:\Program Files %28x86%29\Autodesk\3ds Max 2013 SDK\maxsdk\include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">..\awd-sdk\cpp-libawd\include;..\awd-sdk\cpp-libawd\lib\lzma;..\.awd-sdk\cpp-libawd\include;C:\Program Files %28x86%29\Autodesk\3ds Max 2013 SDK\maxsdk\include;$(IncludePath)</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(IncludePath)</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include;</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib\x64;C:\Program Files %28x86%29\Autodesk\3ds Max 2013 SDK\maxsdk\x64\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib\x64;C:\Program Files %28x86%29\Autodesk\3ds Max 2013 SDK\maxsdk\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">
     <Midl>
@@ -350,7 +354,6 @@
       <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -556,7 +559,6 @@
       <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk\ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST;_7ZIP_ST</PreprocessorDefinitions>

@@ -124,8 +124,9 @@ SkeletonCacheItem::SkeletonCacheItem(INode *maxRootBone)
 
 	// Create AWD skeleton structure and begin
 	// gathering joints recursively
-	char *name = rootBone->GetName();
+	char *name = W2A(rootBone->GetName());
 	awdSkel = new AWDSkeleton(name, strlen(name));
+	free(name);
 	GatherJoint(rootBone, NULL);
 }
 
@@ -176,8 +177,9 @@ void SkeletonCacheItem::GatherJoint(INode *bone, AWDSkeletonJoint *awdParent)
 	bindMtx = (awd_float64*)malloc(sizeof(awd_float64)*12);
 	SerializeMatrix3(Inverse(boneTM), bindMtx);
 
-	name = bone->GetName();
+	name = W2A(bone->GetName());
 	awdJoint = new AWDSkeletonJoint(name, strlen(name), bindMtx);
+	free(name);
 
 	if (awdParent != NULL) {
 		awdParent->add_child_joint(awdJoint);

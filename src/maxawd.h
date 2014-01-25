@@ -44,6 +44,9 @@ extern TCHAR *GetString(int id);
 
 extern HINSTANCE hInstance;
 
+char *W2A( const TCHAR *s );
+TCHAR *A2W( const char *s );
+
 typedef struct SequenceMetaData_struct {
 	int start;
 	int stop;
@@ -56,7 +59,7 @@ typedef struct SequenceMetaData_struct {
 class MaxAWDExporter : public SceneExport {
 	private:
 		Interface *maxInterface;
-		const char *awdFullPath;
+		char *awdFullPath;
 		bool suppressDialogs;
 
 		int fd;
