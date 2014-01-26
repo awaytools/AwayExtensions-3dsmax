@@ -237,6 +237,11 @@ int MaxAWDExporter::ExecuteExport()
 
 	// Die if error occurred.
 	DIE_IF_ERROR();
+	//create the metadatablock
+	AWDMetaData *newMetaData=new AWDMetaData();
+	newMetaData->generator_name="Autodesk 3dsMax";
+	newMetaData->generator_version="2012";//to do: get the version by code
+	awd->set_metadata(newMetaData);
 
 	// Flush serialized AWD structure to file
 	awd->flush(fd);
