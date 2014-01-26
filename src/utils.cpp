@@ -1,5 +1,46 @@
 #include "utils.h"
 
+unsigned long createARGB(int a, int r, int g, int b)
+{   
+    return ((a & 0xff) << 24) + ((r & 0xff) << 16) + ((g & 0xff) << 8)
+           + (b & 0xff);
+}
+enum color_component
+{
+    A,B,G,R
+};
+unsigned int get_component(unsigned int color, color_component component)
+{
+    switch (component)
+    {
+        case R:
+        case G:
+        case B:
+        case A:
+        {
+            const unsigned int shift = component * 8;
+            const unsigned int mask = 0xFF << shift;
+            return (color & mask) >> shift;            
+        }
+
+        default:
+			return 0;
+            //donothing throw std::invalid_argument("invalid color component");
+    }
+
+    return 0;
+}
+awd_color convertColor(DWORD input)
+{   
+		awd_color color = input;
+		int r = get_component(	color,A);
+		int g = get_component(	color,B);
+		int b = get_component(	color,G);
+		int a = get_component(	color,R);
+		
+		return createARGB(255, r, g, b);	
+}
+
 void SerializeMatrix3(Matrix3 &mtx, double *output)
 {
 	Point3 row;

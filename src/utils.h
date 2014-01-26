@@ -1,4 +1,8 @@
 #include "maxawd.h"
+/*
+* convert a 3dsmax color to awdColor (change RGBA to ARGB)
+*/
+awd_color convertColor(DWORD);
 
 /**
  * Generate an AWD compatible serialized matrix from a 3ds Max

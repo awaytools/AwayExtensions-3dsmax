@@ -728,8 +728,7 @@ AWDMaterial *MaxAWDExporter::ExportNodeMaterial(INode *node)
 	Mtl *mtl = node->GetMtl();
 
 	if (mtl == NULL) {
-		awd_color color = node->GetWireColor();
-
+		awd_color color = convertColor(node->GetWireColor());
 		// Look in the cache for an existing "default" color material
 		// that matches the color of this object. If none exists,
 		// create a new one and store it in the cache.
