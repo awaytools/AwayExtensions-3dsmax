@@ -746,6 +746,14 @@ AWDMaterial *MaxAWDExporter::ExportNodeMaterial(INode *node)
 		if (awdMtl == NULL) {
 			int i;
 			const MSTR &name = mtl->GetName();
+			bool hasDifftex=false;				
+			bool hasAmbTex=false;				
+			bool hasSpecTex=false;				
+			bool hasNormalTex=false;
+			AWDBitmapTexture *awdNormalTex;	
+			AWDBitmapTexture *awdDiffTex;
+			AWDBitmapTexture *awdAmbTex;
+			AWDBitmapTexture *awdSpecTex;	
 
 			if (mtl->IsSubClassOf(Class_ID(DMTL_CLASS_ID, 0))) {
 				StdMat *stdMtl = (StdMat *)mtl;
@@ -758,31 +766,72 @@ AWDMaterial *MaxAWDExporter::ExportNodeMaterial(INode *node)
 				if (tex != NULL && tex->ClassID() == Class_ID(BMTEX_CLASS_ID, 0)) {
 					MSTR slotName = mtl->GetSubTexmapSlotName(i);
 					const MSTR diff = _M("Diffuse Color");
-
-					if (slotName == diff) {
-						AWDBitmapTexture *awdDiffTex;
-					
+					const MSTR ambient = _M("Ambient Color");
+					const MSTR spec = _M("Specular Color");
+					const MSTR bump= _M("Bump");
+					if (slotName == diff) {					
 						awdDiffTex = ExportBitmapTexture((BitmapTex *)tex);
-
-						// Stop if an error occurred during texture
-						// export (e.g. that a file was missing.)
+						hasDifftex=true;
 						RETURN_VALUE_IF_ERROR(NULL);
-
-						char *cname = W2A(name.data());
-						awdMtl = new AWDMaterial(AWD_MATTYPE_TEXTURE, cname, strlen(cname));
-						free(cname);
-						awdMtl->set_texture(awdDiffTex);
+					}
+					if (slotName == ambient) {					
+						awdAmbTex = ExportBitmapTexture((BitmapTex *)tex);
+						hasAmbTex=true;
+						RETURN_VALUE_IF_ERROR(NULL);
+					}
+					if (slotName == spec) {				
+						awdSpecTex = ExportBitmapTexture((BitmapTex *)tex);
+						hasSpecTex=true;
+						RETURN_VALUE_IF_ERROR(NULL);
+					}
+					if (slotName == bump) {				
+						awdNormalTex = ExportBitmapTexture((BitmapTex *)tex);
+						hasNormalTex=true;
+						RETURN_VALUE_IF_ERROR(NULL);
 					}
 				}
+				if (tex != NULL && tex->ClassID() == GNORMAL_CLASS_ID) {
+					//"normal bump" shader is not supported yet, add the normal map directly to the bump channel.
+					//IParamBlock2 * pb = tex->GetParamBlockByID(gnormal_params); // Get the param block containing all the sweet sweet data
+					//float bumpIntensity = pb->GetFloat(gn_mult_spin);
+					//int selBumpType = pb->GetPB2Value(gn_method).i; // Or GetInt but that seems to be slightly buggy
+					//awdNormalTex = dynamic_cast<Texmap*>(plug.texmap->GetReference(1)); // Reference 1 points to the first linked bump map. Use of GetInterface instead of dynamic_cast might be more by the book but I haven't found the TEXMAP interface :D
+					
+				}
+
+			}
+			
+			if (hasDifftex || hasAmbTex){
+				char *cname = W2A(name.data());
+				awdMtl = new AWDMaterial(AWD_MATTYPE_TEXTURE, cname, strlen(cname));
+				free(cname);
+				if (hasDifftex){
+					//DebugPrint("set diffuse texture\n");
+					awdMtl->set_texture(awdDiffTex);}
+				if (hasAmbTex){
+					//DebugPrint("set ambient texture\n");
+					awdMtl->set_ambientTexture(awdAmbTex);}
 			}
 
-			// If no material was created during the texture search loop, this
-			// is a plain color material.
+			// If no material was created, this is a plain color material.
 			if (awdMtl == NULL) {
 				char *cname = W2A(name.data());
 				awdMtl = new AWDMaterial(AWD_MATTYPE_COLOR, cname, strlen(cname));
 				free(cname);
 			}
+					
+			awdMtl->color = convertColor(mtl->GetDiffuse().toRGB());
+			awdMtl->ambientColor = convertColor(mtl->GetAmbient().toRGB());
+			awdMtl->specularColor = convertColor(mtl->GetSpecular().toRGB());
+
+
+			if (hasSpecTex){
+				//DebugPrint("set specular texture\n");
+				awdMtl->set_specTexture(awdSpecTex);}
+		
+			if (hasNormalTex){
+				//DebugPrint("set normal texture\n");
+				awdMtl->set_normalTexture(awdNormalTex);}
 
 			awd->add_material(awdMtl);
 			cache->Set(mtl, awdMtl);
