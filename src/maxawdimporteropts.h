@@ -2,7 +2,7 @@
 
 #include "3dsmaxsdk_preinclude.h"
 #include "max.h"
-#include "resource.h"
+#include "resourceimporter.h"
 
 #include "awd.h"
 
@@ -10,10 +10,11 @@
 #define ATTR_BUF_LEN 1024
 #define ATTREQ(str0,str1) strncmp(str0,str1,ATTR_BUF_LEN)==0
 
-class MaxAWDExporterOpts
+class MaxAWDImporterOpts
 {
 private:
 	int compression;
+	float scale;
 	bool exportAttributes;
 	char *attributeNamespace;
 
@@ -22,23 +23,26 @@ private:
 	bool exportUVs;
 	bool exportNormals;
 	bool exportSkin;
-	int jointsPerVertex;
+	bool splitByMatID;
+	bool exportCameras;
+	bool exportSkyboxes;
 	
 	bool exportMaterials;
-	bool forceBasenameTextures;
-	bool copyTextures;
-	bool embedTextures;
+	int textureMode;
+	bool includeShadings;
+	bool includeMethods;
+	bool includeLights;
+	bool applyDarkLight;
+	bool includeShadows;
+	bool setMultiPass;
 
 	bool exportSkeletons;
 	bool exportSkelAnim;
-	char *sequencesTxtPath;
+	bool exportVertexAnim;
 
-	//bool createPreview;
 	bool launchPreview;
-	bool networkPreview;
-	int previewBackgroundColor;
 
-	static MaxAWDExporterOpts *INSTANCE;
+	static MaxAWDImporterOpts *INSTANCE;
 
 	static HWND generalOpts;
 	static HWND sceneOpts;
@@ -69,8 +73,8 @@ private:
 	bool RedrawViewerOpts(LPARAM lParam);
 
 public:
-	MaxAWDExporterOpts(void);
-	~MaxAWDExporterOpts(void);
+	MaxAWDImporterOpts(void);
+	~MaxAWDImporterOpts(void);
 
 	bool ShowDialog(void);
 
@@ -78,26 +82,30 @@ public:
 	int Compression(void);
 	bool ExportAttributes(void);
 	char *AttributeNamespace(void);
+	double Scale();
 
 	bool ExportScene(void);
 	bool ExportGeometry(void);
 	bool ExportUVs(void);
 	bool ExportNormals(void);
 	bool ExportSkin(void);
-	int JointsPerVertex();
+	bool SplitByMatID(void);
+	bool ExportCameras(void);
+	bool ExportSkyboxes(void);
 
 	bool ExportMaterials(void);
-	bool ForceBasenameTextures(void);
-	bool CopyTextures(void);
-	bool EmbedTextures(void);
+	int TextureMode(void);
+	bool IncludeShadings(void);
+	bool IncludeMethods(void);
+	bool IncludeLights(void);
+	bool ApplyDarkLight(void);
+	bool IncludeShadows(void);
+	bool SetMultiPass(void);
 
 	bool ExportSkeletons(void);
 	bool ExportSkelAnim(void);
-	char *SequencesTxtPath(void);
+	bool ExportVertexAnim(void);
 	
-	//bool CreatePreview(void);
 	bool LaunchPreview(void);
-	bool PreviewForDeployment(void);
-	int PreviewBackgroundColor(void);
 };
 

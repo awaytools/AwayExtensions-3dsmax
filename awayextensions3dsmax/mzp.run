@@ -1,0 +1,8 @@
+name "AwayExtensions3dsmax"
+version 1
+
+run "install.ms"
+drop "install.ms"
+
+clear temp on MAX exit
+clear temp on reset

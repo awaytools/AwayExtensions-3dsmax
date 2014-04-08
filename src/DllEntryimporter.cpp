@@ -12,9 +12,9 @@
 // AUTHOR: 
 //***************************************************************************/
 
-#include "maxawd.h"
+#include "maxawdimporter.h"
 
-extern ClassDesc2* GetMaxAWDExporterDesc();
+extern ClassDesc2* GetMaxAWDImporterDesc();
 
 HINSTANCE hInstance;
 int controlsInit = FALSE;
@@ -54,7 +54,7 @@ __declspec( dllexport ) int LibNumberClasses()
 __declspec( dllexport ) ClassDesc* LibClassDesc(int i)
 {
 	switch(i) {
-		case 0: return GetMaxAWDExporterDesc();
+		case 0: return GetMaxAWDImporterDesc();
 		default: return 0;
 	}
 }

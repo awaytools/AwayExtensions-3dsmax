@@ -1,9 +1,13 @@
 #include "utils.h"
-
 unsigned long createARGB(int a, int r, int g, int b)
 {   
     return ((a & 0xff) << 24) + ((r & 0xff) << 16) + ((g & 0xff) << 8)
            + (b & 0xff);
+}
+unsigned long createRGB( int r, int g, int b)
+{   
+    return (((r & 0xff) << 16) + ((g & 0xff) << 8)
+           + (b & 0xff));
 }
 enum color_component
 {
@@ -24,7 +28,7 @@ unsigned int get_component(unsigned int color, color_component component)
         }
 
         default:
-			return 0;
+            return 0;
             //donothing throw std::invalid_argument("invalid color component");
     }
 
@@ -32,132 +36,123 @@ unsigned int get_component(unsigned int color, color_component component)
 }
 awd_color convertColor(DWORD input)
 {   
-		awd_color color = input;
-		int r = get_component(	color,A);
-		int g = get_component(	color,B);
-		int b = get_component(	color,G);
-		int a = get_component(	color,R);
-		
-		return createARGB(255, r, g, b);	
+        awd_color color = input;
+        int r = get_component(color,A);
+        int g = get_component(color,B);
+        int b = get_component(color,G);
+        int a = get_component(color,R);
+        
+        return createARGB(255, r, g, b);
 }
 
 void SerializeMatrix3(Matrix3 &mtx, double *output)
 {
-	Point3 row;
-	
-	row = mtx.GetRow(0);
-	output[0] = row.x;
-	output[1] = row.z;
-	output[2] = row.y;
+    Point3 row;
+    
+    row = mtx.GetRow(0);
+    output[0] = row.x;
+    output[1] = row.z;
+    output[2] = row.y;
 
-	row = mtx.GetRow(2);
-	output[3] = row.x;
-	output[4] = row.z;
-	output[5] = row.y;
+    row = mtx.GetRow(2);
+    output[3] = row.x;
+    output[4] = row.z;
+    output[5] = row.y;
 
-	row = mtx.GetRow(1);
-	output[6] = row.x;
-	output[7] = row.z;
-	output[8] = row.y;
+    row = mtx.GetRow(1);
+    output[6] = row.x;
+    output[7] = row.z;
+    output[8] = row.y;
 
-	row = mtx.GetRow(3);
-	output[9] = row.x;
-	output[10] = row.z;
-	output[11] = row.y;
+    row = mtx.GetRow(3);
+    output[9] = row.x;
+    output[10] = row.z;
+    output[11] = row.y;
 }
 
 
 int IndexOfSkinMod(Object *obj, IDerivedObject **derivedObject)
 {
-	if (obj != NULL && obj->SuperClassID() == GEN_DERIVOB_CLASS_ID) {
-		int i;
+    if (obj != NULL && obj->SuperClassID() == GEN_DERIVOB_CLASS_ID) {
+        int i=0;
 
-		IDerivedObject *derived = (IDerivedObject *)obj;
+        IDerivedObject *derived = (IDerivedObject *)obj;
 
-		for (i=0; i < derived->NumModifiers(); i++) {
-			Modifier *mod = derived->GetModifier(i);
+        for (i=0; i < derived->NumModifiers(); i++) {
+            Modifier *mod = derived->GetModifier(i);
 
-			void *skin = mod->GetInterface(I_SKIN);
-			if (skin != NULL) {
-				*derivedObject = derived;
-				return i;
-			}
-		}
-	}
-	
-	return -1;
+            void *skin = mod->GetInterface(I_SKIN);
+            if (skin != NULL) {
+                *derivedObject = derived;
+                return i;
+            }
+        }
+    }
+    
+    return -1;
 }
 
+void read_transform_position_into_Pose(INode *node, int time, AWDSkeletonPose * skelPose )
+{
+    Matrix3 parentMtx=node->GetParentTM(time);
+    parentMtx.NoScale(); // get rid of the scale part of the parent matrix
+    Matrix3 tm = node->GetNodeTM(time) * Inverse(parentMtx);
+    awd_float64 *mtx = (awd_float64*)malloc(sizeof(awd_float64)*12);
+    SerializeMatrix3(tm, mtx);
+    skelPose->set_next_transform(mtx);
+    int i=0;
+    for (i=0; i<node->NumberOfChildren(); i++) {
+        read_transform_position_into_Pose(node->GetChildNode(i), time, skelPose);
+    }
+}
 
 int CalcNumDescendants(INode *node)
 {
-	int i;
-	int num = 1;
-	
-	for (i=0; i<node->NumberOfChildren(); i++) {
-		num += CalcNumDescendants(node->GetChildNode(i));
-	}
+    int i=0;
+    int num = 1;
+    
+    for (i=0; i<node->NumberOfChildren(); i++) {
+        num += CalcNumDescendants(node->GetChildNode(i));
+    }
 
-	return num;
+    return num;
 }
 
-
-SequenceMetaData *ParseSequenceFile(const char *path)
+IParamBlock* GetParamBlockByIndex(ReferenceMaker* obj, int index)
 {
-	FILE *fp;
+    int nRefs = obj->NumRefs();
+    int found=0;
+    for ( int i = 0; i < nRefs; ++i )
+    {
+        ReferenceTarget* ref = obj->GetReference(i);
 
-	fp = fopen(path, "r");
-	if (fp) {
-		char line[256];
-		SequenceMetaData *first, *last;
+        if ( ref && ref->SuperClassID() == PARAMETER_BLOCK_CLASS_ID )
+        {
+            if (found==index)
+                return dynamic_cast<IParamBlock*>( ref );
+            found++;
+        }
+    }
+    return NULL;
+} 
 
-		first = NULL;
-		last = NULL;
+IParamBlock2* GetParamBlock2ByIndex(ReferenceMaker* obj, int index)
+{
+    int nRefs = obj->NumRefs();
+    int found=0;
+    for ( int i = 0; i < nRefs; ++i )
+    {
+        ReferenceTarget* ref = obj->GetReference(i);
 
-		while (fgets(line, 256, fp) != NULL) {
-			SequenceMetaData *cur;
-			int nameLen;
-			char *name, *start, *end;
-
-			// Skip empty lines and comments
-			if (strlen(line)==0 || line[0]=='#')
-				continue;
-
-			// Read name and skip if missing.
-			name = strtok(line, " ");
-			if (!name) continue;
-			nameLen = strlen(name);
-
-			// Read start frame and skip if missing.
-			start = strtok(NULL, " ");
-			if (!start) continue;
-
-			// Read end frame and skip if missing.
-			end = strtok(NULL, " ");
-			if (!end) continue;
-
-			cur = (SequenceMetaData*)malloc(sizeof(SequenceMetaData));
-			cur->start = strtol(start, NULL, 10);
-			cur->stop = strtol(end, NULL, 10);
-			cur->name = (char*)malloc(nameLen+1);
-			memcpy(cur->name, name, nameLen+1);
-
-			if (!first) {
-				first = cur;
-			}
-			else {
-				last->next = cur;
-			}
-
-			last = cur;
-			last->next = NULL;
-		}
-
-		return first;
-	}
-
-	return NULL;
-}
+        if ( ref && ref->SuperClassID() == PARAMETER_BLOCK2_CLASS_ID )
+        {
+            if (found==index)
+                return dynamic_cast<IParamBlock2*>( ref );
+            found++;
+        }
+    }
+    return NULL;
+} 
 
 
 bool FileExists(const char *path)
@@ -170,35 +165,11 @@ bool FileExists(const char *path)
 
 bool PathIsAbsolute(const char *path)
 {
-	char pathDrive[4];
+    char pathDrive[4];
 
-	_splitpath_s(path, pathDrive, 4, NULL, 0, NULL, 0, NULL, 0);
-	return (strlen(pathDrive) > 0);
+    _splitpath_s(path, pathDrive, 4, NULL, 0, NULL, 0, NULL, 0);
+    return (strlen(pathDrive) > 0);
 }
-
-SequenceMetaData *LoadSequenceFile(const char *awdFullPath, char *sequencesTxtPath)
-{
-	if (PathIsAbsolute(sequencesTxtPath)) {
-		if (!FileExists(sequencesTxtPath))
-			return NULL;
-
-		return ParseSequenceFile(sequencesTxtPath);
-	}
-	else {
-		char awdDrive[4];
-		char awdPath[1024];
-		char txtPath[1024];
-
-		_splitpath_s(awdFullPath, awdDrive, 4, awdPath, 1024, NULL, 0, NULL, 0);
-		_makepath_s(txtPath, 1024, awdDrive, awdPath, sequencesTxtPath, NULL);
-
-		if (!FileExists(txtPath))
-			return NULL;
-	
-		return ParseSequenceFile(txtPath);
-	}
-}
-
 
 int ReplaceString(char *buf, int *size, char *find, char *rep)
 {
@@ -226,12 +197,40 @@ int ReplaceString(char *buf, int *size, char *find, char *rep)
 
     // Append trailing string
     memcpy(p, tmp, endLen);
-	memset(p+endLen, 0, 1);
+    memset(p+endLen, 0, 1);
 
     free(tmp);
 
-	// Save new size of buffer
+    // Save new size of buffer
     *size = (p-buf) + endLen;
 
-	return 1;
+    return 1;
 }
+
+
+void getBaseObjectAndID( Object*& object, SClass_ID& sid )
+    {
+        if( object == NULL )
+            return ;
+
+        sid = object->SuperClassID();
+
+        if( sid == WSM_DERIVOB_CLASS_ID || sid == DERIVOB_CLASS_ID || sid == GEN_DERIVOB_CLASS_ID )
+        {
+            IDerivedObject * derivedObject =( IDerivedObject* ) object;
+
+            if( derivedObject->NumModifiers() > 0 )
+            {
+                // Remember that 3dsMax has the mod stack reversed in its internal structures.
+                // So that evaluating the zero'th modifier implies evaluating the whole modifier stack.
+                ObjectState state = derivedObject->Eval( 0, 0 );
+                object = state.obj;
+            }
+            else
+            {
+                object = derivedObject->GetObjRef();
+            }
+
+            sid = object->SuperClassID();
+        }
+    }

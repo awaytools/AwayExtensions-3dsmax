@@ -26,47 +26,48 @@
     <None Include="maxawd.def">
       <Filter>Source Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="maxawd.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <None Include="..\_AwayExtensions-3dsmaxTEST\maxawd.sln" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\3dsmaxsdk_preinclude.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\maxawd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\maxawdopts.h">
+    <ClInclude Include="src\cache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils.h">
-      <Filter>Header Files\libawd</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\cache.h">
+    <ClInclude Include="src\maxawdexporteropts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maxawdexporter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceexporter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\maxawd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\cache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\maxawdopts.cpp">
+    <ClCompile Include="src\maxawdexporteropts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DllEntry.cpp">
+    <ClCompile Include="src\maxawdexporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DllEntryexporter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="maxawd_exporter.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

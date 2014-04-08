@@ -1,5 +1,13 @@
-#include "maxawd.h"
+#include "maxawdexporter.h"
 /*
+
+*/
+unsigned long createARGB(int a, int r, int g, int b);
+/*
+
+*/
+unsigned long createRGB(int r, int g, int b);
+/**
 * convert a 3dsmax color to awdColor (change RGBA to ARGB)
 */
 awd_color convertColor(DWORD);
@@ -16,20 +24,21 @@ void SerializeMatrix3(Matrix3 &mtx, double *output);
 */
 int IndexOfSkinMod(Object *obj, IDerivedObject **derivedObject);
 
+void read_transform_position_into_Pose(INode *, int , AWDSkeletonPose *);
 /**
  * Calculate total number of descendant nodes by recursing tree.
 */
 int CalcNumDescendants(INode *node);
 
 /**
- * Find and load the animation sequence description file.
+ * Get a ParamBlock from a 3dsmax Object. 
 */
-SequenceMetaData *LoadSequenceFile(const char *awdFullPath, char *sequencesTxtPath);
+IParamBlock2* GetParamBlock2ByIndex(ReferenceMaker* obj, int);
 
 /**
- * Parse animation sequence file.
+ * Get a ParamBlock from a 3dsmax Object. 
 */
-SequenceMetaData *ParseSequenceFile(const char *path);
+IParamBlock* GetParamBlockByIndex(ReferenceMaker* obj, int);
 
 /**
  * Replace a single occurrence of a substring within a string with 
@@ -47,3 +56,8 @@ bool FileExists(const char *path);
  * Checks if a path is absolute (includes a drive letter.)
 */
 bool PathIsAbsolute(const char *path);
+
+/**
+ * Get The BaseObject oand SuperClassID for a 3dsmax Node (because of the modifier-system, the api might not give back the base-object)
+*/
+void getBaseObjectAndID( Object*&, SClass_ID&);
