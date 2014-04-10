@@ -1,6 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="2010 Debug new|Win32">
+      <Configuration>2010 Debug new</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2010 Debug new|x64">
+      <Configuration>2010 Debug new</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2010 Debug|Win32">
+      <Configuration>2010 Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2010 Debug|x64">
+      <Configuration>2010 Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2010 Release|Win32">
+      <Configuration>2010 Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2010 Release|x64">
+      <Configuration>2010 Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2011 debug|Win32">
+      <Configuration>2011 debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2011 debug|x64">
+      <Configuration>2011 debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2011 Release|Win32">
+      <Configuration>2011 Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="2011 Release|x64">
+      <Configuration>2011 Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="2013 Debug|Win32">
       <Configuration>2013 Debug</Configuration>
       <Platform>Win32</Platform>
@@ -69,6 +109,8 @@
   <PropertyGroup Label="Globals">
     <ProjectName>maxawdexporter</ProjectName>
     <ProjectGuid>{3CF2B19A-F797-48A4-95D4-2B33732E4186}</ProjectGuid>
+    <MaxSDK2010>C:\Program%20Files%20(x86)\Autodesk\3ds%20Max%202010%20SDK\maxsdk\</MaxSDK2010>
+    <MaxSDK2011>C:\Program%20Files%20(x86)\Autodesk\Autodesk%203ds%20Max%202011%20SDK\maxsdk\</MaxSDK2011>
     <MaxSDK2012>C:\Program%20Files%20(x86)\Autodesk\3ds%20Max%202012\maxsdk\</MaxSDK2012>
     <MaxSDK2013>C:\Program%20Files%20(x86)\Autodesk\maxsdk\</MaxSDK2013>
     <MaxSDK2014>C:\Program%20Files\Autodesk\3ds%20Max%202014%20SDK\maxsdk\</MaxSDK2014>
@@ -80,17 +122,29 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -100,17 +154,30 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -122,6 +189,19 @@
     <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v90</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>
+    </CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -142,6 +222,18 @@
     <CharacterSet>$(CharSetUnicode)</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v90</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v90</PlatformToolset>
@@ -171,6 +263,12 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="C:\Program Files (x86)\Autodesk\maxsdk\ProjectSettings\propertySheets\3dsmax.cpp.props" />
@@ -184,6 +282,12 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -192,6 +296,12 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'" Label="PropertySheets" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'" Label="PropertySheets">
@@ -210,6 +320,12 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -225,87 +341,131 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">bin</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">bin</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">bin</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">bin</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">bin</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">bin</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">.\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">.\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">.\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">.\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">.\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">.\Release\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">bin</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">bin</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">bin</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">bin</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">bin</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">bin</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">x64\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">x64\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">x64\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">x64\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">x64\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">x64\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">C:\Program Files %28x86%29\Autodesk\3ds Max 2012\plugins</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">C:\Program Files\Autodesk\3ds Max 2012\plugins\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">C:\Program Files\Autodesk\3ds Max 2012\plugins\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">C:\Program Files %28x86%29\Autodesk\3ds Max 2011\plugins</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">C:\Program Files %28x86%29\Autodesk\3ds Max 2010\plugins</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">C:\Program Files\Autodesk\3ds Max 2013\plugins\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">C:\Program Files\Autodesk\3ds Max 2014\plugins\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">C:\Program Files\Autodesk\3ds Max 2012\plugins\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">.\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">.\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">.\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">.\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">.\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">.\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">C:\Program Files\Autodesk\3ds Max 2012\plugins\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">C:\Program Files %28x86%29\Autodesk\3ds Max 2011\plugins</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">C:\Program Files %28x86%29\Autodesk\3ds Max 2010\plugins</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">C:\Program Files\Autodesk\3ds Max 2013\plugins\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2014 Debug|x64'">C:\Program Files\Autodesk\3ds Max 2014\plugins\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">C:\Program Files\Autodesk\3ds Max 2015\plugins\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">x64\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">x64\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">x64\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">x64\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2014 Debug|x64'">x64\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">x64\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2014 Debug|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">true</GenerateManifest>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">maxawd_2012_32</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">maxawd_2013_32</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">maxawd_2013_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">maxawdexporter_2012_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">maxawdexporter_2011_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">maxawdexporter_2011_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">maxawdexporter_2013_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">maxawdexporter_2014_32</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">maxawd_2013_32</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">.dle</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">maxawdexporter_2012_64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">maxawdexporter_2011_64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">maxawdexporter_2011_64</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">maxawdexporter_2013_64</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">maxawdexporter_2014_64</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">maxawdexporter_2015_64</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">.dle</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">maxawd_2012_32</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">maxawd_2013_32</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">maxawd_2013_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">maxawdexporter_2012_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">maxexporter_2011_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">maxexporter_2010_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">maxawdexporter_2013_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">maxawdexporter_2014_32</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">maxawd_2013_32</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">.dle</TargetExt>
@@ -313,6 +473,8 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Debug|x64'">maxawdexporter_2014_64</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">maxawdexporter_2015_64</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">.dle</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">.dll</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2014 Debug|x64'">.dle</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">.dle</TargetExt>
@@ -323,15 +485,23 @@
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Debug|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2014 Debug|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2015 Debug|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\zlib;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\lib\lzma;C:\Users\richardolsson\Projects\AWD\Dev\sdks\cpp-libawd\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)include</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2013 Release|x64'">C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib\x64;C:\Program Files %28x86%29\Autodesk\3ds Max 2013 SDK\maxsdk\x64\lib;$(LibraryPath)</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSdkDir)lib\x64;</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2015 Release|x64'">$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSdkDir)lib\x64;</LibraryPath>
@@ -339,13 +509,24 @@
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2014 Debug|x64'">$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSdkDir)lib\x64;</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSdkDir)lib\x64;</LibraryPath>
     <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='2012 Release|x64'">false</PreBuildEventUseInBuild>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">false</PreBuildEventUseInBuild>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">false</PreBuildEventUseInBuild>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">maxawdexporter_2012_64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">maxawdexporter_2011_64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">maxawdexporter_2010_64</TargetName>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|x64'">$(LibraryPath)</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">$(VCInstallDir)lib\amd64;$(VCInstallDir)atlmfc\lib\amd64;$(WindowsSdkDir)lib\x64;</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2012 Debug|Win32'">$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">false</LinkIncremental>
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">false</PostBuildEventUseInBuild>
     <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='2014 Release|x64'">false</PostBuildEventUseInBuild>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
+    <ExecutablePath Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">$(VCInstallDir)bin\x86_amd64;$(VCInstallDir)bin;$(WindowsSdkDir)bin\NETFX 4.0 Tools;$(WindowsSdkDir)bin;$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(FrameworkSDKDir)\bin;$(FrameworkSDKDir)\lib\win64;$(MSBuildToolsPath32);$(FxCopDir);$(PATH);</ExecutablePath>
+    <ExcludePath Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;$(MSBuildToolsPath);$(MSBuildToolsPath32);$(VCInstallDir)atlmfc\lib\amd64;$(VCInstallDir)lib\amd64;</ExcludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">
     <Midl>
@@ -364,7 +545,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\midl\Win32;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2012)include\igame;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -386,13 +567,134 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MaxSDK2012)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>C:\Program Files\Autodesk\3ds Max 2012\plug-ins\maxawd.dle.pdb</ProgramDatabaseFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+      <BaseAddress>0x16860000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\Release\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">
+    <Midl>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\midl\Win32\maxawd.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\Win32\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\Win32\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2011)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2011)include;$(MaxSDK2011)include\igame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2011)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>
+      </ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+      <BaseAddress>0x16860000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\Release\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">
+    <Midl>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\midl\Win32\maxawd.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\Win32\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\Win32\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2011)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2011)include;$(MaxSDK2011)include\igame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2011)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>
+      </ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -414,7 +716,6 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"$(MaxSDK2012)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -422,7 +723,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\sdks\cpp-libawd\lib\zlib;..\..\sdks\cpp-libawd\lib\lzma;..\..\sdks\cpp-libawd\include;.\midl\Win32;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2013)include\igame;$(MaxSDK2013)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -445,13 +746,14 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MaxSDK2012)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(MaxSDK2013)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>C:\Program Files\Autodesk\3ds Max 2012\plug-ins\maxawd.dle.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -473,7 +775,6 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"$(MaxSDK2012)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -481,7 +782,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\sdks\cpp-libawd\lib\zlib;..\..\sdks\cpp-libawd\lib\lzma;..\..\sdks\cpp-libawd\include;.\midl\Win32;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\x64;$(MaxSDK2014)include\igame;$(MaxSDK2014)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -504,13 +805,14 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MaxSDK2012)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(MaxSDK2014)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>C:\Program Files\Autodesk\3ds Max 2012\plug-ins\maxawd.dle.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -624,6 +926,126 @@
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MaxSDK2012)x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\x64\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+      <BaseAddress>
+      </BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\x64\Release\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2011 Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\midl\x64\maxawd.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\x64\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\x64\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2011)ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST;_7ZIP_ST</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\x64;$(MaxSDK2011)include\igame;$(MaxSDK2011)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/opt:lbr /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2011)x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\x64\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <SetChecksum>true</SetChecksum>
+      <BaseAddress>
+      </BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\x64\Release\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2010 Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\midl\x64\maxawd.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\x64\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\x64\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2011)ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST;_7ZIP_ST</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\x64;$(MaxSDK2011)include\igame;$(MaxSDK2011)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/opt:lbr /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2011)x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
@@ -833,7 +1255,7 @@
       <AdditionalOptions>/LD %40"$(MaxSDK2012)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2012)include\igame;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -854,13 +1276,115 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MaxSDK2012)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>C:\Program Files\Autodesk\3ds Max 2012\plug-ins\maxawd.dle.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>0x16860000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\Debug\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2011 debug|Win32'">
+    <Midl>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\midl\Win32\.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\Win32\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\Win32\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2011)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2011)include;$(MaxSDK2011)include\igame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2011)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>0x16860000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\Debug\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|Win32'">
+    <Midl>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\midl\Win32\.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\Win32\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\Win32\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2010)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2010)include;$(MaxSDK2010)include\igame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2010)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x16860000</BaseAddress>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -879,10 +1403,9 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"$(MaxSDK2012)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\Win32;$(MaxSDK2013)include\igame;$(MaxSDK2013)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -903,13 +1426,14 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MaxSDK2012)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(MaxSDK2013)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>C:\Program Files\Autodesk\3ds Max 2012\plug-ins\maxawd.dle.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x16860000</BaseAddress>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -928,10 +1452,9 @@
       <ProxyFileName>.\midl\Win32\%(Filename)_p.c</ProxyFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/LD %40"$(MaxSDK2012)ProjectSettings\AdditionalCompilerOptions.txt" %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src;..\..\sdks\cpp-libawd\build;.\midl\Win32;$(MaxSDK2012)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\x64;$(MaxSDK2014)include\igame;$(MaxSDK2014)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -952,13 +1475,14 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib; geom.lib; gfx.lib; mesh.lib; maxutil.lib; maxscrpt.lib; paramblk2.lib;;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MaxSDK2012)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(MaxSDK2014)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>C:\Program Files\Autodesk\3ds Max 2012\plug-ins\maxawd.dle.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\maxawd.dle.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <BaseAddress>0x16860000</BaseAddress>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -1066,6 +1590,113 @@
       <ImportLibrary>.\x64\Debug\maxawd.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2011 debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\midl\x64\maxawd.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\x64\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\x64\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/LD %40"$(MaxSDK2011)ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName);%(PreprocessorDefinitions);_7ZIP_ST</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\x64;$(MaxSDK2011)include\igame;$(MaxSDK2011)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2011)x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\x64\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>
+      </BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\x64\Debug\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2010 Debug new|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\midl\x64\maxawd.tlb</TypeLibraryName>
+      <HeaderFileName>.\midl\x64\%(Filename).h</HeaderFileName>
+      <InterfaceIdentifierFileName>.\midl\x64\%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>.\midl\x64\%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;ISOLATION_AWARE_ENABLED=1;MODULE_NAME=$(TargetFileName)</PreprocessorDefinitions>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+      <AdditionalIncludeDirectories>src;$(LIBAWD)cpp-libawd\include;.\midl\x64;$(MaxSDK2010)include;$(MaxSDK2010)include\igame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%40"$(MaxSDK2010)ProjectSettings\AdditionalCompilerOptions64.txt" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_M_AMD64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>.\midl\x64;$(MaxSDK2010)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SuppressStartupBanner>
+      </SuppressStartupBanner>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MaxSDK2010)x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcp.lib;libci.lib;msvcirt.lib;libcmt.lib;libcmtd.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>.\maxawd.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\x64\maxawd.dle.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <BaseAddress>
+      </BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\x64\Debug\maxawd.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Manifest>
+      <OutputManifestFile>$(IntDir)$(TargetName)$(TargetExt).embed.manifest</OutputManifestFile>
+    </Manifest>
+    <Manifest>
+      <EnableDPIAwareness>false</EnableDPIAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='2013 Debug|x64'">
     <Midl>
@@ -1226,6 +1857,7 @@
     <ClInclude Include="src\cache.h" />
     <ClInclude Include="src\maxawdexporter.h" />
     <ClInclude Include="src\maxawdexporteropts.h" />
+    <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\resourceexporter.h" />
     <ClInclude Include="src\utils.h" />
   </ItemGroup>

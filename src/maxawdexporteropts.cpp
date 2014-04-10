@@ -13,6 +13,11 @@ MaxAWDExporterOpts::MaxAWDExporterOpts(void)
     exportAttributes = true;
     attributeNamespace = (char*)malloc(25);
     strcpy(attributeNamespace, "http://example.com/awdns");
+    
+    storageMatrix = 0;
+    storageGeo = 0;
+    storageProps = 0;
+    storageAttr = 0;
 
     exportScene = true;
     exportGeometry = true;
@@ -88,6 +93,18 @@ void MaxAWDExporterOpts::ReadConfigFile(void)
 
         if (ATTREQ(key,"compression")) {
             compression = strtol(val, NULL, 10);
+        }
+        if (ATTREQ(key,"storageMatrix")) {
+            storageMatrix = strtol(val, NULL, 10);
+        }
+        if (ATTREQ(key,"storageGeo")) {
+            storageGeo = strtol(val, NULL, 10);
+        }
+        if (ATTREQ(key,"storageProps")) {
+            storageProps = strtol(val, NULL, 10);
+        }
+        if (ATTREQ(key,"storageAttr")) {
+            storageAttr = strtol(val, NULL, 10);
         }
         else if (ATTREQ(key, "scl")) {
             scale = strtod(val, NULL);
@@ -178,8 +195,11 @@ void MaxAWDExporterOpts::WriteConfigFile(void)
     // Open config file or abort.
     FILE *cfg = OpenConfigFile("wb");
     if (!cfg) return;
-
     fprintf(cfg, "compression=%d\n", compression);
+    fprintf(cfg, "storageMatrix=%d\n", storageMatrix);
+    fprintf(cfg, "storageGeo=%d\n", storageGeo);
+    fprintf(cfg, "storageProps=%d\n", storageProps);
+    fprintf(cfg, "storageAttr=%d\n", storageAttr);
     fprintf(cfg, "scl=%f\n", scale);
     fprintf(cfg, "attributes=%d\n", exportAttributes);
     fprintf(cfg, "namespace=%s\n", attributeNamespace);
@@ -290,7 +310,11 @@ void MaxAWDExporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 
     // Set default (or loaded if cfg file existed) options
     ComboBox_SetCurSel(GetDlgItem(generalOpts, IDC_COMP_COMBO), compression);
-
+    ComboBox_SetCurSel(GetDlgItem(generalOpts, IDC_COMBO_MTX), storageMatrix);
+    ComboBox_SetCurSel(GetDlgItem(generalOpts, IDC_COMBO_GEOM), storageGeo);
+    ComboBox_SetCurSel(GetDlgItem(generalOpts, IDC_COMBO_PROPS), storageProps);
+    ComboBox_SetCurSel(GetDlgItem(generalOpts, IDC_COMBO_ATTR), storageAttr);
+    
     SetCheckBox(generalOpts, IDC_INC_ATTR, exportAttributes);
     
     TCHAR *ans = A2W(attributeNamespace);
@@ -346,6 +370,10 @@ void MaxAWDExporterOpts::SaveOptions(void)
     
     // General options
     compression = ComboBox_GetCurSel(GetDlgItem(generalOpts, IDC_COMP_COMBO));
+    storageMatrix = ComboBox_GetCurSel(GetDlgItem(generalOpts, IDC_COMBO_MTX));
+    storageGeo = ComboBox_GetCurSel(GetDlgItem(generalOpts, IDC_COMBO_GEOM));
+    storageProps = ComboBox_GetCurSel(GetDlgItem(generalOpts, IDC_COMBO_PROPS));
+    storageAttr = ComboBox_GetCurSel(GetDlgItem(generalOpts, IDC_COMBO_ATTR));
     exportAttributes = (IsDlgButtonChecked(generalOpts, IDC_INC_ATTR) == BST_CHECKED);
     
     len = Edit_GetTextLength(GetDlgItem(generalOpts, IDC_ATTRNS_TEXT));
@@ -401,6 +429,14 @@ INT_PTR CALLBACK MaxAWDExporterOpts::GeneralOptsDialogProc(HWND hWnd,UINT messag
         case WM_INITDIALOG:
             ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMP_COMBO), _T("None"));
             ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMP_COMBO), _T("GZIP"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_MTX), _T("FileSize"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_MTX), _T("Precision"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_GEOM), _T("FileSize"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_GEOM), _T("Precision"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_PROPS), _T("FileSize"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_PROPS), _T("Precision"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_ATTR), _T("FileSize"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_ATTR), _T("Precision"));
             // TODO: LZMA is not working
             //ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMP_COMBO), _T("LZMA"));
             spinnerScale = GetISpinner(GetDlgItem(hWnd,IDC_SCALE_SPINNER));
@@ -575,6 +611,22 @@ bool MaxAWDExporterOpts::RedrawViewerOpts(LPARAM lParam)
 int MaxAWDExporterOpts::Compression(void)
 {
     return compression;
+}
+int MaxAWDExporterOpts::StorageMatrix(void)
+{
+    return storageMatrix;
+}
+int MaxAWDExporterOpts::StorageGeometry(void)
+{
+    return storageGeo;
+}
+int MaxAWDExporterOpts::StorageProperties(void)
+{
+    return storageProps;
+}
+int MaxAWDExporterOpts::StorageAttributes(void)
+{
+    return storageAttr;
 }
 
 bool MaxAWDExporterOpts::ExportAttributes(void)

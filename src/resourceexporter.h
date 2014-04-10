@@ -64,6 +64,10 @@
 #define IDC_INC_EXC_EMPTY               1044
 #define IDC_SWF_COLOR                   1045
 #define IDC_BGCOLOR_STATIC              1046
+#define IDC_COMBO_MTX                   1047
+#define IDC_COMBO_GEOM                  1048
+#define IDC_COMBO_PROPS                 1049
+#define IDC_COMBO_ATTR                  1050
 
 
 // Next default values for new objects

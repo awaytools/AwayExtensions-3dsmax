@@ -27,7 +27,52 @@ macroScript AWDCheckForUpdate
 	category:"AWDCommands"
 	toolTip:""
 (
-	messageBox("'CheckForUpdate' function is not in a working state yet.")
+
+	test = internet.CheckConnection url:"http://www.awaytools.com/awayextensions/awayextensions3dsmax/awayextensions3dsmaxversion.xml" force:true
+	if test then (
+		targetFile=(getdir #maxroot) + "\\plugins\\AwayExtensions3dsMax\\3dsmaxversion.xml"
+		dragAndDrop.DownloadUrlToDisk "http://awaytools.com/awayextensions/awayextensions3dsmax/awayextensions3dsmaxversion.xml" targetFile 1
+		if (getfiles targetFile).count != 0 then(
+			xmldoc = dotnetobject "System.XML.XMLDocument"
+			isloaded=xmldoc.load targetFile
+			print isLoaded
+			itemIter = (xmldoc.selectnodes "//AWDMAXVERSION").GetEnumerator()
+			thisVersion = "0.9.6"
+			versionComplete =""
+			while itemIter.MoveNext() do
+			(
+				attrIter = itemIter.Current.Attributes.GetEnumerator()
+				major=itemIter.Current.getAttribute("Major")
+				minor=itemIter.Current.getAttribute("Minor")
+				revision=itemIter.Current.getAttribute("Revision")
+				versionComplete=major+"."+minor+"."+revision
+				message=itemIter.Current.getAttribute("Message")
+			)
+			if versionComplete=="" then (
+				messageBox("Could not read the version-file from the internet.")
+			)
+			else(
+				if versionComplete==thisVersion then (
+					messageBox("Your AwayExtensions3dsmax is up to date.")
+				)
+				else (
+					messageStr="Your AwayExtensions3dsmax is outdated.\n\n"
+					messageStr+="Your version: "+ thisVersion+"\n"
+					messageStr+="Latest version: "+ versionComplete+"\n\n"
+					messageStr+="Release-message: "+ message+"\n"					
+					messageBox(messageStr)
+					shellLaunch "https://github.com/awaytools/AwayExtensions-3dsmax/releases" ""
+				)
+			)
+		)
+		else(
+			messageBox("Error reading the version-file ().")
+		)
+	)
+	else(
+		messageBox("Could not connect to the internet.")
+	)
+		
 )
 macroScript OpenAWDHelperMenu
 	category:"AWDCommands"

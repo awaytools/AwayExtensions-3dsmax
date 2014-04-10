@@ -18,6 +18,11 @@ private:
 	bool exportAttributes;
 	char *attributeNamespace;
 
+	int storageMatrix;
+	int storageGeo;
+	int storageProps;
+	int storageAttr;
+
 	bool exportScene;
 	bool exportEmptyContainers;
 	bool exportPrimitives;
@@ -85,6 +90,11 @@ public:
 	bool ExportAttributes(void);
 	char *AttributeNamespace(void);
 	double Scale();
+
+	int StorageMatrix(void);
+	int StorageGeometry(void);
+	int StorageProperties(void);
+	int StorageAttributes(void);
 	
 	bool ExportEmptyContainers(void);
 	bool ExportPrimitives(void);

@@ -26,11 +26,15 @@ function setup_AWDExtensions_update prct msg=(
 	rl_install.pb_bar.value = prct;--0 - 100
 	rl_install.txt_stats.text = msg as string;--update message
 )
-
+function getBitVersionAsString = (
+	if (is64bitapplication()) then return "64"
+	else return "32"
+	)
 function setup_AWDExtensions_install_manually = (
+	
 	local m =  "It appears that your temporary folder is not accessable\rto extract the files from the MZP file. Or there is no permission\rto copy files to the userDirectories. So if you keep\nseeing this message please install AWDExtensions manually with\rthe following steps:\r"
 	m+="\n\n1.) Rename the AWDExtensions '.mzp' extention to '.zip' and open\rit with Winzip, Winrar or whatever."
-	m+="\n\n2.) Copy the main plugin-file (maxawdexporter_201*_64.dle) into your 3dsmax-plugin-folder."
+	m+="\n\n2.) Copy the main plugin-file (maxawdexporter_201*_"+getBitVersionAsString()+".dle) into your 3dsmax-plugin-folder."
 	m+="\ni.e.: "+"C:\Program Files\Autodesk\3ds Max 2013\plugins\ "
 	m+="\n\n3.) Copy the folder 'AwayExtensions3dsMax' into your 3dsmax-plugin-folder (same target-folder as previous step)."
 	m+="\n\n4.) Copy the content of the folder 'Icons' into your 3dsmax-usericon-folder "
@@ -39,7 +43,7 @@ function setup_AWDExtensions_install_manually = (
 	m+="\ni.e.: "+"C:\Users\80prozent\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\usermacros\ "
 	m+="\n\n6.) Open 3dsmax."
 	m+="\n\n7.) In the Main Menu go to 'Customize' -> 'Customize User Interface'."
-	m+="\n\n8.) In 3dsmax 2012 load the file 'AWDToolBar_2012.CUI', in 3dsmax 2013/2014 load the file 'AWDToolBar_2013_2014.cuix'"
+	m+="\n\n8.) In 3dsmax 2012 load the file 'AWDToolBar_2011_2012.CUI', in 3dsmax 2013/2014 load the file 'AWDToolBar_2013_2014.cuix'"
 	m+="\n\n\nFor more help goto:\nhttp://www.away3d.com/forum"
 	messageBox m title:"Manual Installation Guide" beep:false
 )
@@ -67,7 +71,6 @@ function setup_AWDExtensions_find_MZP_url =(
 			append _matchDates _date;
 			append _mathchUrls f;
 		
-			print("matching folder\t: "+(getFilenamePath f)+" \tcreated: "+_date as string);
 		)
 	)
 	
@@ -76,7 +79,6 @@ function setup_AWDExtensions_find_MZP_url =(
 		local _new = amax _matchDates;--the latest date item
 		local _indx = findItem _matchDates _new;
 		local final_url = _mathchUrls[_indx];
-		print(_indx as string+".\t\tnewest "+final_url);
 		return final_url;
 	)else(
 		return "";
@@ -136,22 +138,28 @@ function setup_AWDExtensions_install =(
 
 	setup_AWDExtensions_update 0 "init install";
 	local final_url = setup_AWDExtensions_find_MZP_url();
-	print final_url
-	print "teste"
 	if (final_url != "")then(
 		setup_AWDExtensions_update 20 "found MZP files";
 		--prepare to copy files from /AwayExtensions3dsMax 
 		local _scriptDir = pathConfig.GetDir #maxroot + "\\plugins\\AwayExtensions3dsMax";
 		local accessFolder = makeDir _scriptDir;
 		if (accessFolder == true)then(
-			print final_url
 			
 
 			local failing = false;
 			
-			if ((maxVersion())[1] / 1000)==14 then(
+			if ((maxVersion())[1] / 1000)==13 then(
+				print (final_url+"maxawdexporter_2011_"+getBitVersionAsString()+".dle")
 				local _scriptDir = pathConfig.GetDir #maxroot + "\\plugins";				
-				local _filesSource = getFiles (final_url+"\\maxawdexporter_2012_64.dle");						
+				local _filesSource = getFiles (final_url+"maxawdexporter_2011_"+getBitVersionAsString()+".dle");
+				print 	(_filesSource as string)		
+				for sf in _filesSource do (--source file
+					local tf = _scriptDir+"\\"+filenameFromPath sf;--target file					
+					local accessFile = deleteFile tf;--try to delete the icons if they can not be replaced below
+					local accessFile = copyFile sf tf;
+				)
+				local _scriptDir = pathConfig.GetDir #ui;				
+				local _filesSource = getFiles (final_url+"\\AWDToolBar_2011_2012.CUI");
 				local _pCnt = 0.0;--percentage count
 				for sf in _filesSource do (--source file
 					_pCnt+=1.0;					
@@ -159,8 +167,17 @@ function setup_AWDExtensions_install =(
 					local accessFile = deleteFile tf;--try to delete the icons if they can not be replaced below
 					local accessFile = copyFile sf tf;
 				)
+			)
+			else if ((maxVersion())[1] / 1000)==14 then(
+				local _scriptDir = pathConfig.GetDir #maxroot + "\\plugins";				
+				local _filesSource = getFiles (final_url+"\\maxawdexporter_2012_"+getBitVersionAsString()+".dle");	
+				for sf in _filesSource do (--source file
+					local tf = _scriptDir+"\\"+filenameFromPath sf;--target file					
+					local accessFile = deleteFile tf;--try to delete the icons if they can not be replaced below
+					local accessFile = copyFile sf tf;
+				)
 				local _scriptDir = pathConfig.GetDir #ui;				
-				local _filesSource = getFiles (final_url+"\\AWDToolBar_2012.CUI");
+				local _filesSource = getFiles (final_url+"\\AWDToolBar_2011_2012.CUI");
 				local _pCnt = 0.0;--percentage count
 				for sf in _filesSource do (--source file
 					_pCnt+=1.0;					
@@ -171,19 +188,15 @@ function setup_AWDExtensions_install =(
 			)
 			else if ((maxVersion())[1] / 1000)==15 then(
 				local _scriptDir = pathConfig.GetDir #maxroot + "\\plugins";				
-				local _filesSource = getFiles (final_url+"\\maxawdexporter_2013_64.dle");
-				local _pCnt = 0.0;--percentage count
+				local _filesSource = getFiles (final_url+"\\maxawdexporter_2013_"+getBitVersionAsString()+".dle");
 				for sf in _filesSource do (--source file
-					_pCnt+=1.0;					
 					local tf = _scriptDir+"\\"+filenameFromPath sf;--target file					
 					local accessFile = deleteFile tf;--try to delete the icons if they can not be replaced below
 					local accessFile = copyFile sf tf;
 				)
 				local _scriptDir = pathConfig.GetDir #ui;				
 				local _filesSource = getFiles (final_url+"\\AWDToolBar_2013_2014.cuix");
-				local _pCnt = 0.0;--percentage count
 				for sf in _filesSource do (--source file
-					_pCnt+=1.0;					
 					local tf = _scriptDir+"\\"+filenameFromPath sf;--target file					
 					local accessFile = deleteFile tf;--try to delete the icons if they can not be replaced below
 					local accessFile = copyFile sf tf;
@@ -191,7 +204,7 @@ function setup_AWDExtensions_install =(
 			)
 			else if ((maxVersion())[1] / 1000)==16 then(
 				local _scriptDir = pathConfig.GetDir #maxroot + "\\plugins"		
-				local _filesSource = getFiles (final_url+"\\maxawdexporter_2014_64.dle")
+				local _filesSource = getFiles (final_url+"\\maxawdexporter_2014_"+getBitVersionAsString()+".dle")
 				local _pCnt = 0.0;--percentage count
 				for sf in _filesSource do (--source file
 					_pCnt+=1.0;					
@@ -210,7 +223,7 @@ function setup_AWDExtensions_install =(
 				)
 			)
 			else (
-				messageBox ("AwayExtensions 3dsmax only supports 3dsmax 2012 / 2013 / 2014")
+				messageBox ("Sorry!\n\nAt this point AwayExtensions-3dsmax only supports 3dsmax 2011 / 2012 / 2013 / 2014")
 			)
 			
 			loadDllsFromDir (pathConfig.GetDir #maxroot + "\\plugins\\") "maxawdexporter*"
@@ -219,7 +232,7 @@ function setup_AWDExtensions_install =(
 			
 			local _scriptDir = pathConfig.GetDir #maxroot + "\\plugins\\AwayExtensions3dsMax";
 			local _filesSource = getFiles (final_url+"\\AwayExtensions3dsmax\\*");
-
+			--print("tis = "+_filesSource[1]);
 			local _pCnt = 0.0;
 			for sf in _filesSource do (
 				_pCnt+=1.0;				
@@ -338,7 +351,6 @@ function setup_AWDExtensions_install =(
 				)
 				
 				if (failing == false)then(
-					--no file access issues so far, now we should be able to launch AWDExtensions
 					
 					setup_AWDExtensions_update 95 "reload 3dsmax toolbar Icons (max9+)";
 					if ((maxVersion())[1] >= 9000 )then(
@@ -499,14 +511,17 @@ function setup_AWDExtensions_uninstall_step2=(
 	if (list[1].count == 0 and list[2].count == 0)then(
 		--go back
 		
-		if ((maxVersion())[1] / 1000)==14 then(
-			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2012_64.dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+		if ((maxVersion())[1] / 1000)==13 then(
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2011_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+		)
+		else if ((maxVersion())[1] / 1000)==14 then(
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2012_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
 		)
 		else if ((maxVersion())[1] / 1000)==15 then(
-			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2013_64.dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2013_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
 		)
 		else if ((maxVersion())[1] / 1000)==16 then(
-			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2014_64.dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2014_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
 		)
 		try (--close if possible
 			DestroyDialog rl_uninstall;
@@ -541,14 +556,17 @@ function setup_AWDExtensions_uninstall_step1=(
 	
 	rl_uninstall.lbx_list.items = list2;
 	if (list2.count == 0)then(
-		if ((maxVersion())[1] / 1000)==14 then(
-			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2012_64.dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+		if ((maxVersion())[1] / 1000)==13 then(
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2011_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+		)
+		else if ((maxVersion())[1] / 1000)==14 then(
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2012_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
 		)
 		else if ((maxVersion())[1] / 1000)==15 then(
-			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2013_64.dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2013_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
 		)
 		else if ((maxVersion())[1] / 1000)==16 then(
-			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2014_64.dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
+			messageBox("Cannot delete the plugin-file '"+#maxroot + "\plugins\maxawdexporter_2014_"+getBitVersionAsString()+".dle', because it is currently loaded.\n Please close 3dsmax and delete the plugin manually.")
 		)
 		rl_uninstall.lbl_message.text = ("No AwayExtensions3dsMax files left on your System:");
 		rl_uninstall.btn_uninstall.caption = "Back";
@@ -637,8 +655,14 @@ rollout rl_install "" width:280 height:100
 
 CreateDialog rl_install 280 100;
 rl_install.title = "AWDExtensions version "+AWDExtensions_version_nr+" Setup";
-if ((maxVersion())[1] <= 8000 )then(--max 8 or older
-	messageBox "3dsmax 8 and older is not supported in most\nof the functions of this project.\n\nYou can however dig in the scripts yourself\nas each function is stored in a seperate scriptfile\nso it should be easy to debug them and perhaps\nmake them compatible yourself ;)\nThe toolbar will most certainly not initialize so\nhave a look at the individual scripts instead" title:"Warning, to old 3dsMax version" beep:false;
-)else if ((maxVersion())[1] <= 9000 )then(--max 9
-	messageBox "For 3dsMax 9 users there is no support for\nmulti object unwrap and a few other tools\nsuch as peel mapping.\nBut most of the things should work for you." title:"3dsMax 9 info"beep:false;
+if ((maxVersion())[1] / 1000)==13 then()
+else if ((maxVersion())[1] / 1000)==14 then()
+else if ((maxVersion())[1] / 1000)==15 then()
+else if ((maxVersion())[1] / 1000)==16 then()
+else (
+	try (--close if possible
+		DestroyDialog rl_install;
+		rl_install
+	) catch();
+	messageBox ("Sorry!\n\nAt this point AwayExtensions-3dsmax only supports 3dsmax 2011 / 2012 / 2013 / 2014")
 )

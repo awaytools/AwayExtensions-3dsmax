@@ -24,7 +24,6 @@
 #endif
    */
 
-
 #include <cs/bipexp.h>
 #include <Windows.h>
 #include <icustattribcontainer.h>
@@ -54,6 +53,7 @@
 #include "IGameFX.h"
 #include "iSkinPose.h"
 #include "maxscript/maxscript.h"
+//#include "maxscrpt/maxscrpt.h"
 
 #define MaxAWDExporter_CLASS_ID	Class_ID(0xa8e047f2, 0x81e112c0)
 
@@ -321,8 +321,19 @@ int MaxAWDExporter::ExecuteExport()
     // create BlockSettings that will be passed to the encode functions.
     // we can have different BlockSettings for AWDBlocks later
     // TODO: Storage-Precision is not implemented yet. for now its allways set to false (FLOAT32)
-    BlockSettings * awdBlockSettings=new BlockSettings(false,false,false,false, opts->Scale());
-    
+    bool precision_mtx=false;
+    if (opts->StorageMatrix()==1)
+        precision_mtx=true;
+    bool precision_geo=false;
+    if (opts->StorageGeometry()==1)
+        precision_geo=true;
+    bool precision_props=false;
+    if (opts->StorageProperties()==1)
+        precision_props=true;
+    bool precision_attr=false;
+    if (opts->StorageAttributes()==1)
+        precision_attr=true;    
+    BlockSettings * awdBlockSettings=new BlockSettings(precision_mtx,precision_geo,precision_props,precision_attr, opts->Scale());
     output_debug_string("-> Start Prepare Export (create AWD-Object and Cache-Objects)");
     // prepare export:
     // create all the different cache-objects and the main AWD-object 
@@ -331,7 +342,7 @@ int MaxAWDExporter::ExecuteExport()
 
     // Get total number of nodes for progress calculation
     INode *root = maxInterface->GetRootNode();
-    numNodesTotal = CalcNumDescendants(root);	
+    numNodesTotal = CalcNumDescendants(root);
     // Die if error occurred.
     DIE_IF_ERROR();
     
@@ -454,10 +465,14 @@ void MaxAWDExporter::PrepareExport(bool splitByRoot, BlockSettings * thisBlockSe
 
     int flags = 0;
     //bit1 = streaming
-    //bit2 = storagePrecision Matrix
-    //bit3 = storagePrecision Geo
-    //bit4 = storagePrecision Props flags |= 0x08;
-    //bit5 = storagePrecision Attributes flags |= 0x10;
+    if (thisBlockSettings->get_wide_matrix())//bit2 = storagePrecision Matrix
+        flags |= 0x02;
+    if (thisBlockSettings->get_wide_geom())//bit3 = storagePrecision Geo
+        flags |= 0x04;
+    if (thisBlockSettings->get_wide_props())//bit4 = storagePrecision Props
+        flags |= 0x08;
+    if (thisBlockSettings->get_wide_attributes())//bit5 = storagePrecision attributes
+        flags |= 0x10;
     if (opts->ExportNormals())//bit6 = storeNormals 
         flags |= 0x20;
     //bit7 = storeTangents //flags |= 0x40;
@@ -764,7 +779,7 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
                         }
                         else{
                             if (awdLight->get_light_type()==AWD_LIGHT_DIR){
-                                awdLight->set_directionVec(mtxData[6], mtxData[7], mtxData[8]);
+                                awdLight->set_directionVec(-1*mtxData[3], -1*mtxData[4], -1*mtxData[5]);
                             }
                             awdLight->set_transform(mtxData);
                             if (parent) {
@@ -1584,7 +1599,7 @@ void MaxAWDExporter::ReadAWDEffectMethods(Modifier *node_mod){
             if(pb!=NULL){
                 int numBlockparams=pb->NumParams();
                 AWD_field_ptr colorMatrix_val;
-                colorMatrix_val.v = malloc(sizeof(awd_float32)*20);
+                colorMatrix_val.v = malloc(sizeof(awd_float64)*20);
                 for (p=0; p<numBlockparams; p++) {
                     ParamID pid = pb->IndextoID(p);
                     ParamDef def = pb->GetParamDef(pid);
@@ -1592,50 +1607,50 @@ void MaxAWDExporter::ReadAWDEffectMethods(Modifier *node_mod){
                     char * paramName_ptr=W2A(def.int_name);
                     if (paramtype==TYPE_FLOAT){
                         if (ATTREQ(paramName_ptr,"colorMatrixVal1"))
-                            colorMatrix_val.f32[0]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[0]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal2"))
-                            colorMatrix_val.f32[1]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[1]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal3"))
-                            colorMatrix_val.f32[2]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[2]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal4"))
-                            colorMatrix_val.f32[3]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[3]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal5"))
-                            colorMatrix_val.f32[4]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[4]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal6"))
-                            colorMatrix_val.f32[5]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[5]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal7"))
-                            colorMatrix_val.f32[6]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[6]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal8"))
-                            colorMatrix_val.f32[7]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[7]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal9"))
-                            colorMatrix_val.f32[8]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[8]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal10"))
-                            colorMatrix_val.f32[9]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[9]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal11"))
-                            colorMatrix_val.f32[10]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[10]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal12"))
-                            colorMatrix_val.f32[11]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[11]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal13"))
-                            colorMatrix_val.f32[12]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[12]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal14"))
-                            colorMatrix_val.f32[13]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[13]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal15"))
-                            colorMatrix_val.f32[14]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[14]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal16"))
-                            colorMatrix_val.f32[15]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[15]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal17"))
-                            colorMatrix_val.f32[16]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[16]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal18"))
-                            colorMatrix_val.f32[17]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[17]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal19"))
-                            colorMatrix_val.f32[18]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[18]=pb->GetFloat(pid);
                         if (ATTREQ(paramName_ptr,"colorMatrixVal20"))
-                            colorMatrix_val.f32[19]=pb->GetFloat(pid);
+                            colorMatrix_val.f64[19]=pb->GetFloat(pid);
                     }
                     free(paramName_ptr);
                 }
                 //TODO: check if the matrix is default...
-                awdFXMethod->get_effect_props()->set(PROPS_NUMBER1, colorMatrix_val, sizeof(awd_float32)*20, AWD_FIELD_FLOAT32);
+                awdFXMethod->get_effect_props()->set(PROPS_NUMBER1, colorMatrix_val, sizeof(awd_float64)*20, AWD_FIELD_FLOAT64);
                                 
             }
             else{
@@ -2280,11 +2295,12 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
                         }
                         free(slotName_ptr);
                     }
-                    if (tex != NULL && tex->ClassID() == GNORMAL_CLASS_ID) {
+                    
+                    if (tex != NULL && tex->ClassID() == Class_ID(0x243e22c6, 0x63f6a014)) { // GNORMAL_CLASS_ID not supüported in 2011
                         char * slotName_ptr=W2A(mtl->GetSubTexmapSlotName(i));
                         if (ATTREQ(slotName_ptr,"Bump")){
                             // we consider all maps found in the bumb_node as normal-maps, without checking the mode of the node. 
-                            IParamBlock2 * pb = tex->GetParamBlockByID(gnormal_params); 
+                            IParamBlock2 * pb = tex->GetParamBlockByID(0); //gnormal_params = 0  not supüported in 2011
                             int p=0;
                             for (p=0; p<pb->NumParams(); p++) {
                                 ParamID pid = pb->IndextoID(p);
@@ -2307,6 +2323,7 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
                         }
                         free(slotName_ptr);
                     }
+                    
                 }
                 if (hasDifftex || hasAmbTex){
                     awdMtl->set_type(AWD_MATTYPE_TEXTURE);
@@ -2364,7 +2381,6 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex, AWDMateri
             }
         }
         /*
-
         TODO:
         IMPLEMENT UV ROTATION
         float angleRadians=uvGen->GetAng(0);
@@ -3482,10 +3498,10 @@ void MaxAWDExporter::ExportUserAttributes(Animatable *obj, AWDAttrElement *elem)
                                 case TYPE_PCNT_FRAC:
                                 case TYPE_WORLD:
                                 case TYPE_FLOAT:
-                                    type = AWD_FIELD_FLOAT32;
-                                    len = sizeof(awd_float32);
+                                    type = AWD_FIELD_FLOAT64;
+                                    len = sizeof(awd_float64);
                                     ptr.v = malloc(len);
-                                    *ptr.f32 = block->GetFloat(pid);
+                                    *ptr.f64 = block->GetFloat(pid);
                                     break;
 
                                 case TYPE_TIMEVALUE:
@@ -3766,19 +3782,12 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
             bool useSecUVs=useUV; // TODO: check if second UVs exists (and are requested)
             bool useNormals=opts->ExportNormals();
 
-            // create a instance of the geomutil
-            
             // ATTENTION: 
             // we have collected all meshintsances that are using this geometry.
             // but some material-settings ( UV / SecondUV / explode) can force us to create multiple geometries...
 
             // the IGAmeMesh gives acces to some handy functions for exporting meshes
             // we still need to use the mesh from the standart api, to have access to the correct UV (?)
-
-            // TODO: optimize by implementing the IGAME more global 
-            // (collect all nodes that we need to have IGameMeshes for, 
-            // and than InitialiseIGame the IGAME with all those nodes, 
-            // instead of InitialiseIGame for each node sepperat)
 
             MeshNormalSpec *specificNormals = NULL;
             if(igame_mesh!=NULL){
@@ -3792,9 +3801,8 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
                 }
                 int numMeshInstances=meshInstanceList->get_num_blocks();
                 if ((meshInstanceList!=NULL)&&(numMeshInstances==0)){
-                    return; 	//ERROR: faceCount of game-mesh is not facecount of api-mesh - should not happen
-                }				
-            
+                    return; //ERROR: faceCount of game-mesh is not facecount of api-mesh - should not happen
+                }
                 // check if the first UVChannel is available for this mesh ( numTVFaces must be equal to numTris)
                 if (useUV) {
                     try{
@@ -3805,7 +3813,7 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
                             if (numTrisMap!=numTris){
                                 useUV=false;
                                 useSecUVs=false;
-                            }							
+                            }
                         }
                         else{
                             useUV=false;
@@ -3828,11 +3836,14 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
                         int numNorms = igame_mesh->GetNumberOfNormals();
                         if (numNorms==0){
                             useNormals=false;
-                        }	
-                    }		
+                        }
+                    }
                 }
                 
-                AWDGeomUtil * geomUtil=new AWDGeomUtil(awdGeom->get_split_faces(), force_split, useUV, useSecUVs, useNormals, 0.0, jpv);
+                AWD_field_type precision_geo=AWD_FIELD_FLOAT32;
+                if (opts->StorageGeometry()==1)
+                    precision_geo=AWD_FIELD_FLOAT64;
+                AWDGeomUtil * geomUtil=new AWDGeomUtil(awdGeom->get_split_faces(), force_split, useUV, useSecUVs, useNormals, 0.0, jpv, precision_geo);
                 // create a list of GUGeom for each Mesh instance. 
                 // before collecting the actual geom-data,
                 // we will reduce the number of GUGeoms to the minimum needed to display all mesh-instances correctly
