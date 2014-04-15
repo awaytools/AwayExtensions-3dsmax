@@ -438,7 +438,7 @@ INT_PTR CALLBACK MaxAWDExporterOpts::GeneralOptsDialogProc(HWND hWnd,UINT messag
             ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_ATTR), _T("FileSize"));
             ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMBO_ATTR), _T("Precision"));
             // TODO: LZMA is not working
-            //ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMP_COMBO), _T("LZMA"));
+            ComboBox_AddItemData(GetDlgItem(hWnd, IDC_COMP_COMBO), _T("LZMA"));
             spinnerScale = GetISpinner(GetDlgItem(hWnd,IDC_SCALE_SPINNER));
             spinnerScale->LinkToEdit(GetDlgItem(hWnd,IDC_SCALE_EDIT),EDITTYPE_FLOAT);
             spinnerScale->SetLimits(0.0001, 100000, FALSE);

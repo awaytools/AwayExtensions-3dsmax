@@ -52,6 +52,7 @@
 #include "msxml2.h"
 #include "decomp.h"
 
+#include "dummy.h"
 #include "IGame.h"
 #include "IGameObject.h"
 #include "IGameProperty.h"
@@ -66,56 +67,56 @@
 
 char *W2A( const TCHAR *s ) {
 #ifdef UNICODE
-	int size = (wcslen(s) + 1) * 2;
-	char *out = (char*)malloc(size);
-	wcstombs(out,s,size);
-	return out;
+    int size = (wcslen(s) + 1) * 2;
+    char *out = (char*)malloc(size);
+    wcstombs(out,s,size);
+    return out;
 #else
-	return strdup(s);
+    return strdup(s);
 #endif
 }
 
 TCHAR *A2W( const char  *s ) {
 #ifdef UNICODE
-	int size = (strlen(s) + 1) * sizeof(TCHAR);	
-	TCHAR *out = (TCHAR*)malloc(size);
-	mbstowcs(out, s, size);
-	return out;
+    int size = (strlen(s) + 1) * sizeof(TCHAR);	
+    TCHAR *out = (TCHAR*)malloc(size);
+    mbstowcs(out, s, size);
+    return out;
 #else
-	return strdup(s);
+    return strdup(s);
 #endif
 }
 
 static unsigned char s_depth=0;
 static void output_debug_string(const char* str)
 {
-	for(unsigned char uc=0;uc<s_depth;uc++)
-	{
-		OutputDebugStringA("    ");
-	}
-	OutputDebugStringA(str);
-	OutputDebugStringA("\r\n");
+    for(unsigned char uc=0;uc<s_depth;uc++)
+    {
+        OutputDebugStringA("    ");
+    }
+    OutputDebugStringA(str);
+    OutputDebugStringA("\r\n");
 }
 
 class MaxAWDImporterClassDesc : public ClassDesc2 
 {
 public:
-	virtual int IsPublic() 							{ return TRUE; }
-	virtual void* Create(BOOL /*loading = FALSE*/) 	{ return new MaxAWDImporter(); }
-	virtual const TCHAR *	ClassName() 			{ return GetString(IDS_CLASS_NAME); }
-	virtual SClass_ID SuperClassID() 				{ return SCENE_IMPORT_CLASS_ID; }
-	virtual Class_ID ClassID() 						{ return MaxAWDImporter_CLASS_ID; }
-	virtual const TCHAR* Category() 				{ return GetString(IDS_CATEGORY); }
+    virtual int IsPublic() 							{ return TRUE; }
+    virtual void* Create(BOOL /*loading = FALSE*/) 	{ return new MaxAWDImporter(); }
+    virtual const TCHAR *	ClassName() 			{ return GetString(IDS_CLASS_NAME); }
+    virtual SClass_ID SuperClassID() 				{ return SCENE_IMPORT_CLASS_ID; }
+    virtual Class_ID ClassID() 						{ return MaxAWDImporter_CLASS_ID; }
+    virtual const TCHAR* Category() 				{ return GetString(IDS_CATEGORY); }
 
-	virtual const TCHAR* InternalName() 			{ return _T("MaxAWDImporter"); }		// returns fixed parsable name (scripter-visible name)
-	virtual HINSTANCE HInstance() 					{ return hInstance; }					// returns owning module handle
-	
+    virtual const TCHAR* InternalName() 			{ return _T("MaxAWDImporter"); }		// returns fixed parsable name (scripter-visible name)
+    virtual HINSTANCE HInstance() 					{ return hInstance; }					// returns owning module handle
+    
 
 };
 
 ClassDesc2* GetMaxAWDImporterDesc() { 
-	static MaxAWDImporterClassDesc MaxAWDImporterDesc;
-	return &MaxAWDImporterDesc; 
+    static MaxAWDImporterClassDesc MaxAWDImporterDesc;
+    return &MaxAWDImporterDesc; 
 }
 
 /**
@@ -126,87 +127,87 @@ ClassDesc2* GetMaxAWDImporterDesc() {
 */
 static DWORD WINAPI ExecuteImportCallback(LPVOID arg)
 {
-	MaxAWDImporter *exporter = (MaxAWDImporter*)arg;
-	return exporter->ExecuteImport();
+    MaxAWDImporter *exporter = (MaxAWDImporter*)arg;
+    return exporter->ExecuteImport();
 }
 
 MaxAWDImporter::MaxAWDImporter()
 {
-	exportAll=TRUE;
-	error = false;
-	awdFullPath = NULL;
+    exportAll=TRUE;
+    error = false;
+    awdFullPath = NULL;
 }
 
 MaxAWDImporter::~MaxAWDImporter() 
 {
-	free(awdFullPath);
+    free(awdFullPath);
 }
 
 int MaxAWDImporter::ExtCount()
 {
-	return 1;
+    return 1;
 }
 
 const TCHAR *MaxAWDImporter::Ext(int n)
 {		
-	return _T("awd");
+    return _T("awd");
 }
 
 const TCHAR *MaxAWDImporter::LongDesc()
 {
-	return _T("Away3D AWD2.1 File");
+    return _T("Away3D AWD2.1 File");
 }
-	
+    
 const TCHAR *MaxAWDImporter::ShortDesc() 
 {
-	return _T("Away3D");
+    return _T("Away3D");
 }
 
 const TCHAR *MaxAWDImporter::AuthorName()
 {			
-	return _T("The Away3D Team");
+    return _T("The Away3D Team");
 }
 
 const TCHAR *MaxAWDImporter::CopyrightMessage() 
 {	
-	return _T("Copyright 2014 The Away3D Team");
+    return _T("Copyright 2014 The Away3D Team");
 }
 
 const TCHAR *MaxAWDImporter::OtherMessage1() 
 {		
-	return _T("");
+    return _T("");
 }
 
 const TCHAR *MaxAWDImporter::OtherMessage2() 
 {		
-	return _T("");
+    return _T("");
 }
 
 unsigned int MaxAWDImporter::Version()
 {				
-	return 102;
+    return 102;
 }
 
 void MaxAWDImporter::ShowAbout(HWND hWnd)
 {			
-	// Optional
+    // Optional
 }
 
 BOOL MaxAWDImporter::SupportsOptions(int ext, DWORD options)
 {
-	return TRUE;
+    return TRUE;
 }
 
 // Handy file class
 
 class WorkFile {
 private:
-	FILE *stream;
+    FILE *stream;
 public:
-					WorkFile(const TCHAR *filename,const TCHAR *mode) { stream = _tfopen(filename,mode); };
-					~WorkFile() { if(stream) fclose(stream); stream = NULL; };
-	FILE *			Stream() { return stream; };
-	};
+                    WorkFile(const TCHAR *filename,const TCHAR *mode) { stream = _tfopen(filename,mode); };
+                    ~WorkFile() { if(stream) fclose(stream); stream = NULL; };
+    FILE *			Stream() { return stream; };
+    };
 
 static FILE *stream = NULL;
 static FILE *dStream = NULL;
@@ -217,371 +218,401 @@ bool MaxAWDImporter::is_bit_set(unsigned value, unsigned bitindex)
 }
 char * read_string(FILE *stream,int maxsize)
 {
-	char * magic = (char *)malloc(sizeof(char)*maxsize+1);
-	if(!(fread(magic,3,1,stream)))
-		return NULL;
-	magic[maxsize] = 0;
-	return magic;	/* Too long */
+    char * magic = (char *)malloc(sizeof(char)*maxsize+1);
+    if(!(fread(magic,maxsize,1,stream)))
+        return NULL;
+    magic[maxsize] = 0;
+    return magic;	/* Too long */
 }
-char * read_varstring(char *string,FILE *stream)
+char * read_varstring(FILE *stream)
 {
-	awd_uint16 stringSize;
-	if(!(fread(&stringSize,2,1,stream)))
-		return 0;
-	else{
-		return read_string(stream, stringSize);
-	 }
-	return NULL;
+    awd_uint16 stringSize;
+    if(!(fread(&stringSize,2,1,stream)))
+        return NULL;
+    else{
+        return read_string(stream, stringSize);
+     }
+    return NULL;
 }
 
 
 int	MaxAWDImporter::DoImport(const TCHAR *path,ImpInterface *i,Interface *gi, BOOL suppressPrompts)
 {
-	showPrompts = suppressPrompts ? FALSE : TRUE;
-	awdFullPath = W2A(path);
-	maxInterface = gi;
-	WorkFile theFile(path,_T("rb"));
-	/*
-	char awdDrive[4];
-	char awdPath[1024];
-	char awdName[256];
-	char outAWDPath[1024];
-	_splitpath_s(awdFullPath, awdDrive, 4, awdPath, 1024, awdName, 256, NULL, 0);
-	_makepath_s(outAWDPath, 1024, awdDrive, awdPath, awdName, "awd");
-	awdFullPath=W2A((const TCHAR*)outAWDPath);*/
-	// Open the dialog (provided that prompts are not suppressed) and
-	// if it returns false, return to cancel the export.
+    this->imp_i=i;
+    showPrompts = suppressPrompts ? FALSE : TRUE;
+    awdFullPath = W2A(path);
+    maxInterface = gi;
+    WorkFile theFile(path,_T("rb"));
 
-	opts = new MaxAWDImporterOpts();
-	if (showPrompts && !opts->ShowDialog()) {
-		delete opts;
-		return IMPEXP_FAIL;
-	}
-	dStream = i->DumpFile();
+    // Open the dialog (provided that prompts are not suppressed) and
+    // if it returns false, return to cancel the export.
 
-	stream = theFile.Stream();
-	if(stream == NULL) {
-		//if(showPrompts)
-			//MessageBox(IDS_TH_ERR_OPENING_FILE, IDS_TH_3DSIMP);
-		return IMPEXP_FAIL;
-		}
-	
-	char * magicString=read_string(stream, 3);
-	if (magicString==NULL)
-		return IMPEXP_FAIL;	
-	if (!ATTREQ(magicString,"AWD"))
-		return IMPEXP_FAIL;	
-	
-	awd_uint8 majorVersion;
-	if(!(fread(&majorVersion,1,1,stream)))
-		return IMPEXP_FAIL;						// Didn't open!
-	awd_uint8 minVersion;
-	if(!(fread(&minVersion,1,1,stream)))
-		return IMPEXP_FAIL;						// Didn't open!
-	awd_uint16 headerflag;
-	if(!(fread(&headerflag,2,1,stream)))
-		return IMPEXP_FAIL;						// Didn't open!
+    opts = new MaxAWDImporterOpts();
+    if (showPrompts && !opts->ShowDialog()) {
+        delete opts;
+        return IMPEXP_FAIL;
+    }
+    dStream = i->DumpFile();
 
-	bool _streaming=is_bit_set(headerflag, 0);
+    stream = theFile.Stream();
+    if(stream == NULL) {
+        //if(showPrompts)
+            //MessageBox(IDS_TH_ERR_OPENING_FILE, IDS_TH_3DSIMP);
+        return IMPEXP_FAIL;
+        }
+    
+    char * magicString=read_string(stream, 3);
+    if (magicString==NULL)
+        return IMPEXP_FAIL;	
+    if (!ATTREQ(magicString,"AWD"))
+        return IMPEXP_FAIL;	
+    
+    awd_uint8 majorVersion;
+    if(!(fread(&majorVersion,1,1,stream)))
+        return IMPEXP_FAIL;						// Didn't open!
+    awd_uint8 minVersion;
+    if(!(fread(&minVersion,1,1,stream)))
+        return IMPEXP_FAIL;						// Didn't open!
+    awd_uint16 headerflag;
+    if(!(fread(&headerflag,2,1,stream)))
+        return IMPEXP_FAIL;						// Didn't open!
 
-	awd_uint8 compression;
-	if(!(fread(&compression,1,1,stream)))
-		return IMPEXP_FAIL;						// Didn't open!
-	awd_uint32 length;
-	if(!(fread(&length,4,1,stream)))
-		return IMPEXP_FAIL;						// Didn't open!
-	bool isAWD_2_1=false;
-	if ((majorVersion==2)&&(minVersion==1)){
-		isAWD_2_1=true;}
+    bool _streaming=is_bit_set(headerflag, 0);
+
+    awd_uint8 compression;
+    if(!(fread(&compression,1,1,stream)))
+        return IMPEXP_FAIL;						// Didn't open!
+    awd_uint32 length;
+    if(!(fread(&length,4,1,stream)))
+        return IMPEXP_FAIL;						// Didn't open!
+    bool isAWD_2_1=false;
+    if ((majorVersion==2)&&(minVersion==1)){
+        isAWD_2_1=true;}
 
     int curPos = ftell(stream);
     fseek(stream,0,SEEK_END);
     int size = ftell(stream);
     fseek(stream, curPos, SEEK_SET);
     int curPos2 = ftell(stream);
-	if (length!=size){
-		// file is corrupt, but we still can try to read it
-	}
-	cache=new ImporterBlockCache();
-	if (compression==0){
-		// if no compression, we can directly read the blocks
-		while (curPos<size){
-			read_new_block(stream, isAWD_2_1);
-			curPos = ftell(stream);
-		}
-	}
-	else if (compression==1){
-		/*
-		//TODO: implement uncompress zlip
-		FILE * pFile;
-		pFile = tmpfile ();
-		uLong ucompSize = size-11; // "Hello, world!" + NULL delimiter.
-		uLong compSize = compressBound(ucompSize);
-		//uncompress((Bytef *)pFile, &ucompSize, (Bytef *)pFile, compSize);
-		fseek(pFile,0,SEEK_END);
-		int size2 = ftell(pFile);
-		fseek(pFile, 0, SEEK_SET);
-		int curPos2 = ftell(stream);
-		//inf(stream, pFile);
-		while (curPos2<size2){
-			read_new_block(stream, isAWD_2_1);
-			curPos2 = ftell(stream);
-		}
-		*/
+    if (length!=size){
+        // file is corrupt, but we still can try to read it
+    }
+    cache=new ImporterBlockCache();
+    if (compression==0){
+        // if no compression, we can directly read the blocks
+        while (curPos<size){
+            read_new_block(stream, isAWD_2_1);
+            curPos = ftell(stream);
+        }
+    }
+    else if (compression==1){
+        /*
+        //TODO: implement uncompress zlip
+        FILE * pFile;
+        pFile = tmpfile ();
+        uLong ucompSize = size-11; // "Hello, world!" + NULL delimiter.
+        uLong compSize = compressBound(ucompSize);
+        //uncompress((Bytef *)pFile, &ucompSize, (Bytef *)pFile, compSize);
+        fseek(pFile,0,SEEK_END);
+        int size2 = ftell(pFile);
+        fseek(pFile, 0, SEEK_SET);
+        int curPos2 = ftell(stream);
+        //inf(stream, pFile);
+        while (curPos2<size2){
+            read_new_block(stream, isAWD_2_1);
+            curPos2 = ftell(stream);
+        }
+        */
 
-		return IMPEXP_FAIL;						// Didn't open!
-	}
-	else if (compression==2){
-		//TODO: implement uncompress zlip
-		return IMPEXP_FAIL;						// Didn't open!
-	}
-	else{
-		//unknown compression type
-		return IMPEXP_FAIL;						// Didn't open!
-	}
+        return IMPEXP_FAIL;						// Didn't open!
+    }
+    else if (compression==2){
+        //TODO: implement uncompress zlip
+        return IMPEXP_FAIL;						// Didn't open!
+    }
+    else{
+        //unknown compression type
+        return IMPEXP_FAIL;						// Didn't open!
+    }
 
 
     fclose(stream);
-	//if (options==SCENE_EXPORT_SELECTED){
-	//	exportAll=FALSE;
-	//}
-	// Execute export while showing a progress bar. Send this as argument
-	// to the execute callback, which will invoke MaxAWDImporter::ExecuteImport();
-	//maxInterface->ProgressStart(TEXT("Importing AWD file"), TRUE, ExecuteImportCallback, this);
+    //if (options==SCENE_EXPORT_SELECTED){
+    //	exportAll=FALSE;
+    //}
+    // Execute export while showing a progress bar. Send this as argument
+    // to the execute callback, which will invoke MaxAWDImporter::ExecuteImport();
+    //maxInterface->ProgressStart(TEXT("Importing AWD file"), TRUE, ExecuteImportCallback, this);
 
-	// Export worked
-	return IMPEXP_SUCCESS;
+    // Export worked
+    return IMPEXP_SUCCESS;
 }
 
 int MaxAWDImporter::ExecuteImport()
 {
-	return TRUE;
+    return TRUE;
 }
 
 void MaxAWDImporter::DieWithError(void)
 {
-	error = true;
+    error = true;
 }
 
 void MaxAWDImporter::DieWithErrorMessage(char *message, char *caption)
 {
-	if (!showPrompts) {
-		Interface *i = GetCOREInterface();
-		MessageBoxA(i->GetMAXHWnd(), message, caption, MB_OK);
-	}
+    if (!showPrompts) {
+        Interface *i = GetCOREInterface();
+        MessageBoxA(i->GetMAXHWnd(), message, caption, MB_OK);
+    }
 
-	DieWithError();
+    DieWithError();
 }
 
 void MaxAWDImporter::UpdateProgressBar(int phase, double phaseProgress)
 {
-	int phaseStart;
-	int phaseFinish;
-	TCHAR *title;
+    int phaseStart;
+    int phaseFinish;
+    TCHAR *title;
 
-	switch (phase) {
-		case MAXAWD_PHASE_PREPROCESS_SCENEGRAPH:
-			phaseStart = 0;
-			phaseFinish = 20;
-			title = TEXT("PreProcess SceneGraph");
-			break;
-		case MAXAWD_PHASE_EXPORT_SCENEGRAPH:
-			phaseStart = 20;
-			phaseFinish = 40;
-			title = TEXT("Export SceneGraph");
-			break;
-		case MAXAWD_PHASE_PROCESS_GEOMETRY:
-			phaseStart = 40;
-			phaseFinish = 60;
-			title = TEXT("Convert Geometry");
-			break;
-		case MAXAWD_PHASE_PROCESS_ANIMATIONS:
-			phaseStart = 60;
-			phaseFinish = 80;
-			title = TEXT("Process Animations");
-			break;
-		case MAXAWD_PHASE_FLUSH:
-			phaseStart = 80;
-			phaseFinish = 100;
-			title = TEXT("Writing file");
-			break;
-	}
+    switch (phase) {
+        case MAXAWD_PHASE_PREPROCESS_SCENEGRAPH:
+            phaseStart = 0;
+            phaseFinish = 20;
+            title = TEXT("PreProcess SceneGraph");
+            break;
+        case MAXAWD_PHASE_EXPORT_SCENEGRAPH:
+            phaseStart = 20;
+            phaseFinish = 40;
+            title = TEXT("Export SceneGraph");
+            break;
+        case MAXAWD_PHASE_PROCESS_GEOMETRY:
+            phaseStart = 40;
+            phaseFinish = 60;
+            title = TEXT("Convert Geometry");
+            break;
+        case MAXAWD_PHASE_PROCESS_ANIMATIONS:
+            phaseStart = 60;
+            phaseFinish = 80;
+            title = TEXT("Process Animations");
+            break;
+        case MAXAWD_PHASE_FLUSH:
+            phaseStart = 80;
+            phaseFinish = 100;
+            title = TEXT("Writing file");
+            break;
+    }
 
-	int phaseLen = phaseFinish - phaseStart;
-	int progress = phaseStart + floor(phaseProgress*phaseLen + 0.5);
-	maxInterface->ProgressUpdate(progress, FALSE, title);
+    int phaseLen = phaseFinish - phaseStart;
+    int progress = phaseStart + floor(phaseProgress*phaseLen + 0.5);
+    maxInterface->ProgressUpdate(progress, FALSE, title);
 }
 
 ImportedAWDBlock * MaxAWDImporter::read_new_block(FILE * fd, bool isAWD2_1)
 {
-	awd_uint32 blockID;
-	if(!(fread(&blockID,4,1,fd)))
-		return NULL;						// No data!
-	awd_uint8 nameSpaceID;
-	if(!(fread(&nameSpaceID,1,1,fd)))
-		return NULL;						// No data!
+    awd_uint32 blockID;
+    if(!(fread(&blockID,4,1,fd)))
+        return NULL;// No data!
+    awd_uint8 nameSpaceID;
+    if(!(fread(&nameSpaceID,1,1,fd)))
+        return NULL;// No data!
 
-	awd_uint8 blockType;
-	if(!(fread(&blockType,1,1,fd)))
-		return NULL;	
+    awd_uint8 blockType;
+    if(!(fread(&blockType,1,1,fd)))
+        return NULL;	
 
-	awd_uint8 blockFlags;
-	if(!(fread(&blockFlags,1,1,fd)))
-		return NULL;						// No data!					
-	
-	bool accuracyMatrix=is_bit_set(blockFlags, 1);
-	bool accuracyGeo=is_bit_set(blockFlags, 2);
-	bool accuracyProps=is_bit_set(blockFlags, 4);
-	bool blockCompression=is_bit_set(blockFlags, 8); // not used yet
-	bool blockCompressionLZMA=is_bit_set(blockFlags, 16); // not used yet
-	
-	awd_uint32 blockLength;
-	if(!(fread(&blockLength,4,1,fd)))
-		return NULL;						// No data!
-	
+    awd_uint8 blockFlags;
+    if(!(fread(&blockFlags,1,1,fd)))
+        return NULL;// No data!
+    
+    bool accuracyMatrix=is_bit_set(blockFlags, 1);
+    bool accuracyGeo=is_bit_set(blockFlags, 2);
+    bool accuracyProps=is_bit_set(blockFlags, 4);
+    bool blockCompression=is_bit_set(blockFlags, 8); // not used yet
+    bool blockCompressionLZMA=is_bit_set(blockFlags, 16); // not used yet
+    
+    awd_uint32 blockLength;
+    if(!(fread(&blockLength,4,1,fd)))
+        return NULL;// No data!
+    
     int calculatedBlockEndPos = ftell(fd)+blockLength;
-	Animatable * maxObject=NULL;
-	ImportedAWDBlock* newAWDBlock = new ImportedAWDBlock((AWD_block_type)blockType, (awd_baddr)cache->get_num_items());
-	if (blockType==TRI_GEOM)
-		maxObject=(Animatable *)readTriGeomBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==CONTAINER)
-		maxObject=(Animatable *)readContainerBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==MESH_INSTANCE)
-		maxObject=(Animatable *)readMeshInstanceBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==SIMPLE_MATERIAL)
-		maxObject=(Animatable *)readMaterialBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==BITMAP_TEXTURE)
-		maxObject=(Animatable *)readTextureBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==SKELETON)
-		maxObject=(Animatable *)readSkeletonBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==SKELETON_POSE)
-		maxObject=(Animatable *)readSkeletonPoseBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	else if (blockType==SKELETON_ANIM)
-		maxObject=(Animatable *)readSkeletonAnimBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-	
-	if (isAWD2_1){
-		if (blockType==PRIM_GEOM)
-			maxObject=(Animatable *)readPrimGeomBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==SKYBOX)
-			maxObject=(Animatable *)readSkyBoxBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==LIGHT)
-			maxObject=(Animatable *)readLightBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==CAMERA)
-			readCameraBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==LIGHTPICKER)
-			maxObject=(Animatable *)readLightPickerBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==CUBE_TEXTURE)
-			maxObject=(Animatable *)readCubeTextureBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==CUBE_TEXTURE_ATF)
-			maxObject=(Animatable *)readCubeTextureATFBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==EFFECT_METHOD)
-			maxObject=(Animatable *)readEffectMethodBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==SHADOW_METHOD)
-			maxObject=(Animatable *)readShadowtMethodBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==VERTEX_POSE)
-			maxObject=(Animatable *)readVertexPoseBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==VERTEX_ANIM)
-			maxObject=(Animatable *)readVertexAnimBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==ANIMATION_SET)
-			maxObject=(Animatable *)readAnimationSetBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==ANIMATOR)
-			maxObject=(Animatable *)readAnimatorBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==UV_ANIM)
-			maxObject=(Animatable *)readUVAnimationBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==COMMAND)
-			maxObject=(Animatable *)readCommandBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==NAMESPACE)
-			maxObject=(Animatable *)readNameSpaceBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);
-		else if (blockType==METADATA)
-			maxObject=(Animatable *)readMetadataBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps);		
-		else{
-		}
-	}
-	
-	cache->Set(newAWDBlock, maxObject);
+    Animatable * maxObject=NULL;
+    ImportedAWDBlock* newAWDBlock = new ImportedAWDBlock((AWD_block_type)blockType, (awd_baddr)cache->get_num_items());
+    if (blockType==TRI_GEOM)
+        maxObject=(Animatable *)readTriGeomBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==CONTAINER)
+        maxObject=(Animatable *)readContainerBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==MESH_INSTANCE)
+        maxObject=(Animatable *)readMeshInstanceBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==SIMPLE_MATERIAL)
+        maxObject=(Animatable *)readMaterialBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==BITMAP_TEXTURE)
+        maxObject=(Animatable *)readTextureBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==SKELETON)
+        maxObject=(Animatable *)readSkeletonBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==SKELETON_POSE)
+        maxObject=(Animatable *)readSkeletonPoseBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    else if (blockType==SKELETON_ANIM)
+        maxObject=(Animatable *)readSkeletonAnimBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+    
+    if (isAWD2_1){
+        if (blockType==PRIM_GEOM)
+            maxObject=(Animatable *)readPrimGeomBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==SKYBOX)
+            maxObject=(Animatable *)readSkyBoxBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==LIGHT)
+            maxObject=(Animatable *)readLightBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==CAMERA)
+            readCameraBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==LIGHTPICKER)
+            maxObject=(Animatable *)readLightPickerBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==CUBE_TEXTURE)
+            maxObject=(Animatable *)readCubeTextureBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==CUBE_TEXTURE_ATF)
+            maxObject=(Animatable *)readCubeTextureATFBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==EFFECT_METHOD)
+            maxObject=(Animatable *)readEffectMethodBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==SHADOW_METHOD)
+            maxObject=(Animatable *)readShadowtMethodBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==VERTEX_POSE)
+            maxObject=(Animatable *)readVertexPoseBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==VERTEX_ANIM)
+            maxObject=(Animatable *)readVertexAnimBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==ANIMATION_SET)
+            maxObject=(Animatable *)readAnimationSetBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==ANIMATOR)
+            maxObject=(Animatable *)readAnimatorBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==UV_ANIM)
+            maxObject=(Animatable *)readUVAnimationBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==COMMAND)
+            maxObject=(Animatable *)readCommandBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==NAMESPACE)
+            maxObject=(Animatable *)readNameSpaceBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else if (blockType==METADATA)
+            maxObject=(Animatable *)readMetadataBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
+        else{
+        }
+    }
+    
+    cache->Set(newAWDBlock, maxObject);
     int endBlockPos = ftell(fd);
-	if (calculatedBlockEndPos!=endBlockPos)
-		fseek(fd, calculatedBlockEndPos, SEEK_SET);
-	return NULL;
+    if (calculatedBlockEndPos!=endBlockPos)
+        fseek(fd, calculatedBlockEndPos, SEEK_SET);
+    return NULL;
 }
 
-void MaxAWDImporter::read_sceneblock_common(ImportedAWDBlock * thisBlock, Animatable * maxObject,  bool mtx_prec ){
+SceneBlock_struct MaxAWDImporter::read_sceneblock_common(bool mtx_prec , FILE * fd){
+    SceneBlock_struct returnStruct;
+    awd_baddr parentID;
+    returnStruct.parent=NULL;
+    returnStruct.mtx=NULL;
+    returnStruct.name=NULL;
+    if(!(fread(&parentID,4,1,fd)))
+        return returnStruct;// No data!
+    // todo: get parent from cache
+    if(mtx_prec){
+        awd_float64 * thisMtx=(awd_float64*)malloc(sizeof(awd_float64)*12);
+        if(!(fread(thisMtx,8,12,fd)))
+            return returnStruct;// No data!
+        returnStruct.mtx=thisMtx;
+    }
+    else{
+        awd_float32 * thisMtx=(awd_float32*)malloc(sizeof(awd_float32)*12);
+        if(!(fread(thisMtx,4,12,fd)))
+            return returnStruct;// No data!
+        //returnStruct.mtx=thisMtx;
+    }
+    returnStruct.name=read_varstring(fd);
+    return returnStruct;
 }
-void * MaxAWDImporter::readTriGeomBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readTriGeomBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readContainerBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	
-	return NULL;
+void * MaxAWDImporter::readContainerBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    SceneBlock_struct headerData=read_sceneblock_common(mtx_prec, fd);
+    ImpNode *node = this->imp_i->CreateNode();
+    if(!node) {
+        return NULL;
+        }
+    DummyObject * dummy = new DummyObject();
+    dummy->SetBox(Box3(
+        -Point3(0.5f,0.5f,0.5f),
+         Point3(0.5f,0.5f,0.5f)));
+    node->Reference(dummy);
+    Matrix3 tm;
+    tm.IdentityMatrix();// Reset initial matrix to identity
+    node->SetTransform(0,tm);
+    this->imp_i->AddNodeToScene(node);
+	node->SetName(A2W(headerData.name));
+    return node;
 }
-void * MaxAWDImporter::readMeshInstanceBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readMeshInstanceBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readMaterialBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readMaterialBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readTextureBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readTextureBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readSkeletonBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readSkeletonBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readSkeletonPoseBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readSkeletonPoseBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readSkeletonAnimBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readSkeletonAnimBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readPrimGeomBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readPrimGeomBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readSkyBoxBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readSkyBoxBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readCameraBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readCameraBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readLightBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readLightBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readLightPickerBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readLightPickerBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readCubeTextureBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readCubeTextureBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readCubeTextureATFBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readCubeTextureATFBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readEffectMethodBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readEffectMethodBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readShadowtMethodBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readShadowtMethodBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readVertexPoseBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readVertexPoseBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readVertexAnimBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readVertexAnimBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readAnimationSetBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readAnimationSetBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readAnimatorBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readAnimatorBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readUVAnimationBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readUVAnimationBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readCommandBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readCommandBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readNameSpaceBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readNameSpaceBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
-void * MaxAWDImporter::readMetadataBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec ){
-	return NULL;
+void * MaxAWDImporter::readMetadataBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    return NULL;
 }
 /*
 TriObject * MaxAWDImporter::createTriangleMesh(const std::vector<Point3> &points,

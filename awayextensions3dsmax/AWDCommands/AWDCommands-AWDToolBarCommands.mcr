@@ -37,7 +37,7 @@ macroScript AWDCheckForUpdate
 			isloaded=xmldoc.load targetFile
 			print isLoaded
 			itemIter = (xmldoc.selectnodes "//AWDMAXVERSION").GetEnumerator()
-			thisVersion = "0.9.6"
+			thisVersion = "0.9.7"
 			versionComplete =""
 			while itemIter.MoveNext() do
 			(

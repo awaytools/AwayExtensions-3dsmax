@@ -360,7 +360,7 @@ int MaxAWDExporter::ExecuteExport()
     // - create a cache for all included light-objects.
     //		the scenegraph-information for lights (matrix + parent) will be added later when parsing the scenegraph.
     //		By preparing this cache, we can calculate the lightpicker for objects, while exporting the scenegraph later.
-    PreProcessSceneGraph(root, false);
+    PreProcessSceneGraph(root, false, awdBlockSettings);
     output_debug_string("-> End Preprocess Scenegraph (Step1)\n");
     output_debug_string("-> Total Scene-Objects:");
     char numNodesTotal_buf [10];
@@ -375,7 +375,7 @@ int MaxAWDExporter::ExecuteExport()
     // Traverse node tree again for scene objects
     // (including their geometry, materials, etc)
     numNodesTraversed = 0;
-    ProcessSceneGraph(root, NULL);
+    ProcessSceneGraph(root, NULL, awdBlockSettings);
     output_debug_string("-> End Process Scenegraph (Step2)\n");
     DIE_IF_ERROR();
     
@@ -515,7 +515,7 @@ void MaxAWDExporter::CleanUp()
     delete vetexAnimNeutralPosecache;
 }
 
-void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded)
+void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, BlockSettings* blockSettings)
 {	
     Object *obj;
     obj = node->GetObjectRef();
@@ -628,13 +628,42 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded)
                         LightState ls;
                         lt->EvalLightState(0, valid, &ls);
                         ExclList * excludeList=lt->GetExclList();
-                        bool includeObjs=lt->Include();					
+                        bool includeObjs=lt->Include();
                         double diffuse=lt->GetIntensity(0);
                         Point3 color = lt->GetRGBColor(0);
                         awd_color awdColor = createARGB(255, color.x*255, color.y*255, color.z*255);
 
+                        double diffuseStrength=diffuse;
+                        bool affectDiffuse=gl->GetAffectDiffuse();
+                        if(!affectDiffuse)
+                            diffuseStrength=0.0;
+                        double specStrength=diffuse;
+                        bool affectSpec=gl->GetAffectSpecular();
+                        if(!affectSpec)
+                            specStrength=0.0;
+                        double ambientStrength=0.0;
+                        bool ambientOnly=gl->GetAmbientOnly();
+                        if(ambientOnly){
+                            specStrength=0.0;
+                            diffuseStrength=0.0;
+                            ambientStrength=diffuse;
+                        }
+                        if (light_type==AWD_LIGHT_POINT){
+                            bool hasAtten=gl->GetUseAtten();
+                            double radius=DBL_MAX;
+                            double falloff=DBL_MAX;
+                            if(hasAtten){
+                                radius=gl->GetAtten(0, ATTEN_START)*blockSettings->get_scale();
+                                falloff=gl->GetAtten(0, ATTEN_END)*blockSettings->get_scale();
+                            }
+                            awdLight->set_radius(radius);
+                            awdLight->set_falloff(falloff);
+                        }
                         awdLight->set_color(awdColor);
-                        awdLight->set_diffuse(diffuse);
+                        awdLight->set_ambientColor(awdColor);
+                        awdLight->set_diffuse(diffuseStrength);
+                        awdLight->set_specular(specStrength);
+                        awdLight->set_ambient(ambientStrength);
                         lightCache->Set(node,awdLight,excludeList, includeObjs);
                     }
                 }
@@ -692,14 +721,14 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded)
     UpdateProgressBar(MAXAWD_PHASE_PREPROCESS_SCENEGRAPH, (double)numNodesTraversed/(double)numNodesTotal);
     for (i=0; i<numChildren; i++) {
         s_depth++;
-        PreProcessSceneGraph(node->GetChildNode(i), excludeChild);
+        PreProcessSceneGraph(node->GetChildNode(i), excludeChild, blockSettings);
         s_depth--;
         RETURN_IF_ERROR;
     }
     
 }
 
-void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
+void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, BlockSettings* blockSettings)
 {
     Object *obj;
     bool goDeeper;
@@ -728,6 +757,7 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
                     if ((opts->ExportScene())&&(opts->ExportCameras())){
                         output_debug_string("   -->Object will be exported as a Camera");
                         // hack: switch and negate axis of matrix because otherwise the camera looks up instead of front
+                        
                         awd_float64 store1 = mtxData[6];
                         awd_float64 store2 = mtxData[7];
                         awd_float64 store3 = mtxData[8];
@@ -737,15 +767,27 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
                         mtxData[3]=store1;
                         mtxData[4]=store2;
                         mtxData[5]=store3;
+                        
 
                         CameraObject *camObject= (CameraObject *)obj;
-
                         double fov=camObject->GetFOV(0);
-                        //TODO: export camera properties
-                        // check camera lens type and export
+                        bool isOrtho=camObject->IsOrtho();
+                        double clipNear=camObject->GetClipDist(0,CAM_HITHER_CLIP);
+                        double clipFar=camObject->GetClipDist(0,CAM_YON_CLIP);
+
                         char * camName_ptr=W2A(node->GetName());
-                        AWDCamera * awdCamera = new AWDCamera(camName_ptr, strlen(camName_ptr), AWD_LENS_PERSPECTIVE, mtxData);
+                        AWD_lens_type camType=AWD_LENS_PERSPECTIVE;
+                        if (isOrtho)
+                            camType=AWD_LENS_ORTHO;
+                        AWDCamera * awdCamera = new AWDCamera(camName_ptr, strlen(camName_ptr), camType, mtxData);
                         free(camName_ptr);
+                        if(!isOrtho)
+                            awdCamera->set_lens_fov(fov * double(double(180)/(double(3.141592653589793))));
+                        
+                        awdCamera->set_lens_near(clipNear * blockSettings->get_scale());
+                        awdCamera->set_lens_far(clipFar * blockSettings->get_scale());
+                        awdCamera->set_lens_proj_height(fov * double(double(180)/(double(3.141592653589793)))*10);
+
                         if (parent) {
                             parent->add_child(awdCamera);
                         }
@@ -793,12 +835,12 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
                     }
                     isExported=true;
                 }
-                else if (sid==GEOMOBJECT_CLASS_ID){	
-                    AWDAnimator * animatorBlock=NULL;					
+                else if (sid==GEOMOBJECT_CLASS_ID){
+                    AWDAnimator * animatorBlock=NULL;
                     BaseObject* node_bo = node->GetObjectRef();
                     // if the node has modifier applied, it might give back the wrong class_id, so get the correct obj:
                     if(node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) {
-                        IDerivedObject* node_der = (IDerivedObject*)(node_bo);								
+                        IDerivedObject* node_der = (IDerivedObject*)(node_bo);
                         node_bo = node_der->GetObjRef();
                         // get the first AWD-Animator-Modifier thats applied to this mesh (if this is no mehs, the animator will not be considered later)
                         animatorBlock=GetAWDAnimatorForObject(node);
@@ -849,8 +891,8 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
                                     // if the mesh has a AWD-animator-modifier applied, we do not consider exporing it as primitive
                                     // if it has no AWD-animator-modifier applied, we check for AWD-AnimSources, that are set to auto-create AWDAnimators
                                         
-                                    AWDTriGeom *awdGeom=NULL;	
-                                    AWDPrimitive *awdPrimGeom=NULL;						
+                                    AWDTriGeom *awdGeom=NULL;
+                                    AWDPrimitive *awdPrimGeom=NULL;
                                     // check if a Vertex-AnimSource-Modifier is applied to mesh (with settings: simpleMode=true)
                                     // if one is found, we create a AWDAnimator and Animationset for this.
                                     if (animatorBlock==NULL){
@@ -956,7 +998,7 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
                                                 if (animatorBlock!=NULL)
                                                     animatorBlock->add_target(awdMesh);
                                             }
-                                        }										
+                                        }
                                         free(meshName_ptr);
                                         if (awdMesh!=NULL){
                                             output_debug_string("      -->Read Custom Attributes of the object");
@@ -1015,7 +1057,7 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent)
 
         for (i=0; i<numChildren; i++) {
             s_depth++;
-            ProcessSceneGraph(node->GetChildNode(i), awdParent);
+            ProcessSceneGraph(node->GetChildNode(i), awdParent, blockSettings);
             s_depth--;
             RETURN_IF_ERROR;
         }
@@ -2211,6 +2253,9 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
             bool hasAmbTex=false;
             bool hasSpecTex=false;
             bool hasNormalTex=false;
+            double specularLevel=1.0;
+            double glossLevel=50;
+            double ambientLevel=1.0;
             AWDBitmapTexture *awdNormalTex=NULL;
             AWDBitmapTexture *awdDiffTex=NULL;
             AWDBitmapTexture *awdAmbTex=NULL;
@@ -2225,7 +2270,9 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
                     MSTR className;
                     thisShader->GetClassName(className);
                     char * thisShader_ptr=W2A(className);
-                    if (ATTREQ(thisShader_ptr,"Blinn")){
+                    specularLevel=double(double(thisShader->GetSpecularLevel(0)));
+                    glossLevel=thisShader->GetGlossiness(0)*1000;
+                    if (ATTREQ(thisShader_ptr,"Blinn")){//ambientLevel=1.0;
                         // standart material blinn
                     }
                     else if (ATTREQ(thisShader_ptr,"Anisotropic")){
@@ -2334,7 +2381,7 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
                 }
                 else{
                     awdMtl->set_type(AWD_MATTYPE_COLOR);
-                }	
+                }
             }
             else{
                 awdMtl->set_type(AWD_MATTYPE_COLOR);
@@ -2344,11 +2391,14 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
             awdMtl->set_ambientColor(convertColor(mtl->GetAmbient(0).toRGB()));
             awdMtl->set_specularColor(convertColor(mtl->GetSpecular(0).toRGB()));
             awdMtl->set_both_sides(mtl->GetTwoSided());
-
+            
+            awdMtl->set_ambientStrength(ambientLevel);
+            awdMtl->set_specularStrength(specularLevel);
+            awdMtl->set_glossStrength(glossLevel);
             // this can optionally overwrite previous defined material-settings
             GetCustomAWDMaterialSettings(mtl, awdMtl);
             if (hasSpecTex){
-                awdMtl->set_specTexture(awdSpecTex);}		
+                awdMtl->set_specTexture(awdSpecTex);}
             if (hasNormalTex){
                 awdMtl->set_normalTexture(awdNormalTex);}
             awd->add_material(awdMtl);
@@ -3101,18 +3151,18 @@ void MaxAWDExporter::GetCustomAWDMaterialSettings(StdMat *mtl, AWDMaterial * awd
                         else if(blendMode==2)awdMat->set_blendMode(8);//Layer
                         else if(blendMode==3)awdMat->set_blendMode(10);//Multiply
                         else if(blendMode==4)awdMat->set_blendMode(1);//ADD
-                        else if(blendMode==5)awdMat->set_blendMode(2);//Alpha						
+                        else if(blendMode==5)awdMat->set_blendMode(2);//Alpha
                     }
                     if(MainUVenabled)
                         awdMat->set_mappingChannel(mainUVChannel);
                     if(SecUVenabled)
-                        awdMat->set_secondMappingChannel(secUVChannel);	
+                        awdMat->set_secondMappingChannel(secUVChannel);
                     if(AmbientLevelenabled)
-                        awdMat->set_ambientStrength(ambientLevel);	
+                        awdMat->set_ambientStrength(ambientLevel);
                     if(SpecularLevelenabled)
-                        awdMat->set_specularStrength(specularLevel);	
+                        awdMat->set_specularStrength(specularLevel);
                     if(GlossLevelenabled)
-                        awdMat->set_glossStrength(glossLevel);	
+                        awdMat->set_glossStrength(glossLevel);
                 }
                 free(localName_ptr);
             }

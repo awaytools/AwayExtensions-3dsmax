@@ -51,13 +51,19 @@ char *W2A( const TCHAR *s );
 TCHAR *A2W( const char *s );
 
 
+typedef struct SceneBlock_struct {
+	char * name;
+	Object * parent;
+	awd_float64 * mtx;
+	struct SceneBlock_struct *next;
+} SceneBlock_struct;
 
 class MaxAWDImporter : public SceneImport {
 	private:
 		Interface *maxInterface;
 		char *awdFullPath;
 		bool showPrompts;
-
+        ImpInterface * imp_i;
 		int fd;
 		AWD *awd;
 		AWDNamespace *ns;
@@ -100,32 +106,32 @@ class MaxAWDImporter : public SceneImport {
 		MaxAWDImporter();
 		~MaxAWDImporter();
 		
-		void read_sceneblock_common(ImportedAWDBlock *, Animatable *, bool);
-		void * readTriGeomBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readContainerBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readMeshInstanceBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readMaterialBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readTextureBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readSkeletonBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readSkeletonPoseBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readSkeletonAnimBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readPrimGeomBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readSkyBoxBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readCameraBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readLightBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readLightPickerBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readCubeTextureBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readCubeTextureATFBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readEffectMethodBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readShadowtMethodBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readVertexPoseBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readVertexAnimBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readAnimationSetBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readAnimatorBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readUVAnimationBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readCommandBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readNameSpaceBlock(ImportedAWDBlock *, bool, bool, bool);
-		void * readMetadataBlock(ImportedAWDBlock *, bool, bool, bool);
+		SceneBlock_struct read_sceneblock_common(bool , FILE *);
+		void * readTriGeomBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readContainerBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readMeshInstanceBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readMaterialBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readTextureBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readSkeletonBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readSkeletonPoseBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readSkeletonAnimBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readPrimGeomBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readSkyBoxBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readCameraBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readLightBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readLightPickerBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readCubeTextureBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readCubeTextureATFBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readEffectMethodBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readShadowtMethodBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readVertexPoseBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readVertexAnimBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readAnimationSetBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readAnimatorBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readUVAnimationBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readCommandBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readNameSpaceBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
+		void * readMetadataBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
 		bool is_bit_set(unsigned value, unsigned bitindex);
 
 };

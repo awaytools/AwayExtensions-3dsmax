@@ -148,8 +148,8 @@ class MaxAWDExporter : public SceneExport {
 		//void				CopyViewerHTML(char *templatePath, char *outPath, char *name);
 		
 		// this functions are the basic export workflow:
-		void				PreProcessSceneGraph(INode *node, bool);
-		void				ProcessSceneGraph(INode *node, AWDSceneBlock *parent);
+		void				PreProcessSceneGraph(INode *node, bool, BlockSettings*);
+		void				ProcessSceneGraph(INode *node, AWDSceneBlock *parent, BlockSettings* );
 		void				ProcessGeoBlocks();
 		void				ExportAnimations(INode *node);
 		
