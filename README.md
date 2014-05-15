@@ -28,10 +28,7 @@ The current installer provides support for this versions:
 
 ## How to install Away Extensions 3dsmax ?
 
-* Open 3dsmax
-* Drag and drop the installer (*.mzp) into the 3dsmax-view.
-* A dialog should appear, providing further instructions.
-* After installation is complete, you should restart 3dsmax.
+* For each supported 3dsmax version, a sepperate Setup-file is provided. Just run this file, and follow the instructions.
 
 In 3dsmax, you should see following 
 * the MaxAWDExporter-plugin should be listet in the plugin manager.

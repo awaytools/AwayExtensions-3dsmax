@@ -4,13 +4,13 @@
 #include "util.h"
 #include "platform.h"
 
-ImportedAWDBlock::ImportedAWDBlock(AWD_block_type type, awd_baddr addr) 
+ImportedAWDBlock::ImportedAWDBlock(AWD_block_type type, awd_baddr addr)
 {
     this->type = type;
 	this->addr = addr;
 	this->isValid =true; //will be set to false, if the block wasnt read correctly
 	/*
-    
+
     // TODO: Allow setting flags
 	this->isExported =false; //true if block was exported by the export process (for all files)
 	this->isExportedToFile =false; //true if block was exported for one file (gets reset befor exporting one file)
@@ -29,7 +29,6 @@ bool ImportedAWDBlock::get_isValid(){
 void ImportedAWDBlock::set_isValid(bool isValid){
 	this->isValid=isValid;
 }
-
 
 ImportedAWDBlockList::ImportedAWDBlockList()
 {
@@ -51,12 +50,11 @@ ImportedAWDBlockList::~ImportedAWDBlockList()
         cur = next;
     }
 
-    // Already deleted as part 
+    // Already deleted as part
     // of above loop
     this->first_block = NULL;
     this->last_block = NULL;
 }
-
 
 bool
 ImportedAWDBlockList::append(ImportedAWDBlock *block)
@@ -110,12 +108,11 @@ ImportedAWDBlockList::force_append(ImportedAWDBlock *block)
     else {
         this->last_block->next = ctr;
     }
-    
+
     this->last_block = ctr;
     this->last_block->next = NULL;
     this->num_blocks++;
 }
-
 
 ImportedAWDBlock *
 ImportedAWDBlockList::getByIndex(int idx)
@@ -129,7 +126,6 @@ ImportedAWDBlockList::getByIndex(int idx)
         cur = cur->next;
 	}
 	return cur->block;
-
 }
 
 bool
@@ -148,16 +144,11 @@ ImportedAWDBlockList::contains(ImportedAWDBlock *block)
     return false;
 }
 
-
 int
 ImportedAWDBlockList::get_num_blocks()
 {
     return this->num_blocks;
 }
-
-
-
-
 
 ImportedAWDBlockIterator::ImportedAWDBlockIterator(ImportedAWDBlockList *list)
 {
@@ -165,7 +156,6 @@ ImportedAWDBlockIterator::ImportedAWDBlockIterator(ImportedAWDBlockList *list)
     this->cur_block = NULL;
     this->reset();
 }
-
 
 void
 ImportedAWDBlockIterator::reset()

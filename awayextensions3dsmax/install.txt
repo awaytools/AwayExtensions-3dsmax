@@ -1,0 +1,28 @@
+
+Install AwayExtensions3dsmax.
+
+
+- Run the setup file for your 3dsmax version (e.g.  setup_2014_x64.cmd)
+
+- Follow the Insturctions in the commandline.
+
+- Once Installation is finsihed, 3dsmax should automaticly start.
+
+- In 3dsmax make shure to load the AWDToolBar 
+
+	go to "Customize"->"Custoomize User Interface"-Tab:"ToolBars"
+
+	load the AWDToolBar file for your 3dsmax Version (e.g. AWDToolbar_2013_2014.cuix)
+
+
+
+
+Trouble-shooting:
+
+- 	if the installer doesnt run correctly, you can try to run it as admin. (right mousclick on the file and "run as admin")
+
+-	if the installer still fails, your 3dsmax installation might be customized, so the setup does not find all required 3dsmax pathes on your system.
+	all the pathes are defined in line 9 - line 27 in the setup file 
+	you can open the setup file in any texteditor, and modify it to be compatible with your system.
+	
+

@@ -1,7 +1,7 @@
 //**************************************************************************/
 // Copyright (c) 1998-2007 Autodesk, Inc.
 // All rights reserved.
-// 
+//
 // These coded instructions, statements, and computer programs contain
 // unpublished proprietary information written by Autodesk, Inc., and are
 // protected by Federal copyright law. They may not be disclosed to third
@@ -9,7 +9,7 @@
 // the prior written consent of Autodesk, Inc.
 //**************************************************************************/
 // DESCRIPTION: Contains the Dll Entry stuff
-// AUTHOR: 
+// AUTHOR:
 //***************************************************************************/
 
 #include "maxawdimporter.h"
@@ -19,7 +19,7 @@ extern ClassDesc2* GetMaxAWDImporterDesc();
 HINSTANCE hInstance;
 int controlsInit = FALSE;
 
-// This function is called by Windows when the DLL is loaded.  This 
+// This function is called by Windows when the DLL is loaded.  This
 // function may also be called many times during time critical operations
 // like rendering.  Therefore developers need to be careful what they
 // do inside this function.  In the code below, note how after the DLL is
@@ -59,7 +59,7 @@ __declspec( dllexport ) ClassDesc* LibClassDesc(int i)
 	}
 }
 
-// This function returns a pre-defined constant indicating the version of 
+// This function returns a pre-defined constant indicating the version of
 // the system under which it was compiled.  It is used to allow the system
 // to catch obsolete DLLs.
 __declspec( dllexport ) ULONG LibVersion()
@@ -67,9 +67,9 @@ __declspec( dllexport ) ULONG LibVersion()
 	return VERSION_3DSMAX;
 }
 
-// This function is called once, right after your plugin has been loaded by 3ds Max. 
+// This function is called once, right after your plugin has been loaded by 3ds Max.
 // Perform one-time plugin initialization in this method.
-// Return TRUE if you deem your plugin successfully loaded, or FALSE otherwise. If 
+// Return TRUE if you deem your plugin successfully loaded, or FALSE otherwise. If
 // the function returns FALSE, the system will NOT load the plugin, it will then call FreeLibrary
 // on your DLL, and send you a message.
 __declspec( dllexport ) int LibInitialize(void)
@@ -77,12 +77,12 @@ __declspec( dllexport ) int LibInitialize(void)
 	return TRUE; // TODO: Perform initialization here.
 }
 
-// This function is called once, just before the plugin is unloaded. 
+// This function is called once, just before the plugin is unloaded.
 // Perform one-time plugin un-initialization in this method."
 // The system doesn't pay attention to a return value.
 __declspec( dllexport ) int LibShutdown(void)
 {
-	return TRUE;// TODO: Perform un-initialization here.	
+	return TRUE;// TODO: Perform un-initialization here.
 }
 
 TCHAR *GetString(int id)
@@ -93,4 +93,3 @@ TCHAR *GetString(int id)
 		return LoadString(hInstance, id, buf, sizeof(buf)) ? buf : NULL;
 	return NULL;
 }
-

@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by D:\_AwayExtensions-3dsmax\maxawd.rc
 //
-#define IDC_STATIC						-1
+#define IDC_STATIC                        -1
 #define IDS_LIBDESCRIPTION              1
 #define IDS_CATEGORY                    2
 #define IDS_CLASS_NAME                  3
@@ -68,10 +68,16 @@
 #define IDC_COMBO_GEOM                  1048
 #define IDC_COMBO_PROPS                 1049
 #define IDC_COMBO_ATTR                  1050
-
+#define IDC_EXL_INVIS_LAYERS            1051
+#define IDC_EXCL_SELECT_LAYER           1052
+#define IDC_SAVE                        1053
+#define IDC_LOAD                        1054
+#define IDC_SET_DEFAULTS                1055
+#define IDC_CBX_SAVEFORFILE             1056
+#define IDC_EXPORTMETA                  1058
 
 // Next default values for new objects
-// 
+//
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        110

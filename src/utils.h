@@ -31,17 +31,18 @@ void read_transform_position_into_Pose(INode *, int , AWDSkeletonPose *);
 int CalcNumDescendants(INode *node);
 
 /**
- * Get a ParamBlock from a 3dsmax Object. 
+ * Get a ParamBlock from a 3dsmax Object.
 */
 IParamBlock2* GetParamBlock2ByIndex(ReferenceMaker* obj, int);
+IParamBlock2* GetParamBlock2ByName(ReferenceMaker* obj, const char *);
 
 /**
- * Get a ParamBlock from a 3dsmax Object. 
+ * Get a ParamBlock from a 3dsmax Object.
 */
 IParamBlock* GetParamBlockByIndex(ReferenceMaker* obj, int);
 
 /**
- * Replace a single occurrence of a substring within a string with 
+ * Replace a single occurrence of a substring within a string with
  * another string, overwriting the input buffer. Returns the number
  * of occurrences that were replaced (0 or 1).
 */

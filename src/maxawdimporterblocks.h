@@ -18,8 +18,6 @@ class ImportedAWDBlock
 
         bool get_isValid();
         void set_isValid(bool);
-
-
 };
 
 typedef struct _list_imported_block
@@ -27,7 +25,6 @@ typedef struct _list_imported_block
     ImportedAWDBlock *block;
     struct _list_imported_block *next;
 } list_imported_block;
-
 
 class ImportedAWDBlockList
 {
@@ -45,7 +42,7 @@ class ImportedAWDBlockList
         void force_append(ImportedAWDBlock *);
         bool contains(ImportedAWDBlock *);
         bool replace(ImportedAWDBlock *, ImportedAWDBlock *oldBlock);
-		
+
 		ImportedAWDBlock* getByIndex(int);
 
         int get_num_blocks();

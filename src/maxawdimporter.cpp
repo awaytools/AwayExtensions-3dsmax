@@ -1,7 +1,7 @@
 //**************************************************************************/
 // Copyright (c) 1998-2007 Autodesk, Inc.
 // All rights reserved.
-// 
+//
 // These coded instructions, statements, and computer programs contain
 // unpublished proprietary information written by Autodesk, Inc., and are
 // protected by Federal copyright law. They may not be disclosed to third
@@ -9,7 +9,7 @@
 // the prior written consent of Autodesk, Inc.
 //**************************************************************************/
 // DESCRIPTION: Appwizard generated plugin
-// AUTHOR: 
+// AUTHOR:
 //***************************************************************************/
 
 #include <cs/bipexp.h>
@@ -78,7 +78,7 @@ char *W2A( const TCHAR *s ) {
 
 TCHAR *A2W( const char  *s ) {
 #ifdef UNICODE
-    int size = (strlen(s) + 1) * sizeof(TCHAR);	
+    int size = (strlen(s) + 1) * sizeof(TCHAR);
     TCHAR *out = (TCHAR*)malloc(size);
     mbstowcs(out, s, size);
     return out;
@@ -98,7 +98,7 @@ static void output_debug_string(const char* str)
     OutputDebugStringA("\r\n");
 }
 
-class MaxAWDImporterClassDesc : public ClassDesc2 
+class MaxAWDImporterClassDesc : public ClassDesc2
 {
 public:
     virtual int IsPublic() 							{ return TRUE; }
@@ -110,13 +110,11 @@ public:
 
     virtual const TCHAR* InternalName() 			{ return _T("MaxAWDImporter"); }		// returns fixed parsable name (scripter-visible name)
     virtual HINSTANCE HInstance() 					{ return hInstance; }					// returns owning module handle
-    
-
 };
 
-ClassDesc2* GetMaxAWDImporterDesc() { 
+ClassDesc2* GetMaxAWDImporterDesc() {
     static MaxAWDImporterClassDesc MaxAWDImporterDesc;
-    return &MaxAWDImporterDesc; 
+    return &MaxAWDImporterDesc;
 }
 
 /**
@@ -138,7 +136,7 @@ MaxAWDImporter::MaxAWDImporter()
     awdFullPath = NULL;
 }
 
-MaxAWDImporter::~MaxAWDImporter() 
+MaxAWDImporter::~MaxAWDImporter()
 {
     free(awdFullPath);
 }
@@ -149,7 +147,7 @@ int MaxAWDImporter::ExtCount()
 }
 
 const TCHAR *MaxAWDImporter::Ext(int n)
-{		
+{
     return _T("awd");
 }
 
@@ -157,39 +155,39 @@ const TCHAR *MaxAWDImporter::LongDesc()
 {
     return _T("Away3D AWD2.1 File");
 }
-    
-const TCHAR *MaxAWDImporter::ShortDesc() 
+
+const TCHAR *MaxAWDImporter::ShortDesc()
 {
     return _T("Away3D");
 }
 
 const TCHAR *MaxAWDImporter::AuthorName()
-{			
+{
     return _T("The Away3D Team");
 }
 
-const TCHAR *MaxAWDImporter::CopyrightMessage() 
-{	
+const TCHAR *MaxAWDImporter::CopyrightMessage()
+{
     return _T("Copyright 2014 The Away3D Team");
 }
 
-const TCHAR *MaxAWDImporter::OtherMessage1() 
-{		
+const TCHAR *MaxAWDImporter::OtherMessage1()
+{
     return _T("");
 }
 
-const TCHAR *MaxAWDImporter::OtherMessage2() 
-{		
+const TCHAR *MaxAWDImporter::OtherMessage2()
+{
     return _T("");
 }
 
 unsigned int MaxAWDImporter::Version()
-{				
+{
     return 102;
 }
 
 void MaxAWDImporter::ShowAbout(HWND hWnd)
-{			
+{
     // Optional
 }
 
@@ -235,7 +233,6 @@ char * read_varstring(FILE *stream)
     return NULL;
 }
 
-
 int	MaxAWDImporter::DoImport(const TCHAR *path,ImpInterface *i,Interface *gi, BOOL suppressPrompts)
 {
     this->imp_i=i;
@@ -260,13 +257,13 @@ int	MaxAWDImporter::DoImport(const TCHAR *path,ImpInterface *i,Interface *gi, BO
             //MessageBox(IDS_TH_ERR_OPENING_FILE, IDS_TH_3DSIMP);
         return IMPEXP_FAIL;
         }
-    
+
     char * magicString=read_string(stream, 3);
     if (magicString==NULL)
-        return IMPEXP_FAIL;	
+        return IMPEXP_FAIL;
     if (!ATTREQ(magicString,"AWD"))
-        return IMPEXP_FAIL;	
-    
+        return IMPEXP_FAIL;
+
     awd_uint8 majorVersion;
     if(!(fread(&majorVersion,1,1,stream)))
         return IMPEXP_FAIL;						// Didn't open!
@@ -334,7 +331,6 @@ int	MaxAWDImporter::DoImport(const TCHAR *path,ImpInterface *i,Interface *gi, BO
         //unknown compression type
         return IMPEXP_FAIL;						// Didn't open!
     }
-
 
     fclose(stream);
     //if (options==SCENE_EXPORT_SELECTED){
@@ -418,22 +414,22 @@ ImportedAWDBlock * MaxAWDImporter::read_new_block(FILE * fd, bool isAWD2_1)
 
     awd_uint8 blockType;
     if(!(fread(&blockType,1,1,fd)))
-        return NULL;	
+        return NULL;
 
     awd_uint8 blockFlags;
     if(!(fread(&blockFlags,1,1,fd)))
         return NULL;// No data!
-    
+
     bool accuracyMatrix=is_bit_set(blockFlags, 1);
     bool accuracyGeo=is_bit_set(blockFlags, 2);
     bool accuracyProps=is_bit_set(blockFlags, 4);
     bool blockCompression=is_bit_set(blockFlags, 8); // not used yet
     bool blockCompressionLZMA=is_bit_set(blockFlags, 16); // not used yet
-    
+
     awd_uint32 blockLength;
     if(!(fread(&blockLength,4,1,fd)))
         return NULL;// No data!
-    
+
     int calculatedBlockEndPos = ftell(fd)+blockLength;
     Animatable * maxObject=NULL;
     ImportedAWDBlock* newAWDBlock = new ImportedAWDBlock((AWD_block_type)blockType, (awd_baddr)cache->get_num_items());
@@ -453,7 +449,7 @@ ImportedAWDBlock * MaxAWDImporter::read_new_block(FILE * fd, bool isAWD2_1)
         maxObject=(Animatable *)readSkeletonPoseBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
     else if (blockType==SKELETON_ANIM)
         maxObject=(Animatable *)readSkeletonAnimBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
-    
+
     if (isAWD2_1){
         if (blockType==PRIM_GEOM)
             maxObject=(Animatable *)readPrimGeomBlock(newAWDBlock, accuracyMatrix, accuracyGeo, accuracyProps,fd);
@@ -492,7 +488,7 @@ ImportedAWDBlock * MaxAWDImporter::read_new_block(FILE * fd, bool isAWD2_1)
         else{
         }
     }
-    
+
     cache->Set(newAWDBlock, maxObject);
     int endBlockPos = ftell(fd);
     if (calculatedBlockEndPos!=endBlockPos)
@@ -555,6 +551,8 @@ void * MaxAWDImporter::readTextureBlock(ImportedAWDBlock * thisBlock, bool mtx_p
     return NULL;
 }
 void * MaxAWDImporter::readSkeletonBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
+    
+    BitmapTex *bmt = NewDefaultBitmapTex();
     return NULL;
 }
 void * MaxAWDImporter::readSkeletonPoseBlock(ImportedAWDBlock * thisBlock, bool mtx_prec, bool geom_prec, bool prop_prec , FILE * fd ){
@@ -623,14 +621,14 @@ TriObject * MaxAWDImporter::createTriangleMesh(const std::vector<Point3> &points
     TriObject *triobj = CreateNewTriObject();
     if (triobj == NULL)
     return NULL;
-     
+
     assert(points.size() == normals.size() && normals.size() == uvs.size());
     assert(triangleVertIndices.size() % 3 == 0);
-     
+
     int numVertices = (int) points.size();
     int numTriangles = (int) triangleVertIndices.size() / 3;
     Mesh &mesh = triobj->GetMesh();
-     
+
     // set vertex positions
     mesh.setNumVerts(numVertices);
     for (int i = 0; i < numVertices; i++)
@@ -645,7 +643,7 @@ TriObject * MaxAWDImporter::createTriangleMesh(const std::vector<Point3> &points
     normalSpec->Normal(i) = normals[i].Normalize();
     normalSpec->SetNormalExplicit(i, true);
     }
-     
+
     // set UVs
     // TODO: multiple map channels?
     // channel 0 is reserved for vertex color, channel 1 is the default texture mapping
@@ -660,7 +658,7 @@ TriObject * MaxAWDImporter::createTriangleMesh(const std::vector<Point3> &points
     texVert.y = uvs[i].y;
     texVert.z = 0.0f;
     }
-     
+
     // set triangles
     mesh.setNumFaces(numTriangles);
     normalSpec->SetNumFaces(numTriangles);
@@ -671,27 +669,27 @@ TriObject * MaxAWDImporter::createTriangleMesh(const std::vector<Point3> &points
     int v0 = triangleVertIndices[j];
     int v1 = triangleVertIndices[j+1];
     int v2 = triangleVertIndices[j+2];
-     
+
     // vertex positions
     Face &face = mesh.faces[i];
     face.setMatID(1);
     face.setEdgeVisFlags(1, 1, 1);
     face.setVerts(v0, v1, v2);
-     
+
     // vertex normals
     MeshNormalFace &normalFace = normalSpec->Face(i);
     normalFace.SpecifyAll();
     normalFace.SetNormalID(0, v0);
     normalFace.SetNormalID(1, v1);
     normalFace.SetNormalID(2, v2);
-     
+
     // vertex UVs
     TVFace &texFace = map.tf[i];
     texFace.setTVerts(v0, v1, v2);
     }
-     
+
     mesh.InvalidateGeomCache();
     mesh.InvalidateTopologyCache();
-     
+
     return triobj;
 }*/

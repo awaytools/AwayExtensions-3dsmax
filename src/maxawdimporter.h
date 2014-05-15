@@ -3,7 +3,7 @@
 //**************************************************************************/
 // Copyright (c) 1998-2007 Autodesk, Inc.
 // All rights reserved.
-// 
+//
 // These coded instructions, statements, and computer programs contain
 // unpublished proprietary information written by Autodesk, Inc., and are
 // protected by Federal copyright law. They may not be disclosed to third
@@ -11,7 +11,7 @@
 // the prior written consent of Autodesk, Inc.
 //**************************************************************************/
 // DESCRIPTION: Includes for Plugins
-// AUTHOR: 
+// AUTHOR:
 //***************************************************************************/
 
 #include "3dsmaxsdk_preinclude.h"
@@ -50,7 +50,6 @@ extern HINSTANCE hInstance;
 char *W2A( const TCHAR *s );
 TCHAR *A2W( const char *s );
 
-
 typedef struct SceneBlock_struct {
 	char * name;
 	Object * parent;
@@ -67,8 +66,8 @@ class MaxAWDImporter : public SceneImport {
 		int fd;
 		AWD *awd;
 		AWDNamespace *ns;
-		ImporterBlockCache *cache;			
-		
+		ImporterBlockCache *cache;
+
 		bool exportAll;
 		bool error;
 
@@ -82,9 +81,9 @@ class MaxAWDImporter : public SceneImport {
 		void UpdateProgressBar(int phase, double phaseProgress);
 
 	public:
-		
+
 		static HWND hParams;
-		
+
 		int				ExtCount();					// Number of extensions supported
 		const TCHAR *	Ext(int n);					// Extension #n (i.e. "3DS")
 		const TCHAR *	LongDesc();					// Long ASCII description (i.e. "Autodesk 3D Studio File")
@@ -105,7 +104,7 @@ class MaxAWDImporter : public SceneImport {
 		//Constructor/Destructor
 		MaxAWDImporter();
 		~MaxAWDImporter();
-		
+
 		SceneBlock_struct read_sceneblock_common(bool , FILE *);
 		void * readTriGeomBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
 		void * readContainerBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
@@ -133,5 +132,4 @@ class MaxAWDImporter : public SceneImport {
 		void * readNameSpaceBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
 		void * readMetadataBlock(ImportedAWDBlock *, bool, bool, bool, FILE *);
 		bool is_bit_set(unsigned value, unsigned bitindex);
-
 };

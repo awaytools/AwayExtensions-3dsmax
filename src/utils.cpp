@@ -1,11 +1,11 @@
 #include "utils.h"
 unsigned long createARGB(int a, int r, int g, int b)
-{   
+{
     return ((a & 0xff) << 24) + ((r & 0xff) << 16) + ((g & 0xff) << 8)
            + (b & 0xff);
 }
 unsigned long createRGB( int r, int g, int b)
-{   
+{
     return (((r & 0xff) << 16) + ((g & 0xff) << 8)
            + (b & 0xff));
 }
@@ -24,7 +24,7 @@ unsigned int get_component(unsigned int color, color_component component)
         {
             const unsigned int shift = component * 8;
             const unsigned int mask = 0xFF << shift;
-            return (color & mask) >> shift;            
+            return (color & mask) >> shift;
         }
 
         default:
@@ -35,20 +35,20 @@ unsigned int get_component(unsigned int color, color_component component)
     return 0;
 }
 awd_color convertColor(DWORD input)
-{   
+{
         awd_color color = input;
         int r = get_component(color,A);
         int g = get_component(color,B);
         int b = get_component(color,G);
         int a = get_component(color,R);
-        
+
         return createARGB(255, r, g, b);
 }
 
 void SerializeMatrix3(Matrix3 &mtx, double *output)
 {
     Point3 row;
-    
+
     row = mtx.GetRow(0);
     output[0] = row.x;
     output[1] = row.z;
@@ -70,7 +70,6 @@ void SerializeMatrix3(Matrix3 &mtx, double *output)
     output[11] = row.y;
 }
 
-
 int IndexOfSkinMod(Object *obj, IDerivedObject **derivedObject)
 {
     if (obj != NULL && obj->SuperClassID() == GEN_DERIVOB_CLASS_ID) {
@@ -88,12 +87,13 @@ int IndexOfSkinMod(Object *obj, IDerivedObject **derivedObject)
             }
         }
     }
-    
+
     return -1;
 }
 
 void read_transform_position_into_Pose(INode *node, int time, AWDSkeletonPose * skelPose )
 {
+    //TODO: Check if there has been any movment, and if not, than dont export frame (append duration to last frame)
     Matrix3 parentMtx=node->GetParentTM(time);
     parentMtx.NoScale(); // get rid of the scale part of the parent matrix
     Matrix3 tm = node->GetNodeTM(time) * Inverse(parentMtx);
@@ -110,7 +110,7 @@ int CalcNumDescendants(INode *node)
 {
     int i=0;
     int num = 1;
-    
+
     for (i=0; i<node->NumberOfChildren(); i++) {
         num += CalcNumDescendants(node->GetChildNode(i));
     }
@@ -134,8 +134,28 @@ IParamBlock* GetParamBlockByIndex(ReferenceMaker* obj, int index)
         }
     }
     return NULL;
-} 
+}
 
+IParamBlock2* GetParamBlock2ByName(ReferenceMaker* obj, const char * name)
+{
+    int nRefs = obj->NumRefs();
+    for ( int i = 0; i < nRefs; ++i )
+    {
+        ReferenceTarget* ref = obj->GetReference(i);
+
+        if ( ref && ref->SuperClassID() == PARAMETER_BLOCK2_CLASS_ID )
+        {
+            IParamBlock2* thisblock=dynamic_cast<IParamBlock2*>( ref );
+            char * blockName=W2A(thisblock->GetLocalName());
+            if (ATTREQ(blockName, name)){
+                free (blockName);
+                return thisblock;
+            }
+            free (blockName);
+        }
+    }
+    return NULL;
+}
 IParamBlock2* GetParamBlock2ByIndex(ReferenceMaker* obj, int index)
 {
     int nRefs = obj->NumRefs();
@@ -152,14 +172,13 @@ IParamBlock2* GetParamBlock2ByIndex(ReferenceMaker* obj, int index)
         }
     }
     return NULL;
-} 
-
+}
 
 bool FileExists(const char *path)
 {
   DWORD dwAttrib = GetFileAttributesA(path);
 
-  return (dwAttrib != INVALID_FILE_ATTRIBUTES && 
+  return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
          !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
@@ -206,7 +225,6 @@ int ReplaceString(char *buf, int *size, char *find, char *rep)
 
     return 1;
 }
-
 
 void getBaseObjectAndID( Object*& object, SClass_ID& sid )
     {

@@ -1573,7 +1573,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions> /ignore:4013 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;core.lib;geom.lib;gfx.lib;mesh.lib;maxutil.lib;maxscrpt.lib;paramblk2.lib;bmm.lib;igame.lib;msxml2.lib;Poly.lib;MNMath.lib;expr.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MaxSDK2012)x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
@@ -1766,7 +1766,7 @@
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -1866,6 +1866,15 @@
     <ClCompile Include="src\DllEntryexporter.cpp" />
     <ClCompile Include="src\maxawdexporter.cpp" />
     <ClCompile Include="src\maxawdexporteropts.cpp" />
+    <ClCompile Include="src\maxawdexporter_anim.cpp" />
+    <ClCompile Include="src\maxawdexporter_camera.cpp" />
+    <ClCompile Include="src\maxawdexporter_geometry.cpp" />
+    <ClCompile Include="src\maxawdexporter_helper.cpp" />
+    <ClCompile Include="src\maxawdexporter_materials.cpp" />
+    <ClCompile Include="src\maxawdexporter_methods.cpp" />
+    <ClCompile Include="src\maxawdexporter_scenegraph.cpp" />
+    <ClCompile Include="src\maxawdexporter_shadows.cpp" />
+    <ClCompile Include="src\maxawdexporter_textures.cpp" />
     <ClCompile Include="src\utils.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ private:
 	bool splitByMatID;
 	bool exportCameras;
 	bool exportSkyboxes;
-	
+
 	bool exportMaterials;
 	int textureMode;
 	bool includeShadings;
@@ -105,7 +105,6 @@ public:
 	bool ExportSkeletons(void);
 	bool ExportSkelAnim(void);
 	bool ExportVertexAnim(void);
-	
+
 	bool LaunchPreview(void);
 };
-

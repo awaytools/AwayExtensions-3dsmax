@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ADSK_CUI>
+    <CUIWindows>
+        <Window name="AWD" type="T" rank="21" subRank="0" hidden="0" dPanel="1" tabbed="0" curTab="-1" cType="1" toolbarRows="2" toolbarType="3">
+            <FRect left="352" top="494" right="444" bottom="598" />
+            <DRect left="0" top="133" right="525" bottom="172" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="0" top="133" right="525" bottom="172" floating="0" panelID="1" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="0" imageName="AwayExtensionIcons" actionID="GotoAway3dForum`AWDCommands" tip="GotoAway3dForum" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="1" imageName="AwayExtensionIcons" actionID="AWDCheckForUpdate`AWDCommands" tip="AWDCheckForUpdate" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="16" imageName="AwayExtensionIcons" actionID="OpenAWDHelpFile`AWDCommands" tip="OpenAWDHelpFile" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="4" imageName="AwayExtensionIcons" actionID="OpenAWDAboutDialog`AWDCommands" tip="OpenAWDAboutDialog" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="18" imageName="AwayExtensionIcons" actionID="ImportAWD`AWDCommands" tip="ImportAWD" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="19" imageName="AwayExtensionIcons" actionID="ExportAWD`AWDCommands" tip="ExportAWD" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="22" imageName="AwayExtensionIcons" actionID="OpenAWDHelperMenu`AWDCommands" tip="OpenAWDHelperMenu" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="2" imageName="AwayExtensionIcons" actionID="IncludeSelectedObjects`AWDCommands" tip="Include Selected Objects" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="3" imageName="AwayExtensionIcons" actionID="ExcludeSelectedObjects`AWDCommands" tip="ExcludeSelectedObjects" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="5" imageName="AwayExtensionIcons" actionID="AddAWDMaterialSettings`AWDCommands" tip="AddAWDMaterialSettings" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="6" imageName="AwayExtensionIcons" actionID="addAWDTextureSettings`AWDCommands" tip="AddAWDTextureSettings" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="7" imageName="AwayExtensionIcons" actionID="AddAWDCubeTexture`AWDCommands" tip="AddAWDCubeTexture" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="8" imageName="AwayExtensionIcons" actionID="AddAWDEffectModifier`AWDCommands" tip="AddAWDEffectModifier" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="9" imageName="AwayExtensionIcons" actionID="AddAWDSkyBox`AWDCommands" tip="AddAWDSkyBox" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="11" imageName="AwayExtensionIcons" actionID="AddAWDVertexAnimSource`AWDCommands" tip="AddAWDVertexAnimSource" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="12" imageName="AwayExtensionIcons" actionID="AddAWDSkeleton`AWDCommands" tip="AddAWDSkeleton" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="14" imageName="AwayExtensionIcons" actionID="AddAWDAnimationSet`AWDCommands" tip="AddAWDAnimationSet" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="13" imageName="AwayExtensionIcons" actionID="AddAWDAnimator`AWDCommands" tip="AddAWDAnimator" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="10" imageName="AwayExtensionIcons" actionID="AddAWDLightModifier`AWDCommands" tip="AddAWDLightModifier" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="23" imageName="AwayExtensionIcons" actionID="AddAWDCameraModifier`AWDCommands" tip="AddAWDCameraModifier" label="" />
+            </Items>
+        </Window>
+        <Window name="Command Panel" type="S" rank="0" subRank="0" hidden="0" dPanel="8" tabbed="0" curTab="-1" cType="4">
+            <FRect left="673" top="182" right="865" bottom="1089" />
+            <DRect left="1736" top="172" right="1920" bottom="998" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="1736" top="172" right="1920" bottom="998" floating="0" panelID="8" />
+        </Window>
+        <Window name="Main Toolbar" type="T" rank="0" subRank="0" hidden="0" dPanel="1" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="3">
+            <FRect left="1109" top="212" right="1181" bottom="271" />
+            <DRect left="0" top="53" right="1235" bottom="92" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="0" top="53" right="1235" bottom="92" floating="0" panelID="1" />
+            <Items>
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50010" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="4" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="50011" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="6" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50036" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="8" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="5" type="CTB_OTHER" width="70" height="280" controlID="30100" helpID="0" orientation="19" vertJustif="2" winStyle="1342177795" controlClassName="ComboBox" winText="All" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50027" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="10" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="50029" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="18" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="50028" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="12">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="12" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="14" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="16" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="96" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="97" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="202" helpID="0" orientation="31" fileIconIndex="4" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="SnapsControls" iconImageIndex="6" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50001" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="20" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50002" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="22" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50003" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="24">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="24" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="26" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="28" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="5" type="CTB_OTHER" width="70" height="200" controlID="30101" helpID="0" orientation="19" vertJustif="2" winStyle="1342177795" controlClassName="ComboBox" winText="View" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="50009" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="30">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="30" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="32" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="34" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="0" imageID="-1" imageName="" actionID="59225" tip="" label="" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="30761" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="SnapsControls" iconImageIndex="29" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="40072" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="SnapsControls" iconImageIndex="20">
+                    <FlyOffCt flyInit="2" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="SnapsControls" iconImageIndex="16" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="SnapsControls" iconImageIndex="18" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="SnapsControls" iconImageIndex="20" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="40074" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="SnapsControls" iconImageIndex="22" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="40223" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="SnapsControls" iconImageIndex="24" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="280" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="SnapsControls" iconImageIndex="26" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="0" imageName="enss_maintoolbar" actionID="namedSelSets`Edit" tip="Edit Named Selection Sets" label="" />
+                <Item typeID="5" type="CTB_OTHER" width="120" height="120" controlID="50037" helpID="0" orientation="19" vertJustif="2" winStyle="1344275266" controlClassName="ComboBox" winText="Create Selection Set" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="40210" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="50" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50012" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="56">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="56" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="98" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="58" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="60" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="73" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="75" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="LayerManager`Layers" tip="Layer Manager..." label="Layer Manager..." />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="60545" imageID="0" imageName="Ribbon" actionID="26914" tip="Toggle Ribbon" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="647394" imageID="62" imageName="Maintoolbar" actionID="LaunchFCurveEditor`Track View" tip="Curve Editor (Open)" label="" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="50061" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="92" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50048" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="102">
+                    <FlyOffCt flyInit="1" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="64" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="102" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="60010" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="66" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="0" imageID="-1" imageName="" actionID="348" tip="Show Rendered Frame Window" label="&amp;Show Rendered Frame Window" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="50031" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="70">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="70" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="101" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="93" />
+                    </FlyOffCt>
+                </Item>
+            </Items>
+        </Window>
+        <Window name="Axis Constraints" type="T" rank="14" subRank="0" hidden="1" dPanel="1" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="183" top="222" right="364" bottom="283" />
+            <DRect left="0" top="39" right="147" bottom="78" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="183" top="222" right="364" bottom="283" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50004" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="36" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50006" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="38" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50007" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="40" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="50005" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="42">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="42" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="44" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="46" />
+                    </FlyOffCt>
+                </Item>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="0" imageID="-1" imageName="" actionID="40904" tip="Enable Axis Constraints in Snaps Toggle" label="Enable Axis Constraints in Snaps Toggle" />
+            </Items>
+        </Window>
+        <Window name="Layers" type="T" rank="14" subRank="2" hidden="1" dPanel="1" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="74" top="93" right="450" bottom="152" />
+            <DRect left="280" top="39" right="661" bottom="78" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="74" top="93" right="450" bottom="152" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="LayerManager`Layers" tip="Layer Manager..." label="Layer Manager..." />
+                <Item typeID="5" type="CTB_OTHER" width="208" height="240" controlID="50502" helpID="0" orientation="19" vertJustif="2" winStyle="1344276755" controlClassName="ComboBox" winText="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="LayerCreate`Layers" tip="Create new Layer (containing Selection)" label="Create Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="LayerAdd`Layers" tip="Add Selection to Current Layer" label="Add to Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="LayerSelect`Layers" tip="Select Objects in Current Layer" label="Select Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="LayerSet`Layers" tip="Set Current Layer to Selection&apos;s Layer" label="Set Layer" />
+            </Items>
+        </Window>
+        <Window name="Extras" type="T" rank="0" subRank="0" hidden="1" dPanel="1" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="317" top="200" right="400" bottom="263" />
+            <DRect left="1283" top="39" right="1308" bottom="78" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="317" top="200" right="400" bottom="263" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="0" imageID="0" imageName="AutoGrid" actionID="40462" tip="AutoGrid" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="1" imageName="AutoGrid" actionID="two_point_dist`Tools" tip="Measure Distance..." label="" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="60120" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="Maintoolbar" iconImageIndex="52">
+                    <FlyOffCt flyInit="0" flyTimeout="300" flyDir="3">
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="52" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="54" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="84" />
+                        <Fly outEnabled="-1" inEnabled="-1" outDisabled="-1" inDisabled="1" iconFilePrefix="Maintoolbar" iconImageIndex="99" />
+                    </FlyOffCt>
+                </Item>
+            </Items>
+        </Window>
+        <Window name="Render Shortcuts" type="T" rank="0" subRank="0" hidden="1" dPanel="0" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="364" top="155" right="606" bottom="216" />
+            <DRect left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="364" top="155" right="606" bottom="216" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="RenderPresetSlotA`Render" tip="Render Preset Slot A (shift+clik to save)" label="A" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="RenderPresetSlotB`Render" tip="Render Preset Slot B (shift+clik to save)" label="B" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="-1" imageName="" actionID="RenderPresetSlotC`Render" tip="Render Preset Slot C (shift+clik to save)" label="C" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="5" type="CTB_OTHER" width="120" height="200" controlID="30105" helpID="0" orientation="19" vertJustif="2" winStyle="1342177795" controlClassName="ComboBox" winText="-----------------------------------------------------------------------------------------------------------------------------------------------------" />
+            </Items>
+        </Window>
+        <Window name="Snaps" type="T" rank="0" subRank="0" hidden="1" dPanel="0" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="149" top="184" right="451" bottom="245" />
+            <DRect left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="149" top="184" right="451" bottom="245" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="0" imageName="Snap_Points" actionID="80000" tip="Snap To Grid Points Toggle" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="1" imageName="Snap_Points" actionID="80001" tip="Snap To Pivot Toggle" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="3" imageName="Snap_Points" actionID="80002" tip="Snap To Vertex Toggle" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="6" imageName="Snap_Points" actionID="80003" tip="Snap To Endpoint Toggle" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="5" imageName="Snap_Points" actionID="80004" tip="Snap To Midpoint Toggle" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="2" imageName="Snap_Points" actionID="80005" tip="Snap To Edge/Segment Toggle" label="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="4" macroType="MB_TYPE_ACTION_CUSTOM" actionTableID="1259304063" imageID="4" imageName="Snap_Points" actionID="80006" tip="Snap To Face Toggle" label="" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="6" height="16" orientation="31" visible="1" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="0" imageID="-1" imageName="" actionID="40905" tip="Snaps To Frozen Objects Toggle" label="Snaps To Frozen Objects Toggle" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="0" imageID="-1" imageName="" actionID="40904" tip="Enable Axis Constraints in Snaps Toggle" label="Enable Axis Constraints in Snaps Toggle" />
+            </Items>
+        </Window>
+        <Window name="Animation Layers" type="T" rank="0" subRank="0" hidden="1" dPanel="4" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="66" top="501" right="627" bottom="560" />
+            <DRect left="0" top="39" right="40" bottom="300" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="66" top="501" right="659" bottom="560" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="1" tip="Enable Anim Layers" label="Enable Anim Layers" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="10" tip="Select Active Layer Objects" label="Select Active Layer Objects" />
+                <Item typeID="5" type="CTB_OTHER" width="208" height="240" controlID="50612" helpID="0" orientation="19" vertJustif="4" winStyle="1344276755" controlClassName="ComboBox" winText="" />
+                <Item typeID="5" type="CTB_OTHER" width="40" height="21" controlID="50613" helpID="0" orientation="19" vertJustif="-1" winStyle="1342177280" controlClassName="CustEdit" winText="" />
+                <Item typeID="5" type="CTB_OTHER" width="12" height="18" controlID="50614" helpID="0" orientation="19" vertJustif="-1" winStyle="1342177280" controlClassName="SpinnerControl" winText="" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="2" tip="Anim Layer Properties" label="Anim Layer Properties" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="3" tip="Add Anim Layer" label="Add Anim Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="4" tip="Delete Anim Layer" label="Delete Anim Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="5" tip="Cut Anim Layer" label="Cut Anim Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="6" tip="Paste Active Anim Layer" label="Paste Active Anim Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="7" tip="Paste New Layer" label="Paste New Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="8" tip="Collapse Anim Layer" label="Collapse Anim Layer" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="2053995757" imageID="-1" imageName="" actionID="9" tip="Disable Anim Layer" label="Disable Anim Layer" />
+            </Items>
+        </Window>
+        <Window name="Containers" type="T" rank="0" subRank="0" hidden="1" dPanel="0" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="117" top="259" right="226" bottom="320" />
+            <DRect left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="117" top="259" right="642" bottom="320" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="0" tip="Inherit Container" label="Inherit Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="1" tip="Create Container from Selection" label="Create Container from Selection" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="2" tip="Add Selected to Container" label="Add Selected to Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="3" tip="Remove Selected from Container" label="Remove Selected from Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="5" tip="Load Container" label="Load Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="4" tip="Unload Container" label="Unload Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="7" tip="Open Container" label="Open Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="6" tip="Close Container" label="Close Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="8" tip="Save Container" label="Save Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="9" tip="Update Container" label="Update Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="10" tip="Reload Container" label="Reload Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="11" tip="Make all Content Unique" label="Make all Content Unique" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="12" tip="Merge Container Source" label="Merge Container Source" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="13" tip="Edit Container" label="Edit Container" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="14" tip="Override Object Properties" label="Override Object Properties" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="-1172021248" imageID="-1" imageName="" actionID="16" tip="Override All Locks" label="Override All Locks" />
+            </Items>
+        </Window>
+        <Window name="MassFX Toolbar" type="T" rank="12" subRank="0" hidden="1" dPanel="4" tabbed="0" curTab="-1" cType="1" toolbarRows="1" toolbarType="16">
+            <FRect left="200" top="200" right="493" bottom="269" />
+            <DRect left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <DRectPref left="2147483647" top="2147483647" right="-2147483648" bottom="-2147483648" />
+            <CurPos left="200" top="200" right="493" bottom="269" floating="1" panelID="16" />
+            <Items>
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="1009" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="PhysX_Main" iconImageIndex="0" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="8" height="16" orientation="31" visible="1" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="1000" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="PhysX_Main" iconImageIndex="1" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="1008" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="PhysX_Main" iconImageIndex="31" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="1001" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="PhysX_Main" iconImageIndex="8" />
+                <Item typeID="0" type="CTB_PUSHBUTTON" controlID="1002" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="PhysX_Main" iconImageIndex="15" />
+                <Item typeID="3" type="CTB_SEPARATOR" width="8" height="16" orientation="31" visible="1" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="15" imageName="PhysX_Main" actionID="PxResetSimMS`PhysX" tip="Reset simulation entities to their original state" label="Reset Simulation" />
+                <Item typeID="1" type="CTB_CHECKBUTTON" controlID="1003" helpID="0" orientation="31" outEnabledIndex="-1" outDisabledIndex="-1" inDisabledIndex="-1" captionVisibility="0" iconFilePrefix="PhysX_Main" iconImageIndex="5" />
+                <Item typeID="2" type="CTB_MACROBUTTON" width="0" height="0" controlID="0" macroTypeID="3" macroType="MB_TYPE_ACTION" actionTableID="647394" imageID="8" imageName="PhysX_Main" actionID="PxStepSimMS`PhysX" tip="Next Simulation Frame" label="Step Simulation" />
+            </Items>
+        </Window>
+    </CUIWindows>
+    <QATItems>
+        <Item actionTableID="0" actionName="40004" />
+        <Item actionTableID="0" actionName="40003" />
+        <Item actionTableID="0" actionName="40006" />
+        <Item actionTableID="0" actionName="40015" />
+        <Item actionTableID="0" actionName="40016" />
+        <Item actionTableID="647394" actionName="SetProjectFolder`Tools" />
+        <Item actionTableID="0" actionName="40004" />
+        <Item actionTableID="0" actionName="40003" />
+        <Item actionTableID="0" actionName="40006" />
+        <Item actionTableID="0" actionName="40015" />
+        <Item actionTableID="0" actionName="40016" />
+        <Item actionTableID="647394" actionName="SetProjectFolder`Tools" />
+        <Item actionTableID="0" actionName="40004" />
+        <Item actionTableID="0" actionName="40003" />
+        <Item actionTableID="0" actionName="40006" />
+        <Item actionTableID="0" actionName="40015" />
+        <Item actionTableID="0" actionName="40016" />
+        <Item actionTableID="647394" actionName="SetProjectFolder`Tools" />
+    </QATItems>
+</ADSK_CUI>

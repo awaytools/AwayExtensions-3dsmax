@@ -6,23 +6,19 @@ MaxAWDImporterOpts::MaxAWDImporterOpts(void)
 	// Store pointer to single instance
 	INSTANCE = this;
 
-
 	scale = 1.0;
 
 	// Override defaults using config file, if any exists
 	ReadConfigFile();
 }
 
-
 // Static members
 MaxAWDImporterOpts *MaxAWDImporterOpts::INSTANCE;// = NULL;
 HWND MaxAWDImporterOpts::generalOpts = NULL;
 
-
 MaxAWDImporterOpts::~MaxAWDImporterOpts(void)
 {
 }
-
 
 FILE *MaxAWDImporterOpts::OpenConfigFile(const char *mode)
 {
@@ -70,19 +66,16 @@ void MaxAWDImporterOpts::WriteConfigFile(void)
 	fclose(cfg);
 }
 
-
 bool MaxAWDImporterOpts::ShowDialog(void)
 {
-	int ret = DialogBoxParam(hInstance, 
-				MAKEINTRESOURCE(IDD_AWD_OPTIONS), 
-				GetActiveWindow(), 
-				DialogProc, 
+	int ret = DialogBoxParam(hInstance,
+				MAKEINTRESOURCE(IDD_AWD_OPTIONS),
+				GetActiveWindow(),
+				DialogProc,
 				0);
 
 	return (ret == IDOK);
 }
-
-
 
 INT_PTR CALLBACK MaxAWDImporterOpts::DialogProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
 {
@@ -113,8 +106,6 @@ INT_PTR CALLBACK MaxAWDImporterOpts::DialogProc(HWND hWnd,UINT message,WPARAM wP
 	return FALSE;
 }
 
-
-
 void MaxAWDImporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
 {
 	int index;
@@ -126,15 +117,12 @@ void MaxAWDImporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 		GeneralOptsDialogProc, TEXT("General"));
 	generalOpts = rollup->GetPanelDlg(index);
 
-	
-		
 	// Flip color channels
 	//AColor col;
 	//col.r = GetBValue(previewBackgroundColor) / 255.0;
 	//col.g = GetGValue(previewBackgroundColor) / 255.0;
 	//col.b = GetRValue(previewBackgroundColor) / 255.0;
 	//GetIColorSwatch(GetDlgItem(viewerOpts, IDC_SWF_COLOR))->SetAColor(col, FALSE);
-		
 
 	// Force redraw all panels
 	RedrawGeneralOpts(0);
@@ -142,11 +130,10 @@ void MaxAWDImporterOpts::InitDialog(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 	rollup->Show();
 }
 
-
 void MaxAWDImporterOpts::SaveOptions(void)
 {
 	int len;
-	
+
 	// General options
 	scale = GetISpinner(GetDlgItem(generalOpts,IDC_SCALE_SPINNER))->GetFVal();
 
@@ -181,10 +168,7 @@ bool MaxAWDImporterOpts::RedrawGeneralOpts(LPARAM lParam)
 	return false;
 }
 
-
 double MaxAWDImporterOpts::Scale(void)
 {
 	return scale;
 }
-
-

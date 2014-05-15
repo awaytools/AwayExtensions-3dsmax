@@ -9,7 +9,6 @@ ImporterBlockCache::ImporterBlockCache(void)
 	numItems=0;
 }
 
-
 ImporterBlockCache::~ImporterBlockCache(void)
 {
 	ImporterBlockCacheItem *cur = firstItem;
@@ -124,5 +123,3 @@ void *ImporterBlockCache::GetValByIdxAndRequestedType(int idx, AWD_block_type bl
 	}
 	return NULL;
 }
-
-
