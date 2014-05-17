@@ -20,6 +20,17 @@ void MaxAWDExporter::ExportAnimations(BlockSettings* blockSettings){
             delete it;
         }
     }
+    AWDAnimationSet *animSetBlock;
+    AWDBlockList * animSetBlocks = (AWDBlockList *)awd->get_amin_set_blocks();
+    if (animSetBlocks!=NULL){
+        if (animSetBlocks->get_num_blocks()>0){
+            it = new AWDBlockIterator(animSetBlocks);
+            while ((animSetBlock = (AWDAnimationSet * ) it->next()) != NULL) {
+                ExportAWDAnimSet(animSetBlock, NULL, blockSettings);
+            }
+            delete it;
+        }
+    }
 }
 
 void MaxAWDExporter::ReadAWDSkeletonMod(Modifier *node_mod, INode * node){
@@ -1316,11 +1327,9 @@ AWDBlock * MaxAWDExporter::ExportAWDAnimSet(AWDAnimationSet * animSet, AWDBlockL
         targetGeosList->append(block->get_geom());
     }
     delete itMeshes;
-    if (targetGeosList->get_num_blocks()==0)
-        return NULL;
 
     AWD_Anim_Type animType=animSet->get_anim_type();
-    // if the clips for this animset have allready been created, we still check if it is compatible to the given list of mesh-instances
+
     if (animSet->get_is_processed()){
         /*AWDTriGeom *block;
         itMeshes = new AWDBlockIterator(targetGeosList);
@@ -1341,6 +1350,7 @@ AWDBlock * MaxAWDExporter::ExportAWDAnimSet(AWDAnimationSet * animSet, AWDBlockL
         delete targetGeosList;
         delete itMeshes;
         return NULL;*/
+        delete targetGeosList;
     }
     else{
         delete targetGeosList;

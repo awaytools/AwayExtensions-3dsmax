@@ -388,6 +388,34 @@ int MaxAWDExporter::ExecuteExport()
             newMetaData->make_invalide();
         awd->set_metadata(newMetaData);
 
+        if (!opts->ExportSkeletons()){
+            AWDBlockList * skeletonBlocks=awd->get_skeleton_blocks();
+            AWDBlock *skelBlock;
+            AWDBlockIterator it(skeletonBlocks);
+            while ((skelBlock = (AWDBlock *)it.next()) != NULL) {
+                skelBlock->make_invalide();
+            }
+        }
+        if (!opts->ExportSkelAnim()){
+            AWDBlockList * skelAnimSets=awd->get_amin_set_blocks();
+            AWDAnimationSet *skelAnimSetBlock;
+            AWDBlockIterator it(skelAnimSets);
+            while ((skelAnimSetBlock = (AWDAnimationSet *)it.next()) != NULL) {
+                if(skelAnimSetBlock->get_anim_type()==ANIMTYPESKELETON){
+                    skelAnimSetBlock->make_invalide();
+                }
+            }
+        }
+        if (!opts->ExportVertexAnim()){
+            AWDBlockList * allAnimSets=awd->get_amin_set_blocks();
+            AWDAnimationSet *vertexAnimSetBlock;
+            AWDBlockIterator it(allAnimSets);
+            while ((vertexAnimSetBlock = (AWDAnimationSet *)it.next()) != NULL) {
+                if(vertexAnimSetBlock->get_anim_type()==ANIMTYPEVERTEX){
+                    vertexAnimSetBlock->make_invalide();
+                }
+            }
+        }
         UpdateProgressBar(MAXAWD_PHASE_FLUSH, 0);
         output_debug_string("-> Start flush (Step5)");
         awd->flush(fd);

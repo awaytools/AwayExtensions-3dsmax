@@ -11,7 +11,8 @@ void MaxAWDExporter::ProcessGeoBlocks()
     while ((geoBlock = (AWDTriGeom * ) it->next()) != NULL){
         INode * node = (INode *)INodeToGeoBlockCache->Get(geoBlock);
         if (node==NULL){
-            //ERROR - THIS SHOULD NEVER HAPPEN
+            AWDMessageBlock * newWarning = new AWDMessageBlock(geoBlock->get_name(), "ERROR: Could not find the INode for this AWDGeometry.");
+            awd->get_message_blocks()->append(newWarning);  
             return;
         }
         lNodes.AppendNode( node );
@@ -24,7 +25,8 @@ void MaxAWDExporter::ProcessGeoBlocks()
     while ((geoBlock = (AWDTriGeom * ) it->next()) != NULL){
         INode * node = (INode *)INodeToGeoBlockCache->Get(geoBlock);
         if (node==NULL){
-            //ERROR - THIS SHOULD NEVER HAPPEN
+            AWDMessageBlock * newWarning = new AWDMessageBlock(geoBlock->get_name(), "ERROR: Could not find the INode for this AWDGeometry.");
+            awd->get_message_blocks()->append(newWarning);                
         }
         else{
             int exportThis=false;

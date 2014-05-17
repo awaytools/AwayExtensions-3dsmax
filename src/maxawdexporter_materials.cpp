@@ -646,9 +646,9 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
                 }
                 //int thisShading=stdMat2->GetShading();
             }
-
+            bool exportTexMaterials=true;
             int saveType=opts->TextureMode();
-            if (saveType!=0){
+            if ((saveType!=0)||(exportTexMaterials)){
                 for (i=0; i<mtl->NumSubTexmaps(); i++) {
                     Texmap *tex = mtl->GetSubTexmap(i);
                     // If there is a texture, AND that texture is a plain bitmap
@@ -717,9 +717,9 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
                 }
                 if (hasDifftex || hasAmbTex){
                     awdMtl->set_type(AWD_MATTYPE_TEXTURE);
-                    if (hasDifftex){
+                    if ((hasDifftex)&&(awdDiffTex->get_isValid())){
                         awdMtl->set_texture(awdDiffTex);}
-                    if (hasAmbTex){
+                    if ((hasAmbTex)&&(awdAmbTex->get_isValid())){
                         awdMtl->set_ambientTexture(awdAmbTex);}
                 }
                 else{
@@ -741,9 +741,9 @@ AWDMaterial *MaxAWDExporter::ExportOneMaterial(StdMat *mtl)
             awdMtl->set_glossStrength(glossLevel);
             // this can optionally overwrite previous defined material-settings
             GetCustomAWDMaterialSettings(mtl, awdMtl);
-            if (hasSpecTex){
+            if ((hasSpecTex)&&(awdSpecTex->get_isValid())){
                 awdMtl->set_specTexture(awdSpecTex);}
-            if (hasNormalTex){
+            if ((hasNormalTex)&&(awdNormalTex->get_isValid())){
                 awdMtl->set_normalTexture(awdNormalTex);}
             awd->add_material(awdMtl);
             materialCache->Set(mtl, awdMtl);

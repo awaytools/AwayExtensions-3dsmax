@@ -1,2 +1,2 @@
 <?xml version="1.0" ?>
-<AWDMAXVERSION Major="0" Message="minor fixes materialSettings" Minor="9" Revision="87"/>
+<AWDMAXVERSION Major="0" Message="update docs / remove inlcude manifest file from release builds" Minor="9" Revision="88"/>

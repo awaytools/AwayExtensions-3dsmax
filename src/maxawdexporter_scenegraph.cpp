@@ -8,20 +8,6 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
     bool excludeChild=parentExcluded;
     bool isReference=false;
     if (obj){
-        ILayer* thisLayer=(ILayer*)node->GetReference(NODE_LAYER_REF);
-        ILayerProperties* thisLayerprops=(ILayerProperties*)thisLayer->GetInterface(LAYERPROPERTIES_INTERFACE);
-        bool isSelectedLayer=thisLayerprops->getCurrent();
-        bool isEnabledLayer=thisLayerprops->getOn();
-        if((!isSelectedLayer)&&(opts->ExcludeUnselectedLayers())){
-            this->hasExcludedLayers=true;
-            allExcludedCache->Set(obj, true);
-            return;
-        }
-        if((!isEnabledLayer)&&(opts->ExcludeInvisibleLayers())){
-            this->hasExcludedLayers=true;
-            allExcludedCache->Set(obj, true);
-            return;
-        }
 
         SClass_ID sid=obj->SuperClassID();
         // no matter if set to export or  "selectedObject"-export,
@@ -73,8 +59,7 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
                             else if (ATTREQ(className_ptr,"AWDSkeleton")){
                                 allExcludedCache->Set(obj, true);
                                 this->hasExcludedObjects=true;
-                                if (opts->ExportSkeletons())
-                                    ReadAWDSkeletonMod(node_mod, node);
+                                ReadAWDSkeletonMod(node_mod, node);
                             }
                             else if (ATTREQ(className_ptr,"AWDVertexAnimSource")){
                                 if (opts->ExportVertexAnim())
@@ -98,6 +83,18 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
                     }
                 }
             }
+        }
+        ILayer* thisLayer=(ILayer*)node->GetReference(NODE_LAYER_REF);
+        ILayerProperties* thisLayerprops=(ILayerProperties*)thisLayer->GetInterface(LAYERPROPERTIES_INTERFACE);
+        bool isSelectedLayer=thisLayerprops->getCurrent();
+        bool isEnabledLayer=thisLayerprops->getOn();
+        if((!isSelectedLayer)&&(opts->ExcludeUnselectedLayers())){
+            this->hasExcludedLayers=true;
+            allExcludedCache->Set(obj, true);
+        }
+        if((!isEnabledLayer)&&(opts->ExcludeInvisibleLayers())){
+            this->hasExcludedLayers=true;
+            allExcludedCache->Set(obj, true);
         }
         // if the node is allready excluded from export by its parent, we dont need to read its custom AWDObjectSettings
         // and we dont need to check if its a light either...
@@ -415,26 +412,24 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                             if (mesh.getNumFaces()>0){
                                 //output_debug_string("   -->Object is a Geometry");
                                 AWDBlockList * matBlocks=NULL;
-                                if ((opts->ExportScene())&&(opts->ExportMaterials())) {
-                                    //output_debug_string("      -->Search for materials on object");
-                                    matBlocks=GetMaterialsForMeshInstance(node);
-                                    if (autoMethodBlocks!=NULL){
-                                        if (autoMethodBlocks->get_num_blocks()>0){
-                                            if (matBlocks!=NULL){
-                                                AWDMaterial * awdMat=NULL;
-                                                AWDBlockIterator *itMat;
-                                                itMat = new AWDBlockIterator(matBlocks);
-                                                while ((awdMat = (AWDMaterial*)itMat->next()) != NULL) {
-                                                    AWDBlock * awdFX=NULL;
-                                                    AWDBlockIterator *itFX;
-                                                    itFX = new AWDBlockIterator(autoMethodBlocks);
-                                                    while ((awdFX = (AWDBlock*)itFX->next()) != NULL) {
-                                                        awdMat->get_effectMethods()->append(awdFX);
-                                                    }
-                                                    delete itFX;
+                                //output_debug_string("      -->Search for materials on object");
+                                matBlocks=GetMaterialsForMeshInstance(node);
+                                if (autoMethodBlocks!=NULL){
+                                    if (autoMethodBlocks->get_num_blocks()>0){
+                                        if (matBlocks!=NULL){
+                                            AWDMaterial * awdMat=NULL;
+                                            AWDBlockIterator *itMat;
+                                            itMat = new AWDBlockIterator(matBlocks);
+                                            while ((awdMat = (AWDMaterial*)itMat->next()) != NULL) {
+                                                AWDBlock * awdFX=NULL;
+                                                AWDBlockIterator *itFX;
+                                                itFX = new AWDBlockIterator(autoMethodBlocks);
+                                                while ((awdFX = (AWDBlock*)itFX->next()) != NULL) {
+                                                    awdMat->get_effectMethods()->append(awdFX);
                                                 }
-                                                delete itMat;
+                                                delete itFX;
                                             }
+                                            delete itMat;
                                         }
                                     }
                                 }

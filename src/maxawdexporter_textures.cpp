@@ -205,6 +205,12 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex, AWDMateri
 
             if (!isWrongMode){
                 awdTex = new AWDBitmapTexture(texname_ptr, strlen(texname_ptr));
+                int saveType=opts->TextureMode();
+                if (saveType==0){
+                    awdTex->set_tex_type(EMBEDDED);
+                    awdTex->make_invalide();
+                    return awdTex;
+                }
             }
             if (customTexSettings.useUvAnim){
                 if(customTexSettings.thisID_len>0){
