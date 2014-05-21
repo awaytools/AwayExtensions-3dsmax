@@ -35,8 +35,13 @@ AWDBlock * MaxAWDExporter::ExportCameraAndTextureExporter(INode * node, double *
     AWDTextureProjector * textureProjector= new AWDTextureProjector(camName_ptr, strlen(camName_ptr), mtxData);
     AWDBitmapTexture * projectionTexture = NULL;
     free(camName_ptr);
-    if(!isOrtho)
-        awdCamera->set_lens_fov(fov * double(double(180)/(double(3.141592653589793))));
+    if(!isOrtho){
+        //double aspectRatio=maxInterface->GetRendApect();
+        double aspectRatio=1/double(maxInterface->GetRendImageAspect());
+        double horizontalFOV=double(fov* (double(double(180)/(double(3.14159265358979323846)))));
+        double verticalFOV=horizontalFOV * double(aspectRatio);
+        awdCamera->set_lens_fov(verticalFOV);
+    }
 
     awdCamera->set_lens_near(clipNear * blockSettings->get_scale());
     awdCamera->set_lens_far(clipFar * blockSettings->get_scale());

@@ -45,32 +45,31 @@ macroScript AddAWDAnimator
 	else(
 		meshes = $*
 		selected=#()
+		selectedObj=#()
 		firstmod=undefined
 		if meshes!= undefined then (
 			for i in meshes do(
 				for oneMod in i.modifiers do(
 					if (classOf oneMod as string)=="AWDAnimator" then (
-						appendIfUnique selected i
+						appendIfUnique selected m
+						appendIfUnique selectedObj i
 					)
 				)
 			)
 		)	
-		if selected.count>1 then(
-			answer=queryBox ("Nothing is selected.\n\nScene contains "+selected.count  as string+" objects that have AWDAnimator-modifier applied.\n\nSelect the Objects ?")
+		if selected.count==1 then(
+			max modify mode 
+			modPanel.setCurrentObject selected[1]
+		)
+		else if selected.count>1 then(
+			answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWDAnimators modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
 			if answer==true then(
-				select selected
-				)
-			)
-		else if selected.count==1 then(
-			answer=queryBox ("Nothing is selected.\n\n Scene contains "+selected.count  as string+" object that has AWDAnimators-modifier applied.\n\nSelect the Object ?")
-			if answer==true then(
-				select selected
-				)
-			)
+				select selectedObj
+			)			
+		)
 		else (
 			messagebox ("Nothing is selected.\n\n Scene contains no objects that have AWDAnimators-modifier applied.\n\n")
-
-			)
 		)
+	)
 	
 )

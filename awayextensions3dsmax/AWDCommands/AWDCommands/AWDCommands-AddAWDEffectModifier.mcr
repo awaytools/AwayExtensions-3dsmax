@@ -5,17 +5,24 @@ macroScript AddAWDEffectModifier
 	
 	if selection.count==0 then (
 		selected=#()
+		selectedObj=#()
 		for i in objects do(
 				for m in i.modifiers do(
 					if classof m as string=="AWDEffectMethod" then(
-						appendIfUnique selected i
+						appendIfUnique selected m
+						appendIfUnique selectedObj i
 					)				
 				)
 			)	
-		if selected.count>0 then(
+			
+		if selected.count==1 then(
+			max modify mode 
+			modPanel.setCurrentObject selected[1]
+			)
+		else if selected.count>1 then(
 			answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWDEffectMethod modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
 			if answer==true then(
-				select selected
+				select selectedObj
 			)
 		)
 		else	messageBox ("No Object is selected.\n\n No AWDEffectMethod modifiers found in the scene.\n\n To create a AWDEffectMethod modifier, select one object.")

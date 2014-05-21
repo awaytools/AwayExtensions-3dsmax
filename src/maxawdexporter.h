@@ -85,6 +85,7 @@ class MaxAWDExporter : public SceneExport {
         bool hasExcludedLayers;
         bool hasExcludedObjects;
         BlockCache *cubeMatCache;
+        BlockCache *nodesToBaseObjects;
         BlockCache *primGeocache;
         BlockCache *INodeToGeoBlockCache;
         BlockCache *sceneBlocks;
@@ -95,7 +96,7 @@ class MaxAWDExporter : public SceneExport {
         BlockCache *geometryCache;
         BlockCache *animSetsCache;
         BlockCache *animatorCache;
-        BlockCache *autoApplyMethodsToObjCache;
+        BlockCache *autoApplyMethodsToINodeCache;
         LightCache *lightCache;
         StringCache *textureCache;
         StringCache *animSetsIDsCache;
@@ -164,7 +165,7 @@ class MaxAWDExporter : public SceneExport {
 
         // all following functions are getting called by the 4 functions above:
 
-        AWDPrimitive *        ExportPrimitiveGeom(BaseObject *, char *);
+        AWDPrimitive *      ExportPrimitiveGeom(Object *, char *);
         void                ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node, ISkin *skin, IGameMesh * igame_mesh);
 
         AWDBlockList *        GetMaterialsForMeshInstance(INode *node);
@@ -179,11 +180,12 @@ class MaxAWDExporter : public SceneExport {
         void                ExportSkeleton(INode *rootBone);
 
         void                ExportUserAttributes(Animatable *obj, AWDAttrElement *elem);
+        void                ExportUserAttributesForNode(INode *,Animatable *obj, AWDAttrElement *elem);
 
         AWDBlock *          ExportCameraAndTextureExporter(INode * node, double *, AWDSceneBlock *, BlockSettings*);
         //CustomCamera_struct CreateCameraBlock(Modifier *node_mod, INode * node);
         void                ReadAWDAnimationClips(IParamBlock2 *, const char *,  AWDBlockList *, AWD_Anim_Type);
-        void                ReadAWDEffectMethods(Modifier *node_mod, Object* );
+        void                ReadAWDEffectMethods(Modifier *node_mod, INode*);
         void                ReadAWDAnimSet(Modifier *node_mod);
         void                ReadAWDSkeletonMod(Modifier *node_mod,INode * );
         void                ReadAWDVertexMod(Modifier *node_mod,INode * );
@@ -203,7 +205,7 @@ class MaxAWDExporter : public SceneExport {
         AWDBlock *          ExportUVClip(AWDUVAnimation *);
         void                ReadAWDShadowsMethods(Modifier *node_mod, AWDBlock * light);
         int                    checkIfUVMapExists(Mesh mesh, int numTris, int mapIdx);
-        CustomAttributes_struct    GetCustomAWDObjectSettings(Animatable *);
+        CustomAttributes_struct    GetCustomAWDObjectSettings(IDerivedObject *, Animatable *);
         CustomTexSettings_struct GetCustomAWDTextureSettings(BitmapTex *);
         void                GetCustomAWDMaterialSettings(StdMat *, AWDMaterial * );
         void CopyViewer(bool);

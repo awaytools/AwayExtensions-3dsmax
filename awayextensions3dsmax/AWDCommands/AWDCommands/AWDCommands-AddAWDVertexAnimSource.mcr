@@ -37,20 +37,26 @@ macroScript AddAWDVertexAnimSource
 	else(
 			meshes = $*
 			selected=#()
+			selectedObj=#()
 			if meshes!= undefined then (
 				for i in meshes do(
 					for m in i.modifiers do(
 						if classof m as string=="AWDVertexAnimSource" or classof m as string=="AWDVertexAnimSourceClone" then(
-							appendIfUnique selected i
-						)				
+							appendIfUnique selected m
+							appendIfUnique selectedObj i
+							)				
 					)
 				)	
-			if selected.count>0 then(
-				answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWDVertexAnimSource-modifier found in the scene.\n\n Select the Objects that are holding the modifiers ?")
-				if answer==true then(
-					select selected
-					)
+			if selected.count==1 then(
+				max modify mode 
+				modPanel.setCurrentObject selected[1]
 				)
+			else if selected.count>1 then(
+				answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWDVertexAnimSource modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
+				if answer==true then(
+					select selectedObj
+				)
+			)
 			else(
 				answer=messageBox ("No Object is selected.\n\n No AWDVertexAnimSource modifiers found in the scene.\n\n To create a AWD AWDVertexAnimSource modifier, select the animated mesh.")
 				)

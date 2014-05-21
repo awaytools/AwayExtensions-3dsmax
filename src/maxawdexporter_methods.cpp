@@ -1,6 +1,6 @@
 #include "maxawdexporter.h"
 
-void MaxAWDExporter::ReadAWDEffectMethods(Modifier *node_mod, Object* thisObj){
+void MaxAWDExporter::ReadAWDEffectMethods(Modifier *node_mod, INode* originalNode){
     int num_params = node_mod->NumParamBlocks();
     int cntBlocks=0;
     IParamBlock2* pb ;
@@ -652,9 +652,29 @@ void MaxAWDExporter::ReadAWDEffectMethods(Modifier *node_mod, Object* thisObj){
         }
         awdEffectBlocks=orderEffectMethodsCache->GetKeysOrderedByVal();
         if(autoAssignMethod){
-            AWDBlockList * awdAutoEffectBlocks=(AWDBlockList*)autoApplyMethodsToObjCache->Get(thisObj);
-            if(awdAutoEffectBlocks==NULL)
+                AWDBlockList * awdAutoEffectBlocks=(AWDBlockList*)autoApplyMethodsToINodeCache->Get(originalNode);
+                if(awdAutoEffectBlocks==NULL){
+                    awdAutoEffectBlocks=new AWDBlockList();
+                    autoApplyMethodsToINodeCache->Set(originalNode, awdAutoEffectBlocks);
+                }
+                AWDBlock * awdBlock=NULL;
+                AWDBlockIterator *it;
+                it = new AWDBlockIterator(awdEffectBlocks);
+                while ((awdBlock = (AWDBlock*)it->next()) != NULL) {
+                    awdAutoEffectBlocks->append(awdBlock);
+                }
+                delete it;
+        }
+        methodsCache->Set(settingsNodeID_ptr, awdEffectBlocks);
+        delete orderEffectMethodsCache;
+    }
+    else{
+        if(autoAssignMethod){
+            AWDBlockList * awdAutoEffectBlocks=(AWDBlockList*)autoApplyMethodsToINodeCache->Get(originalNode);
+            if(awdAutoEffectBlocks==NULL){
                 awdAutoEffectBlocks=new AWDBlockList();
+                autoApplyMethodsToINodeCache->Set(originalNode, awdAutoEffectBlocks);
+            }
             AWDBlock * awdBlock=NULL;
             AWDBlockIterator *it;
             it = new AWDBlockIterator(awdEffectBlocks);
@@ -662,10 +682,7 @@ void MaxAWDExporter::ReadAWDEffectMethods(Modifier *node_mod, Object* thisObj){
                 awdAutoEffectBlocks->append(awdBlock);
             }
             delete it;
-            autoApplyMethodsToObjCache->Set(thisObj, awdAutoEffectBlocks);
         }
-            methodsCache->Set(settingsNodeID_ptr, awdEffectBlocks);
-            delete orderEffectMethodsCache;
     }
     if (settingsNodeID_ptr!=NULL)
         free(settingsNodeID_ptr);

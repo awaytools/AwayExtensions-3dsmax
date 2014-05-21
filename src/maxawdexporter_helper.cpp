@@ -1,10 +1,95 @@
 #include "maxawdexporter.h"
 
-CustomAttributes_struct MaxAWDExporter::GetCustomAWDObjectSettings(Animatable *obj)
+CustomAttributes_struct MaxAWDExporter::GetCustomAWDObjectSettings(IDerivedObject * node_der,Animatable *obj)
 {
     CustomAttributes_struct returnData;
     returnData.export_this=true;
     returnData.export_this_children=true;
+    if(node_der!=NULL){
+        int nMods = node_der->NumModifiers();
+        for (int m = 0; m<nMods; m++){
+            Modifier* node_mod = node_der->GetModifier(m);
+            if (node_mod->IsEnabled()){
+                MSTR className;
+                node_mod->GetClassName(className);
+                char * className_ptr=W2A(className);
+                if (ATTREQ(className_ptr,"AWDObjectSettings")){
+                    IParamBlock2* pb = GetParamBlock2ByIndex((ReferenceMaker*)node_mod, 0);
+                    if(pb!=NULL){
+                        int numBlockparams=pb->NumParams();
+                        int p=0;
+                        for (p=0; p<numBlockparams; p++) {
+                            ParamID pid = pb->IndextoID(p);
+                            ParamDef def = pb->GetParamDef(pid);
+                            ParamType2 paramtype = pb->GetParameterType(pid);
+                            char * paramName_ptr=W2A(def.int_name);
+                            if (ATTREQ(paramName_ptr, "thisAWDID")){
+                                //if (paramtype==TYPE_STRING)
+                                //    skeletonMod_ptr=W2A(pb->GetStr(pid));
+                            }
+                            if (ATTREQ(paramName_ptr, "Export")){
+                                if (paramtype==TYPE_BOOL)
+                                    returnData.export_this=(0 != pb->GetInt(pid));
+                            }
+                            if (ATTREQ(paramName_ptr, "ExportChildren")){
+                                if (paramtype==TYPE_BOOL)
+                                    returnData.export_this_children=(0 != pb->GetInt(pid));
+                            }
+                        }
+                    }
+                    free (className_ptr);
+                    return returnData;
+                }
+                free (className_ptr);
+            }
+        }
+        Object * thisOBJ=(Object *)node_der->GetObjRef();
+        if(thisOBJ!=NULL){
+            if((thisOBJ->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == DERIVOB_CLASS_ID )){
+                IDerivedObject* thisDerObj=( IDerivedObject* ) thisOBJ;
+                if(thisDerObj!=NULL){
+                    int nMods = thisDerObj->NumModifiers();
+                    for (int m = 0; m<nMods; m++){
+                        Modifier* node_mod = thisDerObj->GetModifier(m);
+                        if (node_mod->IsEnabled()){
+                            MSTR className;
+                            node_mod->GetClassName(className);
+                            char * className_ptr=W2A(className);
+                            if (ATTREQ(className_ptr,"AWDObjectSettings")){
+                                IParamBlock2* pb = GetParamBlock2ByIndex((ReferenceMaker*)node_mod, 0);
+                                if(pb!=NULL){
+                                    int numBlockparams=pb->NumParams();
+                                    int p=0;
+                                    for (p=0; p<numBlockparams; p++) {
+                                        ParamID pid = pb->IndextoID(p);
+                                        ParamDef def = pb->GetParamDef(pid);
+                                        ParamType2 paramtype = pb->GetParameterType(pid);
+                                        char * paramName_ptr=W2A(def.int_name);
+                                        if (ATTREQ(paramName_ptr, "thisAWDID")){
+                                            //if (paramtype==TYPE_STRING)
+                                            //    skeletonMod_ptr=W2A(pb->GetStr(pid));
+                                        }
+                                        if (ATTREQ(paramName_ptr, "export")){
+                                            if (paramtype==TYPE_BOOL)
+                                                returnData.export_this=(0 != pb->GetInt(pid));
+                                        }
+                                        if (ATTREQ(paramName_ptr, "exportChildren")){
+                                            if (paramtype==TYPE_BOOL)
+                                                returnData.export_this_children=(0 != pb->GetInt(pid));
+                                        }
+                                    }
+                                }
+                                free (className_ptr);
+                                return returnData;
+                            }
+                            free (className_ptr);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     while(obj->SuperClassID() != BASENODE_CLASS_ID) {
         if (obj->SuperClassID() == GEN_DERIVOB_CLASS_ID) {
           IDerivedObject *dobj = (IDerivedObject *)obj;
@@ -48,7 +133,7 @@ CustomAttributes_struct MaxAWDExporter::GetCustomAWDObjectSettings(Animatable *o
     return returnData;
 }
 
-AWDPrimitive * MaxAWDExporter::ExportPrimitiveGeom(BaseObject * obj, char * name){
+AWDPrimitive * MaxAWDExporter::ExportPrimitiveGeom(Object * obj, char * name){
     Class_ID classId = obj->ClassID();
     if (classId.PartA() == EDITTRIOBJ_CLASS_ID || classId.PartA() == TRIOBJ_CLASS_ID ){
         return NULL;
@@ -193,6 +278,52 @@ AWDPrimitive * MaxAWDExporter::ExportPrimitiveGeom(BaseObject * obj, char * name
     return NULL;
 }
 
+void MaxAWDExporter::ExportUserAttributesForNode(INode *node, Animatable *obj, AWDAttrElement *elem)
+{
+    if (!opts->ExportAttributes())
+        return;
+    BaseObject* node_bo = node->GetObjectRef();
+    if((node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == DERIVOB_CLASS_ID ))
+    {
+        IDerivedObject* node_der = (IDerivedObject*)(node_bo);
+        if (node_der!=NULL){
+            int nMods = node_der->NumModifiers();
+            for (int m = 0; m<nMods; m++){
+                Modifier* node_mod = node_der->GetModifier(m);
+                if (node_mod->IsEnabled()){
+                    MSTR className;
+                    node_mod->GetClassName(className);
+                    char * className_ptr=W2A(className);
+                    if (ATTREQ(className_ptr,"AWDObjectSettings")){
+                        ExportUserAttributes(node_mod, elem);
+                    }
+                    free (className_ptr);
+                }
+            }
+            IDerivedObject* thisBaseObj_der = (IDerivedObject*)(node->GetObjectRef());
+            Object * thisOBJ=(Object *)thisBaseObj_der->GetObjRef();
+            if((thisOBJ->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == DERIVOB_CLASS_ID )){
+                IDerivedObject* thisDerObj=( IDerivedObject* ) thisOBJ;
+                if (thisDerObj!=NULL){
+                    int nMods = thisDerObj->NumModifiers();
+                    for (int m = 0; m<nMods; m++){
+                        Modifier* node_mod = thisDerObj->GetModifier(m);
+                        if (node_mod->IsEnabled()){
+                            MSTR className;
+                            node_mod->GetClassName(className);
+                            char * className_ptr=W2A(className);
+                            if (ATTREQ(className_ptr,"AWDObjectSettings")){
+                                ExportUserAttributes(node_mod, elem);
+                            }
+                            free (className_ptr);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ExportUserAttributes(obj, elem);
+}
 void MaxAWDExporter::ExportUserAttributes(Animatable *obj, AWDAttrElement *elem)
 {
     if (!opts->ExportAttributes())

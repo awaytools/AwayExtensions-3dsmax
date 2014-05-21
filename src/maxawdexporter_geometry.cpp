@@ -12,7 +12,7 @@ void MaxAWDExporter::ProcessGeoBlocks()
         INode * node = (INode *)INodeToGeoBlockCache->Get(geoBlock);
         if (node==NULL){
             AWDMessageBlock * newWarning = new AWDMessageBlock(geoBlock->get_name(), "ERROR: Could not find the INode for this AWDGeometry.");
-            awd->get_message_blocks()->append(newWarning);  
+            awd->get_message_blocks()->append(newWarning);
             return;
         }
         lNodes.AppendNode( node );
@@ -26,7 +26,7 @@ void MaxAWDExporter::ProcessGeoBlocks()
         INode * node = (INode *)INodeToGeoBlockCache->Get(geoBlock);
         if (node==NULL){
             AWDMessageBlock * newWarning = new AWDMessageBlock(geoBlock->get_name(), "ERROR: Could not find the INode for this AWDGeometry.");
-            awd->get_message_blocks()->append(newWarning);                
+            awd->get_message_blocks()->append(newWarning);
         }
         else{
             int exportThis=false;
@@ -479,7 +479,7 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
                                 AWDLightPicker * lightPicker=(AWDLightPicker *)block->get_lightPicker();
                                 AWDBlock * thisAnimator=(AWDBlock *)block->get_animator();
                                 if ((lightPicker!=NULL)||(thisAnimator!=NULL)){
-                                    thisMat=thisMat->get_material_for_lightPicker(lightPicker, thisAnimator);
+                                    thisMat=thisMat->get_unique_material(lightPicker, thisAnimator, NULL);
                                     if(lightPicker!=NULL){
                                         if(opts->SetMultiPass()){
                                             // multipass using the number of lights, that the lightpicker uses

@@ -416,6 +416,23 @@ int MaxAWDExporter::ExecuteExport()
                 }
             }
         }
+        if (!opts->ExportScene()){
+            AWDBlockList * allsceneBlock=awd->get_scene_blocks();
+            AWDSceneBlock *sceneBlock;
+            AWDBlockIterator it(allsceneBlock);
+            while ((sceneBlock = (AWDSceneBlock *)it.next()) != NULL) {
+                sceneBlock->make_invalide();
+                sceneBlock->make_children_invalide();
+            }
+        }
+        if (!opts->ExportMaterials()){
+            AWDBlockList * allmatBlock=awd->get_material_blocks();
+            AWDMaterial *matBlock;
+            AWDBlockIterator it(allmatBlock);
+            while ((matBlock = (AWDMaterial *)it.next()) != NULL) {
+                matBlock->make_invalide();
+            }
+        }
         UpdateProgressBar(MAXAWD_PHASE_FLUSH, 0);
         output_debug_string("-> Start flush (Step5)");
         awd->flush(fd);
@@ -461,6 +478,7 @@ int MaxAWDExporter::ExecuteExport()
 
 void MaxAWDExporter::PrepareExport(bool splitByRoot, BlockSettings * thisBlockSettings)
 {
+    nodesToBaseObjects = new BlockCache(); // cache INode to BaseObject
     sceneBlocks = new BlockCache(); // cache INode to AWDSceneBlock
     primGeocache = new BlockCache(); // cache 3dsmax-object to AWDPrimitive
     INodeToGeoBlockCache = new BlockCache(); // cache AWDTriGeom to INode
@@ -470,7 +488,7 @@ void MaxAWDExporter::PrepareExport(bool splitByRoot, BlockSettings * thisBlockSe
     animSetsCache = new BlockCache(); // cache AWDAnimationSet-Modifier to AWDAnimationSet-Block
     animatorCache = new BlockCache(); // cache AWDAnimator-Modifier or AWDSkeleton-Block to AWDAnimator-Block
     cubeMatCache = new BlockCache(); // cache AWDCubeMaterial to AWDCubeTexture-block
-    autoApplyMethodsToObjCache = new BlockCache();
+    autoApplyMethodsToINodeCache = new BlockCache();
 
     allExcludedCache = new BoolCache(); // cache INode to bool.
     allBonesCache = new BoolCache(); // cache INode to bool.
@@ -518,6 +536,7 @@ void MaxAWDExporter::CleanUp()
     delete opts;
 
     delete sceneBlocks;
+    delete nodesToBaseObjects;
     delete primGeocache;
     delete INodeToGeoBlockCache;
     delete allExcludedCache;
@@ -529,8 +548,8 @@ void MaxAWDExporter::CleanUp()
     delete animSetsCache;
     delete animatorCache;
     delete cubeMatCache;
-    autoApplyMethodsToObjCache->DeleteVals();// because the stored lists are not available else where, we need to delete them
-    delete autoApplyMethodsToObjCache;
+    autoApplyMethodsToINodeCache->DeleteVals();// because the stored lists are not available else where, we need to delete them
+    delete autoApplyMethodsToINodeCache;
 
     delete lightCache;
     delete colMtlCache;

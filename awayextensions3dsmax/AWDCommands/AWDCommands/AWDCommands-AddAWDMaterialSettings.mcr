@@ -8,7 +8,7 @@ macroScript addAWDMaterialSettings
 		mtl=undefined
 		--if material mode is "Compact-Mode"
 		if MatEditor.mode ==#basic then (
-			mtl = meditMaterials[activeMeditSlot] 
+			mtl = medit.GetCurMtl()
 		)
 		--if material mode is "Slate-Mode"
 		else if MatEditor.mode ==#advanced then (

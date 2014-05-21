@@ -7,7 +7,7 @@ macroScript addAWDTextureSettings
 		thisTexMap=undefined
 		--if material mode is "Compact-Mode"
 		if MatEditor.mode ==#basic then (
-			thisTexMap = meditMaterials[activeMeditSlot] 
+			thisTexMap = medit.GetCurMtl()
 		)
 		--if material mode is "Slate-Mode"
 		else if MatEditor.mode ==#advanced then (

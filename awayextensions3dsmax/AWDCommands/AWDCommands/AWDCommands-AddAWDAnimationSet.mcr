@@ -33,18 +33,31 @@ if meshes.count>=1 then (
 	)
 else(
 	selected=#()
+	selectedObj=#()
 	testCnter=0
 	for i in objects do(
 		for m in i.modifiers do(
 			if classof  m as string=="AWDAnimationSet" then(
-				appendIfUnique selected i
+				appendIfUnique selected m
+				appendIfUnique selectedObj i
 					
 			)
 		)
 	)	
-	answer=queryBox ("Nothing is selected.\n\n Found "+testCnter as string+" AnimationClips in the scene.\n\n Select the "+selected.count as string + " Objects that are holding the AnimationClips ?")
-	if answer==true then(
-		select selected
-	)
+		if selected.count==1 then(
+			max modify mode 
+			modPanel.setCurrentObject selected[1]
+			)
+		else if selected.count>1 then(
+				answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWDAnimationSets modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
+				if answer==true then(
+					select selectedObj
+				)
+			
+		)
+		else(
+			messagebox ("Nothing is selected.\n\n No AWDAnimationSets found in scene")
+		)
+
 	)
 )

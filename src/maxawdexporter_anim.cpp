@@ -430,7 +430,26 @@ AWDAnimator * MaxAWDExporter::AutoCreateAnimatorForSkeleton(INode * node){
     }
     else {
         // no skin = no skeleton animation
-        return NULL;
+        IDerivedObject* thisBaseObj_der = (IDerivedObject*)(node->GetObjectRef());
+        Object * thisOBJ=(Object *)thisBaseObj_der->GetObjRef();
+        if(thisOBJ!=NULL){
+            if((thisOBJ->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == DERIVOB_CLASS_ID )){
+                IDerivedObject* thisDerObj=( IDerivedObject* ) thisOBJ;
+                skinIdx = IndexOfSkinMod(thisOBJ, &derivedObject);
+                if (skinIdx >= 0) {
+                    // Flatten all modifiers up to but not including
+                    // the skin modifier.
+                    // to do: get the correct time for the neutral-pose
+                    os = derivedObject->Eval(0, skinIdx + 1);
+                }
+                else{
+                    return NULL;
+                }
+            }
+            else{
+                return NULL;
+            }
+        }
     }
     obj = os.obj;
     ISkin *skin = NULL;
@@ -510,22 +529,52 @@ AWDAnimator * MaxAWDExporter::AutoCreateAnimatorForVertexAnim(INode * node){
     if((node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == DERIVOB_CLASS_ID ))
     {
         IDerivedObject* node_der = (IDerivedObject*)(node_bo);
-        node_bo = node_der->GetObjRef();
         if (node_der!=NULL){
             int nMods = node_der->NumModifiers();
             for (int m = 0; m<nMods; m++){
                 Modifier* node_mod = node_der->GetModifier(m);
-                MSTR className;
-                node_mod->GetClassName(className);
-                char * className_ptr=W2A(className);
-                if (ATTREQ(className_ptr,"AWDVertexAnimSource")){
-                    free(className_ptr);
-                    animatorBlock=ReadAWDVertexModForMesh(node_mod, node);
-                    if (animatorBlock!=NULL)
-                       return animatorBlock;
+                if (node_mod->IsEnabled()){
+                    MSTR className;
+                    node_mod->GetClassName(className);
+                    char * className_ptr=W2A(className);
+                    if (ATTREQ(className_ptr,"AWDVertexAnimSource")){
+                        free(className_ptr);
+                        animatorBlock=ReadAWDVertexModForMesh(node_mod, node);
+                        if (animatorBlock!=NULL)
+                           return animatorBlock;
+                    }
+                    else{
+                        free(className_ptr);
+                    }
                 }
-                else{
-                    free(className_ptr);
+            }
+        }
+        if (animatorBlock==NULL){
+            // no skin = no skeleton animation
+            IDerivedObject* thisBaseObj_der = (IDerivedObject*)(node->GetObjectRef());
+            Object * thisOBJ=(Object *)thisBaseObj_der->GetObjRef();
+            if(thisOBJ!=NULL){
+                if((thisOBJ->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == DERIVOB_CLASS_ID )){
+                    IDerivedObject* thisDerObj=( IDerivedObject* ) thisOBJ;
+                    if (thisDerObj!=NULL){
+                        int nMods = thisDerObj->NumModifiers();
+                        for (int m = 0; m<nMods; m++){
+                            Modifier* node_mod = thisDerObj->GetModifier(m);
+                            if (node_mod->IsEnabled()){
+                                MSTR className;
+                                node_mod->GetClassName(className);
+                                char * className_ptr=W2A(className);
+                                if (ATTREQ(className_ptr,"AWDVertexAnimSource")){
+                                    free(className_ptr);
+                                    animatorBlock=ReadAWDVertexModForMesh(node_mod, node);
+                                    if (animatorBlock!=NULL)
+                                       return animatorBlock;
+                                }
+                                else
+                                    free(className_ptr);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -715,8 +764,13 @@ AWDAnimator * MaxAWDExporter::GetAWDAnimatorForObject(INode *node){
     BaseObject* node_bo = node->GetObjectRef();
     if((node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == DERIVOB_CLASS_ID ))
     {
+        Modifier* anim_Mod=NULL;
+        AWDAnimationSet *animSet=NULL;
+        bool createUnique=false;
+        char * settingsNodeID_ptr=NULL;
+        char * animSetID_ptr=NULL;
+        char * animatorName=NULL;
         IDerivedObject* node_der = (IDerivedObject*)(node_bo);
-        node_bo = node_der->GetObjRef();
         if (node_der!=NULL){
             int nMods = node_der->NumModifiers();
             for (int m = 0; m<nMods; m++){
@@ -728,10 +782,9 @@ AWDAnimator * MaxAWDExporter::GetAWDAnimatorForObject(INode *node){
                     node_mod->GetClassName(className);
                     char * className_ptr=W2A(className);
                     if (ATTREQ(className_ptr,"AWDAnimator") ){
-                        bool createUnique=false;
+                        anim_Mod=node_mod;
+                        animatorName=W2A(node_mod->GetName());
                         int num_params = node_mod->NumParamBlocks();
-                        char * settingsNodeID_ptr=NULL;
-                        char * animSetID_ptr=NULL;
                         int p=0;
                         IParamBlock2* pb = GetParamBlock2ByIndex((ReferenceMaker*)node_mod, 0);
                         if(pb!=NULL){
@@ -755,44 +808,87 @@ AWDAnimator * MaxAWDExporter::GetAWDAnimatorForObject(INode *node){
                                 }
                                 free(paramName_ptr);
                             }
-                            if(animSetID_ptr==NULL){
-                                char * animatorName=W2A(node_mod->GetName());
-                                AWDMessageBlock * newWarning = new AWDMessageBlock(animatorName, "Could not find the animationset-id for this animator");
-                                awd->get_message_blocks()->append(newWarning);
-                                free(className_ptr);
-                                free(animatorName);
-                                return animatorBlock;
-                            }
-                            AWDAnimationSet *animSet=(AWDAnimationSet *)animSetsIDsCache->Get(animSetID_ptr);
-                            if (animSet==NULL){
-                                char * animatorName=W2A(node_mod->GetName());
-                                AWDMessageBlock * newWarning = new AWDMessageBlock(animatorName, "Could not find the animationset for this animator");
-                                awd->get_message_blocks()->append(newWarning);
-                                free(className_ptr);
-                                free(animatorName);
-                                return animatorBlock;
-                            }
-                            animatorBlock = (AWDAnimator *)animatorCache->Get(node_mod);
-                            if ((createUnique)||(animatorBlock==NULL)){
-                                char * animatorName=W2A(node_mod->GetName());
-                                animatorBlock = new AWDAnimator(animatorName, strlen(animatorName),animSet, animSet->get_anim_type());
-                                free(animatorName);
-                                animatorCache->Set(node_mod, animatorBlock);
-                                awd->add_animator(animatorBlock);
-                            }
                         }
-                        else{
-                            return animatorBlock;
+                        if(animSetID_ptr!=NULL){
+                            animSet=(AWDAnimationSet *)animSetsIDsCache->Get(animSetID_ptr);
                         }
-                        if(settingsNodeID_ptr!=NULL)
-                            free(settingsNodeID_ptr);
-                        if(animSetID_ptr!=NULL)
-                            free(animSetID_ptr);
                     }
                     free(className_ptr);
                 }
             }
+            if(animSet==NULL){
+                IDerivedObject* thisBaseObj_der = (IDerivedObject*)(node->GetObjectRef());
+                Object * thisOBJ=(Object *)thisBaseObj_der->GetObjRef();
+                if((thisOBJ->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == DERIVOB_CLASS_ID )){
+                    IDerivedObject* thisDerObj=( IDerivedObject* ) thisOBJ;
+                    if (thisDerObj!=NULL){
+                        int nMods = thisDerObj->NumModifiers();
+                        for (int m = 0; m<nMods; m++){
+                            Modifier* node_mod = thisDerObj->GetModifier(m);
+                            if (node_mod->IsEnabled()){
+                                //DebugPrint("node_mod.IsEnabled() = "+node_mod->IsEnabled());
+                                //MSTR name=node_mod->GetName();
+                                MSTR className;
+                                node_mod->GetClassName(className);
+                                char * className_ptr=W2A(className);
+                                if (ATTREQ(className_ptr,"AWDAnimator") ){
+                                    anim_Mod=node_mod;
+                                    animatorName=W2A(node_mod->GetName());
+                                    int num_params = node_mod->NumParamBlocks();
+                                    int p=0;
+                                    IParamBlock2* pb = GetParamBlock2ByIndex((ReferenceMaker*)node_mod, 0);
+                                    if(pb!=NULL){
+                                        int numBlockparams=pb->NumParams();
+                                        for (p=0; p<numBlockparams; p++) {
+                                            ParamID pid = pb->IndextoID(p);
+                                            ParamDef def = pb->GetParamDef(pid);
+                                            ParamType2 paramtype = pb->GetParameterType(pid);
+                                            char * paramName_ptr=W2A(def.int_name);
+                                            if (ATTREQ(paramName_ptr, "thisAWDID") ){
+                                                if (paramtype==TYPE_STRING)
+                                                    settingsNodeID_ptr = W2A(pb->GetStr(pid));
+                                            }
+                                            if (ATTREQ(paramName_ptr, "AnimationSetID") ){
+                                                if (paramtype==TYPE_STRING)
+                                                    animSetID_ptr = W2A(pb->GetStr(pid));
+                                            }
+                                            if (ATTREQ(paramName_ptr, "createUnique") ){
+                                                if (paramtype==TYPE_BOOL)
+                                                    createUnique=(0 != pb->GetInt(pid));
+                                            }
+                                            free(paramName_ptr);
+                                        }
+                                    }
+                                    if(animSetID_ptr!=NULL){
+                                        animSet=(AWDAnimationSet *)animSetsIDsCache->Get(animSetID_ptr);
+                                    }
+                                }
+                                free(className_ptr);
+                            }
+                        }
+                    }
+                }
+            }
+            if(animatorName!=NULL){
+                if(animSet==NULL){
+                    AWDMessageBlock * newWarning = new AWDMessageBlock(animatorName, "Could not find the animationset-id for this animator");
+                    awd->get_message_blocks()->append(newWarning);
+                }
+                else{
+                    animatorBlock = (AWDAnimator *)animatorCache->Get(anim_Mod);
+                    if ((createUnique)||(animatorBlock==NULL)){
+                        animatorBlock = new AWDAnimator(animatorName, strlen(animatorName),animSet, animSet->get_anim_type());
+                        animatorCache->Set(anim_Mod, animatorBlock);
+                        awd->add_animator(animatorBlock);
+                    }
+                }
+                free(animatorName);
+            }
         }
+        if(settingsNodeID_ptr!=NULL)
+            free(settingsNodeID_ptr);
+        if(animSetID_ptr!=NULL)
+            free(animSetID_ptr);
     }
     return animatorBlock;
 }

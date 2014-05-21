@@ -1,5 +1,5 @@
 #include "maxawdexporter.h"
-
+#include <iInstanceMgr.h>
 void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, BlockSettings* blockSettings)
 {
     Object *obj;
@@ -8,28 +8,29 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
     bool excludeChild=parentExcluded;
     bool isReference=false;
     if (obj){
-
         SClass_ID sid=obj->SuperClassID();
         // no matter if set to export or  "selectedObject"-export,
         // we need to collect the AWDAnimationNodes,
         // if we want Animation to be savly exported for a selected object.
         BaseObject* node_bo = (BaseObject*)node->GetObjectRef();
         IDerivedObject* node_der = NULL;
-        // if the object is not derived, it has no modifier, and is either not a reference-object
-        // it might still be a instance
 
         if((node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == DERIVOB_CLASS_ID ))
         {
+            char * name=W2A(node->GetName());
+            free(name);
+            bool isReference=true;
+            SClass_ID sid=obj->SuperClassID();
+            ULONG handle = 0;
+            obj->NotifyDependents(FOREVER, (PartID)&handle, REFMSG_GET_NODE_HANDLE);
+            INode *originalNode = GetCOREInterface()->GetINodeByHandle(handle);
+            Object * thisBaseObj = originalNode->GetObjectRef();
+
             node_der = ( IDerivedObject* ) node->GetObjectRef();
 
             // prevent reading AWD-modifier from the same instance
             CustomAttributes_struct custAWDSettings;
-            Object * newObj = node_der->GetObjRef();
-            Object *newObj2=newObj->FindBaseObject();
-            if (newObj!=newObj2){// this is a base object
-                //int whatthefuck=0;
-            }
-            custAWDSettings = GetCustomAWDObjectSettings(obj);
+            custAWDSettings = GetCustomAWDObjectSettings(node_der, obj);
             if (!custAWDSettings.export_this){
                 this->hasExcludedObjects=true;
                 allExcludedCache->Set(obj, true);
@@ -38,9 +39,6 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
             if (!isAllreadyCached){
                 if (node_der!=NULL){
                     int nMods = node_der->NumModifiers();
-                    if (nMods==0){
-                        int thisisaReferenceButNoModsApplied=0;
-                    }
                     for (int m = 0; m<nMods; m++){
                         Modifier* node_mod = node_der->GetModifier(m);
                         if (node_mod->IsEnabled()){
@@ -49,7 +47,7 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
                             char * className_ptr=W2A(className);
                             if (ATTREQ(className_ptr,"AWDEffectMethod")){
                                 if (opts->IncludeMethods())
-                                    ReadAWDEffectMethods(node_mod, newObj);
+                                    ReadAWDEffectMethods(node_mod, node);
                             }
                             else if (ATTREQ(className_ptr,"AWDAnimationSet")){
                                 if ((opts->ExportSkelAnim())||(opts->ExportVertexAnim())){
@@ -77,7 +75,54 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
                                 if (opts->ExportVertexAnim())
                                     ReadAWDAnimSourceCloneMod(node_mod, node, ANIMTYPEVERTEX);
                             }
-
+                            free(className_ptr);
+                        }
+                    }
+                }
+            }
+            // no skin = no skeleton animation
+            IDerivedObject* thisBaseObj_der = (IDerivedObject*)(node->GetObjectRef());
+            Object * thisOBJ=(Object *)thisBaseObj_der->GetObjRef();
+            if((thisOBJ->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisOBJ->SuperClassID() == DERIVOB_CLASS_ID )){
+                IDerivedObject* thisDerObj=( IDerivedObject* ) thisOBJ;
+                if (thisDerObj!=NULL){
+                    int nMods = thisDerObj->NumModifiers();
+                    for (int m = 0; m<nMods; m++){
+                        Modifier* node_mod = thisDerObj->GetModifier(m);
+                        if (node_mod->IsEnabled()){
+                            MSTR className;
+                            node_mod->GetClassName(className);
+                            char * className_ptr=W2A(className);
+                            if (ATTREQ(className_ptr,"AWDEffectMethod")){
+                                if (opts->IncludeMethods())
+                                    ReadAWDEffectMethods(node_mod, node);
+                            }
+                            else if (ATTREQ(className_ptr,"AWDAnimationSet")){
+                                if ((opts->ExportSkelAnim())||(opts->ExportVertexAnim())){
+                                    ReadAWDAnimSet(node_mod);
+                                }
+                            }
+                            else if (ATTREQ(className_ptr,"AWDSkeleton")){
+                                allExcludedCache->Set(obj, true);
+                                this->hasExcludedObjects=true;
+                                ReadAWDSkeletonMod(node_mod, node);
+                            }
+                            else if (ATTREQ(className_ptr,"AWDVertexAnimSource")){
+                                if (opts->ExportVertexAnim())
+                                    ReadAWDVertexMod(node_mod, node);
+                            }
+                            else if (ATTREQ(className_ptr,"AWDSkeletonClone")){
+                                allExcludedCache->Set(obj, true);
+                                this->hasExcludedObjects=true;
+                                if (opts->ExportSkelAnim())
+                                    ReadAWDAnimSourceCloneMod(node_mod, node, ANIMTYPESKELETON);
+                            }
+                            else if (ATTREQ(className_ptr,"AWDVertexAnimSourceClone")){
+                                allExcludedCache->Set(obj, true);
+                                this->hasExcludedObjects=true;
+                                if (opts->ExportVertexAnim())
+                                    ReadAWDAnimSourceCloneMod(node_mod, node, ANIMTYPEVERTEX);
+                            }
                             free(className_ptr);
                         }
                     }
@@ -108,10 +153,10 @@ void MaxAWDExporter::PreProcessSceneGraph(INode *node, bool parentExcluded, Bloc
             if(node_der!=NULL)
             {
                 Object * newObj = node_der->GetObjRef();
-                custAWDSettings = GetCustomAWDObjectSettings(newObj);
+                custAWDSettings = GetCustomAWDObjectSettings(node_der, newObj);
             }
             else{
-                custAWDSettings = GetCustomAWDObjectSettings(obj);
+                custAWDSettings = GetCustomAWDObjectSettings(NULL, obj);
             }
             if (!custAWDSettings.export_this){
                 allExcludedCache->Set(obj, true);
@@ -290,10 +335,30 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
            return;
         else{
             if ((node->Selected()!=0) || (parent!=NULL) || (exportAll)){
+                INodeTab nodes;
                 SClass_ID sid=obj->SuperClassID();
+                Object * thisBaseObj=(Object*)nodesToBaseObjects->Get(node);
+                ULONG handle = 0;
+                obj->NotifyDependents(FOREVER, (PartID)&handle, REFMSG_GET_NODE_HANDLE);
+                INode *originalNode = GetCOREInterface()->GetINodeByHandle(handle);
+                if(thisBaseObj==NULL){
+                    IInstanceMgr::GetInstanceMgr()->GetInstances(*originalNode, nodes);
+                    thisBaseObj = originalNode->GetObjectRef();
+                    int i=0;
+                    for(i=0;i<nodes.Count();i++){
+                        nodesToBaseObjects->Set(nodes[i], thisBaseObj);
+                    }
+                }
+                if((thisBaseObj->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (thisBaseObj->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (thisBaseObj->SuperClassID() == DERIVOB_CLASS_ID )){
+                    IDerivedObject* thisBaseObj_der = (IDerivedObject*)(thisBaseObj);
+                    thisBaseObj = thisBaseObj_der->GetObjRef();
+                    while (thisBaseObj!=thisBaseObj->FindBaseObject())
+                        thisBaseObj=thisBaseObj->FindBaseObject();
+                }
                 getBaseObjectAndID(obj, sid);
                 //obj = node->GetObjectRef();
-                Matrix3 mtx = node->GetNodeTM(0) * Inverse(node->GetParentTM(0));
+                int mtxTime=maxInterface->GetTime();
+                Matrix3 mtx = node->GetNodeTM(mtxTime) * Inverse(node->GetParentTM(mtxTime));
                 double *mtxData = (double *)malloc(12*sizeof(double));
                 SerializeMatrix3(mtx, mtxData);
                 bool isExported=false;
@@ -345,13 +410,13 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                 }
                 else if (true){//sid==GEOMOBJECT_CLASS_ID){
                     AWDAnimator * animatorBlock=NULL;
-                    BaseObject* node_bo = node->GetObjectRef();
+                    Object* node_bo = node->GetObjectRef();
                     AWDBlockList * autoMethodBlocks=NULL;
-                    // if the node has modifier applied, it might give back the wrong class_id, so get the correct obj:
                     if((node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == DERIVOB_CLASS_ID )){
                         IDerivedObject* node_der = (IDerivedObject*)(node_bo);
                         node_bo = node_der->GetObjRef();
-                        autoMethodBlocks=(AWDBlockList *)autoApplyMethodsToObjCache->Get(node_bo);
+                        autoMethodBlocks=(AWDBlockList *)autoApplyMethodsToINodeCache->Get(node);
+
                         if(!isCombinedGeo){
                             //bool combinedReturn=IsCombinedGeom(node);//set to true if combined root
                             //if(combinedReturn==1){
@@ -359,9 +424,6 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                             //}
                             // check if this has a combined subgeo modifier applied
                         }
-
-                        // get the first AWD-Animator-Modifier thats applied to this mesh (if this is no mehs, the animator will not be considered later)
-
                         animatorBlock=GetAWDAnimatorForObject(node);
                     }
                     MSTR className;
@@ -404,15 +466,13 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                         bool hasVertexAnim=vetexAnimNeutralPosecache->hasKey(node);
                         if(hasVertexAnim)
                             time=vetexAnimNeutralPosecache->Get(node)*GetTicksPerFrame();
-
                         // check if the object contains any triangles/faces. otherwise we can cancel here.
-                        TriObject *triObject = (TriObject*)obj->ConvertToType(time, Class_ID(TRIOBJ_CLASS_ID, 0));
+                        TriObject *triObject = (TriObject*)thisBaseObj->ConvertToType(time, Class_ID(TRIOBJ_CLASS_ID, 0));
                         if (triObject!=NULL){
                             Mesh mesh = triObject->mesh;
                             if (mesh.getNumFaces()>0){
                                 //output_debug_string("   -->Object is a Geometry");
                                 AWDBlockList * matBlocks=NULL;
-                                //output_debug_string("      -->Search for materials on object");
                                 matBlocks=GetMaterialsForMeshInstance(node);
                                 if (autoMethodBlocks!=NULL){
                                     if (autoMethodBlocks->get_num_blocks()>0){
@@ -460,18 +520,20 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                                                     strcpy(primName_ptr, bname);
                                                     strcat(primName_ptr, "_prim");
                                                     free(bname);
-                                                    awdPrimGeom=ExportPrimitiveGeom(node_bo, primName_ptr);
+                                                    awdPrimGeom=ExportPrimitiveGeom(thisBaseObj, primName_ptr);
                                                     free(primName_ptr);
                                                 }
                                             }
                                             if ((animatorBlock==NULL)&&(matBlocks!=NULL)){
                                                 //output_debug_string("      -->Try to auto create Animation-Setup for SkeletonAnimation");
                                                 animatorBlock=AutoCreateAnimatorForUV(node, matBlocks);
+                                                if(animatorBlock==NULL)
+                                                    animatorBlock=AutoCreateAnimatorForUV(originalNode, matBlocks);
                                             }
                                         }
                                     }
                                     if (awdPrimGeom==NULL){
-                                        awdGeom = (AWDTriGeom *)geometryCache->Get(obj);
+                                        awdGeom = (AWDTriGeom *)geometryCache->Get(thisBaseObj);
                                         if (awdGeom == NULL){
                                             //output_debug_string("      -->Create a TriGeom for the Object");
                                             char *bname = W2A(node->GetName());
@@ -481,7 +543,7 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                                             free(bname);
                                             awdGeom = new AWDTriGeom(triGeoName_ptr, strlen(triGeoName_ptr));
                                             free(triGeoName_ptr);
-                                            geometryCache->Set(obj, awdGeom);
+                                            geometryCache->Set(thisBaseObj, awdGeom);
                                             awd->add_mesh_data(awdGeom);
                                             INodeToGeoBlockCache->Set(awdGeom, node);
                                         }
@@ -504,101 +566,97 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                                             }
                                         }
                                     }
-                                    if (opts->ExportScene()) {
-                                        int castShadows=node->CastShadows();
-                                        AWDLightPicker * lightPicker=NULL;
-                                        if ((opts->ExportScene())&&(opts->ExportMaterials())&&(matBlocks != NULL)) {
-                                            //output_debug_string("      -->get the Lightpicker for the materials applied to the Object");
-                                            lightPicker=lightCache->GetLightPickerForMesh(node);
-                                            if(lightPicker!=NULL)
-                                                awd->add_light_picker_block(lightPicker);
-                                        }
-                                        AWDMeshInst *awdMesh=NULL;
-                                        if ((awdPrimGeom==NULL)&&(awdGeom==NULL)){
-                                            //output_debug_string("print ('-->empty mesh')");
-                                        }
+                                    int castShadows=node->CastShadows();
+                                    AWDLightPicker * lightPicker=NULL;
+                                    if ((opts->ExportScene())&&(opts->ExportMaterials())&&(matBlocks != NULL)) {
+                                        //output_debug_string("      -->get the Lightpicker for the materials applied to the Object");
+                                        lightPicker=lightCache->GetLightPickerForMesh(node);
+                                        if(lightPicker!=NULL)
+                                            awd->add_light_picker_block(lightPicker);
+                                    }
+                                    AWDMeshInst *awdMesh=NULL;
+                                    if ((awdPrimGeom==NULL)&&(awdGeom==NULL)){
+                                        //output_debug_string("print ('-->empty mesh')");
+                                    }
 
-                                        char * meshName_ptr=W2A(node->GetName());
-                                        if (awdPrimGeom!=NULL){
-                                            //output_debug_string("      -->Create a MeshInstance for the Primitive");
-                                            mtxData[10]+=awdPrimGeom->get_Yoffset();
-                                            awdMesh = new AWDMeshInst(meshName_ptr, strlen(meshName_ptr), awdPrimGeom, mtxData);
-                                            if(castShadows==0){
-                                                awdMesh->add_bool_property(5, false, true);
-                                            }
-                                            if (matBlocks!=NULL){
-                                                AWDMaterial * newPrimMat=(AWDMaterial *)matBlocks->getByIndex(0);
-                                                if(lightPicker!=NULL){
-                                                    AWDMaterial * newPrimMatLP=newPrimMat->get_material_for_lightPicker(lightPicker, NULL);
-                                                    if(opts->SetMultiPass()){
-                                                        // multipass using the number of lights, that the lightpicker uses
-                                                        newPrimMatLP->set_multiPass(false);
-                                                        if (lightPicker->get_lights()->get_num_blocks()>4)
-                                                            newPrimMatLP->set_multiPass(true);
-                                                    }
-                                                    if ((lightPicker->get_lights()->get_num_blocks()>4)&&(!newPrimMatLP->get_multiPass())){
-                                                        AWDMessageBlock * newWarning = new AWDMessageBlock(newPrimMatLP->get_name(), "AWDMaterial has more than 3 lights assigned, but is set to singlepass. this might cause problems on render.");
-                                                        awd->get_message_blocks()->append(newWarning);
-                                                    }
-                                                    if(opts->IncludeShadows()){
-                                                        if(newPrimMatLP->get_shadowMethod()!=NULL){
-                                                            bool shadowOK=lightPicker->check_shadowMethod((AWDShadowMethod *)(newPrimMatLP->get_shadowMethod()));
-                                                            if(!shadowOK){
-                                                                AWDMessageBlock * newWarning = new AWDMessageBlock(newPrimMatLP->get_name(), "Could not find the ShadowMethod thats applied to the material on one of the lights that it assigned to the material.");
-                                                                awd->get_message_blocks()->append(newWarning);
-                                                                newPrimMatLP->set_shadowMethod(NULL);
-                                                            }
-                                                         }
-                                                        if(newPrimMatLP->get_shadowMethod()==NULL){
-                                                            newPrimMatLP->set_shadowMethod(lightPicker->get_shadowMethod());
+                                    char * meshName_ptr=W2A(node->GetName());
+                                    if (awdPrimGeom!=NULL){
+                                        //output_debug_string("      -->Create a MeshInstance for the Primitive");
+                                        mtxData[10]+=awdPrimGeom->get_Yoffset();
+                                        awdMesh = new AWDMeshInst(meshName_ptr, strlen(meshName_ptr), awdPrimGeom, mtxData);
+                                        if(castShadows==0){
+                                            awdMesh->add_bool_property(5, false, true);
+                                        }
+                                        if (matBlocks!=NULL){
+                                            AWDMaterial * newPrimMat=(AWDMaterial *)matBlocks->getByIndex(0);
+                                            if(lightPicker!=NULL){
+                                                AWDMaterial * newPrimMatLP=newPrimMat->get_unique_material(lightPicker, NULL, NULL);
+                                                if(opts->SetMultiPass()){
+                                                    // multipass using the number of lights, that the lightpicker uses
+                                                    newPrimMatLP->set_multiPass(false);
+                                                    if (lightPicker->get_lights()->get_num_blocks()>4)
+                                                        newPrimMatLP->set_multiPass(true);
+                                                }
+                                                if ((lightPicker->get_lights()->get_num_blocks()>4)&&(!newPrimMatLP->get_multiPass())){
+                                                    AWDMessageBlock * newWarning = new AWDMessageBlock(newPrimMatLP->get_name(), "AWDMaterial has more than 3 lights assigned, but is set to singlepass. this might cause problems on render.");
+                                                    awd->get_message_blocks()->append(newWarning);
+                                                }
+                                                if(opts->IncludeShadows()){
+                                                    if(newPrimMatLP->get_shadowMethod()!=NULL){
+                                                        bool shadowOK=lightPicker->check_shadowMethod((AWDShadowMethod *)(newPrimMatLP->get_shadowMethod()));
+                                                        if(!shadowOK){
+                                                            AWDMessageBlock * newWarning = new AWDMessageBlock(newPrimMatLP->get_name(), "Could not find the ShadowMethod thats applied to the material on one of the lights that it assigned to the material.");
+                                                            awd->get_message_blocks()->append(newWarning);
+                                                            newPrimMatLP->set_shadowMethod(NULL);
                                                         }
+                                                        }
+                                                    if(newPrimMatLP->get_shadowMethod()==NULL){
+                                                        newPrimMatLP->set_shadowMethod(lightPicker->get_shadowMethod());
                                                     }
-                                                    awdMesh->add_material(newPrimMatLP);
                                                 }
-                                                else{
-                                                    awdMesh->add_material(newPrimMat);
-                                                }
-                                                delete matBlocks;
+                                                awdMesh->add_material(newPrimMatLP);
                                             }
-                                        }
-                                        else if (awdGeom!=NULL){
-                                            //output_debug_string("      -->Create a MeshInstance for the TriGeom");
-                                            awdMesh = new AWDMeshInst(meshName_ptr, strlen(meshName_ptr), awdGeom, mtxData);
-                                            if(castShadows==0){
-                                                awdMesh->add_bool_property(5, false, true);
+                                            else{
+                                                awdMesh->add_material(newPrimMat);
                                             }
-                                            if (awdGeom != NULL){
-                                                if (matBlocks!=NULL){
-                                                    if (matBlocks->get_num_blocks()==1)
-                                                        awdMesh->set_defaultMat(matBlocks->getByIndex(0));
-                                                    else{
-                                                        awdMesh->set_defaultMat(getColorMatForObject(node, true));
-                                                    }
-                                                    awdMesh->set_pre_materials(matBlocks);
-                                                }
-                                                awdGeom->get_mesh_instance_list()->append(awdMesh);
-                                            }
-                                            if (awdMesh) {
-                                                if (lightPicker!=NULL)
-                                                    awdMesh->set_lightPicker(lightPicker);
-                                                if (animatorBlock!=NULL)
-                                                    animatorBlock->add_target(awdMesh);
-                                            }
-                                        }
-                                        free(meshName_ptr);
-                                        if (awdMesh!=NULL){
-                                            if(animatorBlock!=NULL)
-                                                awdMesh->set_animator(animatorBlock);
-                                            ExportUserAttributes(obj, awdMesh);
-                                            //output_debug_string("      -->Place object into scenegraph");
-                                            if (parent)
-                                                parent->add_child(awdMesh);
-                                            else
-                                                awd->add_scene_block(awdMesh);
-                                            awdParent = awdMesh;
+                                            delete matBlocks;
                                         }
                                     }
-                                    else{
+                                    else if (awdGeom!=NULL){
+                                        //output_debug_string("      -->Create a MeshInstance for the TriGeom");
+                                        awdMesh = new AWDMeshInst(meshName_ptr, strlen(meshName_ptr), awdGeom, mtxData);
+                                        if(castShadows==0){
+                                            awdMesh->add_bool_property(5, false, true);
+                                        }
+                                        if (awdGeom != NULL){
+                                            if (matBlocks!=NULL){
+                                                if (matBlocks->get_num_blocks()==1)
+                                                    awdMesh->set_defaultMat(matBlocks->getByIndex(0));
+                                                else{
+                                                    awdMesh->set_defaultMat(getColorMatForObject(node, true));
+                                                }
+                                                awdMesh->set_pre_materials(matBlocks);
+                                            }
+                                            awdGeom->get_mesh_instance_list()->append(awdMesh);
+                                        }
+                                        if (awdMesh) {
+                                            if (lightPicker!=NULL)
+                                                awdMesh->set_lightPicker(lightPicker);
+                                            if (animatorBlock!=NULL)
+                                                animatorBlock->add_target(awdMesh);
+                                        }
+                                    }
+                                    free(meshName_ptr);
+                                    if (awdMesh!=NULL){
+                                        if(animatorBlock!=NULL)
+                                            awdMesh->set_animator(animatorBlock);
+                                        ExportUserAttributesForNode(node, thisBaseObj, awdMesh);
+                                        //output_debug_string("      -->Place object into scenegraph");
+                                        if (parent)
+                                            parent->add_child(awdMesh);
+                                        else
+                                            awd->add_scene_block(awdMesh);
+                                        awdParent = awdMesh;
                                     }
                                 }
                                 isExported=true;
@@ -611,18 +669,14 @@ void MaxAWDExporter::ProcessSceneGraph(INode *node, AWDSceneBlock *parent, Block
                 }
                 if (!isExported){
                     //output_debug_string("   -->NO OBJECT Created - create container");
-                    if (opts->ExportScene()) {
-                        char * containerName_ptr=W2A(node->GetName());
-                        awdParent=new AWDContainer(containerName_ptr, strlen(containerName_ptr), mtxData);
-                        ExportUserAttributes(obj, awdParent);
-                        free(containerName_ptr);
-                        if (parent)
-                            parent->add_child(awdParent);
-                        else
-                            awd->add_scene_block(awdParent);
-                    }
-                    else{
-                    }
+                    char * containerName_ptr=W2A(node->GetName());
+                    awdParent=new AWDContainer(containerName_ptr, strlen(containerName_ptr), mtxData);
+                    ExportUserAttributesForNode(node, thisBaseObj, awdParent);
+                    free(containerName_ptr);
+                    if (parent)
+                        parent->add_child(awdParent);
+                    else
+                        awd->add_scene_block(awdParent);
                 }
                 free(mtxData);
             }
