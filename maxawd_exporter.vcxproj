@@ -435,7 +435,7 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='2015 Debug|x64'">true</GenerateManifest>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2012 Release|Win32'">maxawdexporter_2012_32</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2011 Release|Win32'">maxawdexporter_2011_32</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">maxawdexporter_2011_32</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='2010 Release|Win32'">maxawdexporter_2010_32</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2013 Release|Win32'">maxawdexporter_2013_32</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2014 Release|Win32'">maxawdexporter_2014_32</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='2015 Release|Win32'">maxawd_2013_32</TargetName>

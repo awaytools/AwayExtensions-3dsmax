@@ -282,6 +282,7 @@ void MaxAWDExporter::ExportUserAttributesForNode(INode *node, Animatable *obj, A
 {
     if (!opts->ExportAttributes())
         return;
+    ExportCustomProps(node, elem);
     BaseObject* node_bo = node->GetObjectRef();
     if((node_bo->SuperClassID() == GEN_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == WSM_DERIVOB_CLASS_ID) || (node_bo->SuperClassID() == DERIVOB_CLASS_ID ))
     {
@@ -323,6 +324,32 @@ void MaxAWDExporter::ExportUserAttributesForNode(INode *node, Animatable *obj, A
         }
     }
     ExportUserAttributes(obj, elem);
+}
+void MaxAWDExporter::ExportCustomProps(INode *thisNode, AWDAttrElement *elem)
+{
+    MSTR buffer;
+    thisNode->GetUserPropBuffer(buffer);
+    AWD_field_type type = AWD_FIELD_STRING;
+    awd_uint16 len = 0;
+    AWD_field_ptr ptr;
+    ptr.v = NULL;
+    ptr.str = W2A(buffer);
+    len = strlen(ptr.str);
+    if (len>0){
+        if (ptr.v != NULL) {
+            if (ns == NULL) {
+                // Namespace has not yet been created; ns is a class
+                // variable that will be created only once and then
+                // reused for all user attributes.
+                char * ns_ptr=opts->AttributeNamespace();//dont free, as this will get freed in the opts delete
+                ns = new AWDNamespace(ns_ptr, strlen(ns_ptr));
+                awd->add_namespace(ns);
+            }
+            char * thisName=W2A(_T("CustomProps"));
+            elem->set_attr(ns, thisName, strlen(thisName)+1, ptr, len, type);
+            free(thisName);
+        }
+    }
 }
 void MaxAWDExporter::ExportUserAttributes(Animatable *obj, AWDAttrElement *elem)
 {
@@ -422,7 +449,7 @@ void MaxAWDExporter::ExportUserAttributes(Animatable *obj, AWDAttrElement *elem)
                                     awd->add_namespace(ns);
                                 }
                                 char * thisName=W2A(def.int_name);
-                                elem->set_attr(ns, thisName, strlen(thisName), ptr, len, type);
+                                elem->set_attr(ns, thisName, strlen(thisName)+1, ptr, len, type);
                                 free(thisName);
                             }
                         }

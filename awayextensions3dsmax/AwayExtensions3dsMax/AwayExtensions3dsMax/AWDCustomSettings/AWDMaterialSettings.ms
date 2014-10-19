@@ -239,8 +239,8 @@ fn addAWDMaterialSettings thisMat = (
 					btn_removeambientenvMap.enabled=true
 				)
 				on btn_chooseambientenvMap pressed do(
-					mtl=undefined			
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					mtl=undefined
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -332,7 +332,7 @@ fn addAWDMaterialSettings thisMat = (
 				dropdownlist ddl_lightMapblendMode "BlendMode"  items:#("NORMAL", "LAYER", "MULTIPLY", "ADD" , "ALPHA" )  height:6  align:#left animatable:false
 				on ddl_lightMapbase selected  selectedIdx do (
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -356,7 +356,7 @@ fn addAWDMaterialSettings thisMat = (
 				dropDownList ddl_cellDiffusebase "Base Method" items:#("BasicDiffuse", "GradientDiffuse", "WarpDiffuse") animateable:false
 				on ddl_cellDiffusebase selected  selectedIdx do (
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -420,7 +420,7 @@ fn addAWDMaterialSettings thisMat = (
 				
 				on ddl_ambient selected  selectedIdx do (	
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -429,7 +429,7 @@ fn addAWDMaterialSettings thisMat = (
 				)
 				on ddl_diffuse selected  selectedIdx do (		
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -438,7 +438,7 @@ fn addAWDMaterialSettings thisMat = (
 				)
 				on ddl_spec selected  selectedIdx do (
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -447,7 +447,7 @@ fn addAWDMaterialSettings thisMat = (
 				)		
 				on ddl_normal selected  selectedIdx do (		
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -498,7 +498,7 @@ fn addAWDMaterialSettings thisMat = (
 				)
 				on btn_add_effectMethod pressed do (
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -639,7 +639,7 @@ fn addAWDMaterialSettings thisMat = (
 					if methodenabled then 	lbl_fxMethods.enabled=true
 					else 	lbl_fxMethods.enabled=false
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -649,7 +649,7 @@ fn addAWDMaterialSettings thisMat = (
 				
 				on btn_chooseshadowMod pressed do(
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -726,7 +726,7 @@ fn addAWDMaterialSettings thisMat = (
 					lbl_shading.enabled=true
 					
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -774,7 +774,7 @@ fn addAWDMaterialSettings thisMat = (
 					lbl_shading.enabled=false
 					
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -789,7 +789,7 @@ fn addAWDMaterialSettings thisMat = (
 						lbl_shading.enabled=false
 					)
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -913,7 +913,7 @@ fn addAWDMaterialSettings thisMat = (
 					else 	lbl_fxMethods.enabled=false
 					
 					mtl=undefined
-					if MatEditor.mode ==#basic then mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDMaterialSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene

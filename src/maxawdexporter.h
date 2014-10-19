@@ -62,6 +62,13 @@ typedef struct CustomCamera_struct {
     struct CustomCamera_struct *next;
 } CustomCamera_struct;
 
+typedef struct ValidTexData_struct {
+    int height;
+    int width;
+    char* filePath;
+    struct ValidTexData_struct *next;
+} ValidTexData_struct;
+
 typedef struct CustomTexSettings_struct {
     bool replace;
     bool relative;
@@ -72,7 +79,6 @@ typedef struct CustomTexSettings_struct {
     AWD_tex_type texType;
     struct CustomTexSettings_struct *next;
 } CustomTexSettings_struct;
-
 class MaxAWDExporter : public SceneExport {
     private:
         Interface *maxInterface;
@@ -180,6 +186,7 @@ class MaxAWDExporter : public SceneExport {
         void                ExportSkeleton(INode *rootBone);
 
         void                ExportUserAttributes(Animatable *obj, AWDAttrElement *elem);
+        void                ExportCustomProps(INode *thisNode, AWDAttrElement *elem);
         void                ExportUserAttributesForNode(INode *,Animatable *obj, AWDAttrElement *elem);
 
         AWDBlock *          ExportCameraAndTextureExporter(INode * node, double *, AWDSceneBlock *, BlockSettings*);
@@ -205,6 +212,8 @@ class MaxAWDExporter : public SceneExport {
         AWDBlock *          ExportUVClip(AWDUVAnimation *);
         void                ReadAWDShadowsMethods(Modifier *node_mod, AWDBlock * light);
         int                    checkIfUVMapExists(Mesh mesh, int numTris, int mapIdx);
+
+        ValidTexData_struct MakeValidTexture(Bitmap *);
         CustomAttributes_struct    GetCustomAWDObjectSettings(IDerivedObject *, Animatable *);
         CustomTexSettings_struct GetCustomAWDTextureSettings(BitmapTex *);
         void                GetCustomAWDMaterialSettings(StdMat *, AWDMaterial * );

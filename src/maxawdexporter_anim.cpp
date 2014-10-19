@@ -930,10 +930,28 @@ int MaxAWDExporter::ExportSkin(INode *node, ISkin *skin, awd_float64 **extWeight
                 int *tmpIndices = (int*)malloc(numBones*sizeof(int));
                 // Retrieve weight/index for all joints in skin.
                 for (iBone=0; iBone<numBones; iBone++) {
-                    int boneId = context->GetAssignedBone(iVtx, iBone);
-                    INode *bone = skin->GetBone(boneId);
-                    tmpWeights[iBone] = context->GetBoneWeight(iVtx, iBone);
-                    tmpIndices[iBone] = skel->IndexOfBone(bone);
+                    double thisWeight=double(0.0);
+                    int thisIdx=int(0);
+                    // do we need the try/catch ?
+                    // Was included while searching the bug that cashed crash when skin had not "removed zero weights"
+                    // need to test if this is really needed
+                    try{
+                        int boneId = context->GetAssignedBone(iVtx, iBone);
+                        INode *bone = skin->GetBone(boneId);
+                        thisWeight = double(context->GetBoneWeight(iVtx, iBone));
+                        thisIdx = int(skel->IndexOfBone(bone));
+                    }
+                    catch(...){
+                        thisWeight=double(0.0);
+                        thisIdx=int(0);
+                    }
+                    if (thisWeight==NULL)
+                        thisWeight=double(0.0);
+                    if (thisIdx==NULL)
+                        thisIdx=int(0);
+
+                    tmpWeights[iBone] = double(thisWeight);
+                    tmpIndices[iBone] = int(thisIdx);
                 }
                 // Retrieve most significant joint weights from temporary buffers
                 // or after having run out of assigned bones for a vertex, set
@@ -960,8 +978,9 @@ int MaxAWDExporter::ExportSkin(INode *node, ISkin *skin, awd_float64 **extWeight
 
                         weightSum += weights[strIdx];
 
-                        // Set to zero to mark as already used.
-                        tmpWeights[maxIBone] = 0.0;
+                        // Set to zero to mark as already used. (only if maxIbone is a valid idx)
+                        if(maxIBone>=0)
+                            tmpWeights[maxIBone] = double(0.0);
                     }
                     else {
                         weights[strIdx] = 0.0;
@@ -1153,7 +1172,7 @@ AWDBlock * MaxAWDExporter::ExportAWDSkeletonClip(SkeletonCacheItem * skelCacheIt
     frameDur = floor(TicksToSec(ticksPerFrame) * 1000.0 + 0.5); // ms
     int start = skelClip->get_start_frame();
     int end = skelClip->get_end_frame();
-    int skip = 1 + skelClip->get_skip_frame();
+    int skip = skelClip->get_skip_frame();
 
     bool transform=skelClip->get_use_transforms();
     skelCacheItem->IterReset();
@@ -1223,7 +1242,7 @@ AWDBlock * MaxAWDExporter::ExportAWDSkeletonClip(SkeletonCacheItem * skelCacheIt
             for (f=start; f<=end; f++) {
                 skipf=f+skip;
                 thisframeDur=frameDur;
-                while (f<(end-1)&&(f<=skipf)){
+                while (f<(end-1)&&(f<skipf)){
                     f++;
                     thisframeDur+=frameDur;
                 }

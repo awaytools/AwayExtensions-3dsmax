@@ -99,7 +99,7 @@ CustomTexSettings_struct MaxAWDExporter::GetCustomAWDTextureSettings(BitmapTex *
 
 AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex, AWDMaterial * curMat, AWD_tex_type cubeTexType, AWDTexPurpose_type tex_purpose)
 {
-    //output_debug_string("            -->ExportBitmapTexture");
+    //output_debug_string(" -->ExportBitmapTexture");
     AWDBitmapTexture *awdTex;
     if(tex!=NULL){
         char * texname_ptr=W2A(tex->GetName());
@@ -120,9 +120,9 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex, AWDMateri
             }
         }
         /* TODO:
-        IMPLEMENT UV Tile ?
-        int tillingFlag=uvGen->GetTextureTiling();
-        */
+IMPLEMENT UV Tile ?
+int tillingFlag=uvGen->GetTextureTiling();
+*/
         StdUVGen * uvGen=tex->GetUVGen();
         if ((curMat!=NULL)&&(uvGen!=NULL)){
             if((uvGen->GetUAng(0)!=0.0f)||(uvGen->GetVAng(0)!=0.0f)){
@@ -344,7 +344,7 @@ AWDBitmapTexture * MaxAWDExporter::ExportBitmapTexture(BitmapTex *tex, AWDMateri
                         // Split path to retrieve name and concatenate to form base name
                         _splitpath_s(absTexPath_ptr, NULL, 0, NULL, 0, fileName, 240, fileExt, 16);
 
-                        if (!copyTxt)  {
+                        if (!copyTxt) {
                             url = (char*)malloc(strlen(fileName)+strlen(fileExt)+1);
                             strcpy(url, fileName);
                             strcat(url, fileExt);
@@ -476,22 +476,22 @@ AWDCubeTexture * MaxAWDExporter::ExportAWDCubeTexure(MultiMtl * awdCubeMat)
                 cubeTex->make_invalide();
             }
             else{
-                AWDBitmapTexture * leftTex_ptr=ExportBitmapTexture(leftTex,  NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
+                AWDBitmapTexture * leftTex_ptr=ExportBitmapTexture(leftTex, NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
                 if(leftTex_ptr!=NULL)
                     cubeTex->get_texture_blocks()->force_append(leftTex_ptr);
-                AWDBitmapTexture * rightTex_ptr=ExportBitmapTexture(rightTex,  NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
+                AWDBitmapTexture * rightTex_ptr=ExportBitmapTexture(rightTex, NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
                 if(rightTex_ptr!=NULL)
                     cubeTex->get_texture_blocks()->force_append(rightTex_ptr);
-                AWDBitmapTexture * upTex_ptr=ExportBitmapTexture(upTex,  NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
+                AWDBitmapTexture * upTex_ptr=ExportBitmapTexture(upTex, NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
                 if(upTex_ptr!=NULL)
                     cubeTex->get_texture_blocks()->force_append(upTex_ptr);
-                AWDBitmapTexture * downTex_ptr=ExportBitmapTexture(downTex,  NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
+                AWDBitmapTexture * downTex_ptr=ExportBitmapTexture(downTex, NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
                 if(downTex_ptr!=NULL)
                     cubeTex->get_texture_blocks()->force_append(downTex_ptr);
-                AWDBitmapTexture * frontTex_ptr=ExportBitmapTexture(frontTex,  NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
+                AWDBitmapTexture * frontTex_ptr=ExportBitmapTexture(frontTex, NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
                 if(frontTex_ptr!=NULL)
                     cubeTex->get_texture_blocks()->force_append(frontTex_ptr);
-                AWDBitmapTexture * backTex_ptr=ExportBitmapTexture(backTex,  NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
+                AWDBitmapTexture * backTex_ptr=ExportBitmapTexture(backTex, NULL, cubeTex->get_tex_type(), FORCUBETEXTURE);
                 if(backTex_ptr!=NULL)
                     cubeTex->get_texture_blocks()->force_append(backTex_ptr);
                 if(cubeTex->get_texture_blocks()->get_num_blocks()!=6){

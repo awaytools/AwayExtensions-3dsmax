@@ -5,27 +5,20 @@ macroScript AddAWDLightModifier
 	
 	if selection.count==0 then (
 		selected=#()
-		selectedObj=#()
 		for i in objects do(
 			if superclassof i==light then(
 				for m in i.modifiers do(
 					if classof m as string=="AWDShadowMethod" then(
-						appendIfUnique selected m
-						appendIfUnique selectedObj i 
+						appendIfUnique selected i
 					)				
 				)
 			)	
 		)
-		
-		if selected.count==1 then(
-			max modify mode 
-			modPanel.setCurrentObject selected[1]
-		)
-		else if selected.count>1 then(
+		if selected.count>0 then(
 			answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWDShadowMethod modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
 			if answer==true then(
-				select selectedObj
-			)			
+				select selected
+			)
 		)
 		else	messageBox ("No Object is selected.\n\n No AWDShadowMethod modifiers found in the scene.\n\n To create a AWDShadowMethod modifier, select one light.")
 			

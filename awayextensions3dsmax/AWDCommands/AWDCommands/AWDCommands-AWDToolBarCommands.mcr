@@ -32,13 +32,12 @@ rollout rl_install "About AWDExtensions3dsmax" width:306 height:300
 (
 	
 	bitmap bmp1 "Bitmap" pos:[3,3] width:300 height:300 fileName:"AWDAbout.bmp"	
-	label txt_stats "" pos:[63,260] width:180 height:16 textAlign:#right
+	label txt_stats versionCompleteLocal pos:[63,260] width:180 height:16 textAlign:#right
 	
 )
 
 
-CreateDialog rl_install 306 300 modal:false
-rl_install.txt_stats.text=versionCompleteLocal 
+CreateDialog rl_install 306 300 modal:true
 )
 macroScript OpenAWDHelpFile
 	category:"AWDCommands"

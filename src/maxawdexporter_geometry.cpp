@@ -230,9 +230,15 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
                     int  specificNormalCount = specificNormals->GetNumNormals();// for me, this is allways been 0
                     if (specificNormalCount==0){
                         specificNormals=NULL;
-                        int numNorms = igame_mesh->GetNumberOfNormals();
-                        if (numNorms==0){
-                            useNormals=false;
+                        if(igame_mesh->IsObjectSkinned()){
+                            igame_mesh->InitializeBinormalData();
+                            igame_mesh->InitializeData();
+                        }
+                       // else{
+                            int numNorms = igame_mesh->GetNumberOfNormals();
+                            if (numNorms==0){
+                                useNormals=false;
+                        //    }
                         }
                     }
                 }
@@ -420,8 +426,8 @@ void MaxAWDExporter::ExportTriGeom(AWDTriGeom *awdGeom, Object *obj, INode *node
                                         }
                                         // if the object is skinned, we get the global normals
                                         if (jpv>0){
-                                            if (normal)
-                                                normal=offsMtx*normal;
+                                           // if (normal)
+                                            //    normal=offsMtx*normal;
                                         }
 
                                         vd->nx = normal.x;

@@ -34,25 +34,19 @@ else if meshes.count>1 then messagebox("AWDSkeleton Modifier can only be attache
 --if nothing is selected we check if nodes are in the scene
 else(
 		selected=#()
-		selectedObj=#()
 		for i in objects do(
 				for m in i.modifiers do(
 					if classof m as string=="AWDSkeleton" or classof m as string=="AWDSkeletonClone" then(
-						appendIfUnique selected m
-						appendIfUnique selectedObj m
+						appendIfUnique selected i
 					)				
 				)
 			)	
-		if selected.count==1 then(
-			max modify mode 
-			modPanel.setCurrentObject selected[1]
-		)
-		else if selected.count>1 then(
-			answer=queryBox ("Nothing is selected.\n\n "+selected.count  as string+" AWD Skeleton modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
+		if selected.count>0 then(
+			answer=queryBox ("Nothing is selected.\n\n Found "+selected.count  as string+" AWD Skeleton modifiers found in the scene.\n\n Select the Objects that are holding the modifiers ?")
 			if answer==true then(
-				select selectedObj
-			)			
-		)
+				select selected
+				)
+			)
 		else(
 			answer=messageBox ("No Object is selected.\n\n No AWD Skeleton modifiers found in the scene.\n\n To create a AWD skeleton modifier, select the root-bone of your rigg.")
 			)

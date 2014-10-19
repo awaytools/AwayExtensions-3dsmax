@@ -28,8 +28,6 @@ fn addAWDTextureSettings thisTex = (
 				saveEndFrames type:#intTab tabSize:0 tabSizeVariable:true
 				saveSkipFrames type:#intTab tabSize:0 tabSizeVariable:true
 				saveStitchFinals type:#boolTab tabSize:0 tabSizeVariable:true
-				saveLoops type:#boolTab tabSize:0 tabSizeVariable:true
-				saveTransform type:#boolTab tabSize:0 tabSizeVariable:true
 				
 			) 
 			rollout AnimClipsRollout "Animation Clips" category:2
@@ -71,17 +69,14 @@ fn addAWDTextureSettings thisTex = (
 						append saveAnimSourceIDs (getAWDID() as string)
 						append saveSkipFrames 0
 						append saveStitchFinals true
-						append saveLoops true
-						append saveTransform true
 						valid=true
 					)
 					catch()
 					if not valid then messageBox("Error - clip was not added")		
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl =  medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
-						global updateUI
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDTextureSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
 						updateUI mtl targetAnimClipsList.selection
 						targetAnimClipsList.selection=(targetAnimClipsList.items.count)
@@ -102,7 +97,7 @@ fn addAWDTextureSettings thisTex = (
 					if firstframe<lastframe and valid then animationRange = interval firstframe lastframe --Set range to frames 10 to 50
 					else messageBox("Invalid time-range set for the selected clip")
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl =  medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDTextureSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -120,7 +115,7 @@ fn addAWDTextureSettings thisTex = (
 					catch()
 					if not valid then messageBox("Error - time range was not set for the clip")
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl =  medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDTextureSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
@@ -198,12 +193,11 @@ fn addAWDTextureSettings thisTex = (
 						try (addRollout AnimClipsRollout	)catch()	
 					)
 					mtl=undefined
-					if MatEditor.mode ==#basic then 	mtl = medit.GetCurMtl()
+					if MatEditor.mode ==#basic then 	mtl = meditMaterials[activeMeditSlot] 
 					else if MatEditor.mode ==#advanced then 	mtl=sme.GetMtlInParamEditor()		
 					if mtl!=undefined then(
-						global updateUI
 						fileIn (getDir #maxRoot + "\\plugins\\AwayExtensions3dsMax\\AWDCustomSettings\\AWDTextureSettings.ms")--reload this file here, so the function is available after restoring the 3dsmax-scene
-						updateUI mtl (1)
+						updateUI mtl (AnimClipsRollout.targetAnimClipsList.selection-1)
 					)
 				)
 			)
